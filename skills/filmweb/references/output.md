@@ -21,7 +21,7 @@ List of:
 | `title` | string | Polish title |
 | `originalTitle` | string\|null | |
 | `year` | int\|null | |
-| `type` / `subType` | string | e.g. `film` / `film_cinema` |
+| `type` / `subType` | string | e.g. `film` / `film_cinema`, `serial` / `serial_tv` |
 | `url` | string | filmweb.pl page, built from title, year and ID |
 | `posterUrl` | string\|null | |
 | `rating` | float\|null | average user rating 1–10 |
@@ -32,7 +32,7 @@ List of:
 | `criticsCount` | int\|null | |
 | `genres` | string[] | Polish names |
 | `countries` | string[] | ISO country codes |
-| `duration` | int\|null | minutes |
+| `duration` | int\|null | minutes; for series, one episode |
 | `directors` | `{id, name}[]` | |
 | `mainCast` | `{id, name}[]` | two leading actors; use `cast` for more |
 | `plot` | string\|null | short synopsis; use `description` for the full one |

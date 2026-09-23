@@ -1,6 +1,6 @@
 # Contributing
 
-This repo stores **AI skills** (Claude Agent Skills). Each skill is a separate
+This repo stores **AI agent skills** (`SKILL.md` format). Each skill is a separate
 directory containing a `SKILL.md` file and optional resources.
 
 ## Layout
@@ -19,7 +19,6 @@ ai-skills/
 │   ├── workflows/            # CI: validation on every PR
 │   ├── ISSUE_TEMPLATE/       # new skill proposal
 │   └── pull_request_template.md
-├── CLAUDE.md                 # instructions for agents working in this repo
 ├── CONTRIBUTING.md           # this file
 └── README.md
 ```
@@ -82,7 +81,7 @@ feature branches ──PR──▶ dev ──release PR──▶ main (tag vX.Y.
 
 Naming:
 
-- lowercase kebab-case, no spaces, no personal or tool prefixes (`john/…`, `claude/…`);
+- lowercase kebab-case, no spaces, no personal or tool prefixes (`john/…`, `bot/…`);
 - `<name>` is the skill directory name, e.g. `skill/jira-dev-task`;
 - `<desc>` is 2–4 words, e.g. `fix/jira-fixversion-format`.
 
@@ -108,7 +107,7 @@ Recommended GitHub settings:
 ```
 feat(jira-dev-task): add fixVersion lookup
 fix(jira-dev-task): handle missing AB ticket
-docs: describe install via Claude Code
+docs: describe skill installation
 chore(ci): add frontmatter validation
 ```
 
@@ -143,8 +142,7 @@ git push origin v0.1.0
 
 ## Testing a skill
 
-- **Claude Code**: copy/symlink the directory to `~/.claude/skills/<name>/`
-  (or `.claude/skills/` in a project) and run a task that should trigger it.
-- **claude.ai**: zip the skill directory and upload it in Settings → Capabilities → Skills.
+- Install the skill in the AI agent you use: copy or symlink the skill directory into the
+  agent's skills directory, or upload it zipped, then run a task that should trigger it.
 - Check both cases: the skill **should** trigger / **should not** trigger.
   Save example prompts in `references/examples.md`.

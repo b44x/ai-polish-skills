@@ -6,7 +6,8 @@ description: >-
   where to watch (VOD providers and prices) and actor details. Use whenever the user
   asks about a movie or series on Filmweb, pastes a filmweb.pl link, or wants a Polish
   rating, opis, obsada or VOD info, e.g. "ile Matrix ma na Filmwebie", "kto grał w…",
-  "kto wyreżyserował…", "o czym jest…", "gdzie obejrzę…", "kiedy premiera…".
+  "kto wyreżyserował…", "o czym jest…", "gdzie obejrzę…", "kiedy premiera…",
+  "jaki serial…", "ocena serialu…".
 license: MIT
 compatibility: Python 3.8+ (standard library only); network access to www.filmweb.pl.
 ---
@@ -31,8 +32,10 @@ No installation step is needed.
 
 1. **Get the Filmweb ID.**
    - The user gave a link → `filmweb.py id "<url>"` (offline).
-     The ID is the trailing number of the slug: `filmweb.pl/film/Matrix-1999-628` → `628`.
+     The ID is the trailing number of the slug: `filmweb.pl/film/Matrix-1999-628` → `628`,
+     `filmweb.pl/serial/Gra+o+tron-2011-476848` → `476848`.
    - The user gave a title → `filmweb.py search "<title>"`. Results are ordered by relevance.
+     Add `--type=serial` when the user clearly means a TV series (or `--type=film` for a movie).
      If several titles plausibly match (remakes, sequels, film vs. series), check them with
      `film` and pick by year, or ask the user.
 2. **Fetch only what the question needs.**
@@ -44,12 +47,19 @@ No installation step is needed.
 3. **Answer in the user's language** and cite the `url` from `film`. Round the rating to one
    decimal and mention the number of votes (e.g. "7,6/10 z 872 tys. ocen"). Give VOD prices in zł.
 
+## Films and series
+
+Films, TV series and games share one ID space on Filmweb, and **every command accepts
+any of them** — use `film <id>` for a series too (e.g. `film 476848` for "Gra o tron").
+Check `type` in the output (`film`, `serial`, …). For series, `year` is the first season
+and `duration` is the length of one episode, not the whole series.
+
 ## Commands
 
 | Command | Returns |
 |---|---|
 | `search "<query>" [--type=film\|serial\|game] [--limit=10]` | list of `{id, type, title, mainCast}` |
-| `film <id\|url>` | title, originalTitle, year, type, url, posterUrl, rating, votesCount, votesDistribution, criticsRating, genres, countries, duration, directors, mainCast, plot |
+| `film <id\|url>` (film or series) | title, originalTitle, year, type, url, posterUrl, rating, votesCount, votesDistribution, criticsRating, genres, countries, duration, directors, mainCast, plot |
 | `description <id\|url>` | full plot description |
 | `cast <id\|url> [--limit=10]` | top-rated roles: personId, name, profession, roleRating |
 | `dates <id\|url>` | worldPremiere, worldRelease, polandRelease, polandReissue |
