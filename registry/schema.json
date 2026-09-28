@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/registry/schema.json",
+  "title": "AIPolishSkillsRegistry",
+  "description": "JSON schema for the ai-polish-skills registry and individual skill manifests.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "name",
+    "homepage",
+    "repository",
+    "skills_count",
+    "skills",
+    "categories"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri"
+    },
+    "skills_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "count"],
+        "properties": {
+          "name": { "type": "string" },
+          "count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/skill"
+      }
+    }
+  },
+  "$defs": {
+    "skill": {
+      "type": "object",
+      "required": [
+        "name",
+        "display_name",
+        "version",
+        "description",
+        "category",
+        "language",
+        "country",
+        "license",
+        "network",
+        "authentication",
+        "source",
+        "source_type",
+        "official",
+        "homepage",
+        "documentation",
+        "tags"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "finance",
+            "logistics",
+            "legal",
+            "entertainment",
+            "public_data",
+            "utilities",
+            "e-commerce",
+            "health",
+            "general"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$"
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "license": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "network": {
+          "type": "boolean"
+        },
+        "authentication": {
+          "type": "string",
+          "enum": ["none", "api_key", "oauth", "credentials"]
+        },
+        "source": {
+          "type": "string"
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "official_api",
+            "public_api",
+            "unofficial_api",
+            "scraping",
+            "static_data"
+          ]
+        },
+        "official": {
+          "type": "boolean"
+        },
+        "homepage": {
+          "type": "string"
+        },
+        "documentation": {
+          "type": "string"
+        },
+        "rate_limit": {
+          "type": "string"
+        },
+        "last_verified": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "compatibility": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "entrypoint": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

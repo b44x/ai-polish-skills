@@ -1,5 +1,7 @@
 ---
 name: krs
+display_name: Krajowy Rejestr Sądowy (KRS)
+version: 1.0.0
 description: >-
   Fetch official company and foundation records from Krajowy Rejestr Sądowy (KRS)
   via the Ministry of Justice API. Retrieve company legal status, board members (zarząd),
@@ -9,9 +11,29 @@ description: >-
   Sp. z o.o., S.A., P.S.A.) and non-profits (Rejestr Stowarzyszeń/Fundacji S). Automatically
   pads KRS numbers to 10 digits. Use whenever the user asks about KRS, "kto może podpisać umowę",
   "sprawdź spółkę w KRS", "odpis KRS", "zarząd spółki", "kapitał zakładowy", or "reprezentacja spółki".
+category: legal
+language: pl
+country: PL
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
 repository: https://github.com/b44x/ai-polish-skills
+network: true
+authentication: none
+source: Ministerstwo Sprawiedliwości
+source_type: official_api
+official: true
+homepage: https://ekrs.ms.gov.pl
+documentation: https://api-krs.ms.gov.pl/
+rate_limit: fair use
+last_verified: 2026-09-28
+tags:
+  - krs
+  - spolki
+  - zarzad
+  - reprezentacja
+  - prawo
+  - umowy
+  - rejestr-sadowy
 compatibility: Python 3.8+ (standard library only); network access to api-krs.ms.gov.pl.
 ---
 

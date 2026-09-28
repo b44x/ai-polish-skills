@@ -13,4 +13,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python3 scripts/validate_skills.py
+      - name: Validate Skills Manifest & Security
+        run: python3 scripts/validate_skills.py
+      - name: Run Test Contract Harness
+        run: python3 scripts/test_skills.py
+      - name: Verify Registry Freshness
+        run: python3 scripts/build_registry.py --check
+      - name: Verify CLI Tools
+        run: python3 scripts/cli.py list

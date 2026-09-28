@@ -32,6 +32,44 @@ TARGET_DIR=""
 SELECTED_SKILLS=()
 INSTALL_GLOBAL=false
 
+# Check if first argument is a CLI subcommand
+SUBCOMMAND=""
+case "$1" in
+  list|ls)
+    SUBCOMMAND="list"
+    shift
+    ;;
+  search|find)
+    SUBCOMMAND="search"
+    shift
+    ;;
+  info|show)
+    SUBCOMMAND="info"
+    shift
+    ;;
+  validate)
+    SUBCOMMAND="validate"
+    shift
+    ;;
+  update)
+    SUBCOMMAND="update"
+    shift
+    ;;
+  install)
+    SUBCOMMAND="install"
+    shift
+    ;;
+esac
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true)"
+
+# If a management subcommand was requested and cli.py is available locally, delegate to it
+if [[ -n "$SUBCOMMAND" && "$SUBCOMMAND" != "install" ]]; then
+  if [[ -f "${SCRIPT_DIR}/scripts/cli.py" ]] && command -v python3 >/dev/null 2>&1; then
+    exec python3 "${SCRIPT_DIR}/scripts/cli.py" "$SUBCOMMAND" "$@"
+  fi
+fi
+
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -52,16 +90,24 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     --help|-h)
-      echo "Użycie: install.sh [opcje] [nazwa_skilla ...]"
+      echo "Użycie: install.sh [polecenie] [opcje] [nazwa_skilla ...]"
       echo ""
-      echo "Opcje:"
-      echo "  --global, -g       Instalacja globalna dla Antigravity (~/.gemini/config/skills)"
-      echo "  --antigravity, -a  Instalacja w lokalnym projekcie Antigravity (.agents/skills)"
-      echo "  --claude, -c       Instalacja w lokalnym projekcie Claude Code (.claude/skills)"
-      echo "  --dir, -d <katalog> Instalacja we wskazanym katalogu docelowym"
-      echo "  --help, -h         Pokaż pomoc"
+      echo "Polecenia:"
+      echo "  install [skille...]  Instaluje wskazane skille (domyślnie: wszystkie)"
+      echo "  list                 Wyświetla listę dostępnych skilli"
+      echo "  search <fraza>       Wyszukuje skille"
+      echo "  info <skill>         Szczegółowe informacje o skillu"
+      echo "  update               Aktualizuje zainstalowane skille"
+      echo "  validate             Weryfikuje poprawność skilli"
       echo ""
-      echo "Dostępne skille: inpost, biala-lista, filmweb (domyślnie: wszystkie)"
+      echo "Opcje instalacji:"
+      echo "  --global, -g         Instalacja globalna dla Antigravity (~/.gemini/config/skills)"
+      echo "  --antigravity, -a    Instalacja w lokalnym projekcie Antigravity (.agents/skills)"
+      echo "  --claude, -c         Instalacja w lokalnym projekcie Claude Code (.claude/skills)"
+      echo "  --dir, -d <katalog>  Instalacja we wskazanym katalogu docelowym"
+      echo "  --help, -h           Pokaż pomoc"
+      echo ""
+      echo "Dostępne skille: inpost, biala-lista, filmweb, nbp, krs (domyślnie: wszystkie)"
       exit 0
       ;;
     *)
