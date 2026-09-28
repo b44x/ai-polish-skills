@@ -1,115 +1,145 @@
-# ai-polish-skills
+<p align="center">
+  🇵🇱 <b>Polski</b> | 🇬🇧 <a href="README_EN.md">English</a>
+</p>
 
-A curated collection of modular, production-ready AI agent skills (`SKILL.md` format) tailored for Polish services, APIs, and workflows.
+# ai-polish-skills 🇵🇱
 
-Every skill provides:
-- A standardized `SKILL.md` definition with YAML frontmatter (progressive disclosure).
-- Dependency-free Python 3 helper scripts that communicate via clean JSON.
-- Output references, schema documentation, and error specifications.
+Oficjalny, modułowy zbiór skilli dla agentów sztucznej inteligencji (`SKILL.md`), dostosowanych do **polskiego rynku, usług, urzędów i API**.
+
+> 🌐 Oficjalna strona projektu: [polskieskille.pl](https://polskieskille.pl)
+
+Każdy skill w repozytorium zapewnia:
+- Standaryzowaną definicję `SKILL.md` zgodną z otwartym standardem agentów AI (*Progressive Disclosure*).
+- Niezależne skrypty CLI w Pythonie 3 (zero zewnętrznych zależności, wyłącznie biblioteka standardowa).
+- Komunikację przez czysty JSON na `stdout` i ustrukturyzowane błędy na `stderr`.
+- Kompletne referencje pól, schematów i statusów.
 
 ---
 
-## Available Skills
+## Dostępne skille
 
-| Skill | Description | Triggers / Keywords |
+| Skill | Opis | Słowa kluczowe / Triggery |
 |---|---|---|
-| [`biala-lista`](skills/biala-lista/SKILL.md) | Official Polish Ministry of Finance White List (*Biała Lista Podatników VAT*). Verify active VAT payer status, company registry details, and registered settlement bank accounts before B2B transfers. | NIP, REGON, VAT status, "sprawdź NIP", "biała lista", "rachunek na białej liście", split payment |
-| [`inpost`](skills/inpost/SKILL.md) | InPost parcel tracking and Paczkomat parcel locker finder across Poland. Lookup locker details (address, 24/7 access, Strefa Łatwego Dostępu, photos) and find nearest lockers by GPS coordinates. | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
-| [`filmweb`](skills/filmweb/SKILL.md) | Polish film and TV series database (Filmweb.pl). Search titles, ratings, user reviews, cast, premiere dates, and VOD availability with prices in PLN. | Filmweb, ocena filmu, "gdzie obejrzę", "kto grał w", polskie recenzje, seriale |
+| [`biala-lista`](skills/biala-lista/SKILL.md) | Oficjalny Wykaz podatników VAT Ministerstwa Finansów (**Biała Lista VAT**). Weryfikacja statusu podatnika VAT (czynny/zwolniony), danych rejestrowych firmy (KRS, REGON, adres) oraz weryfikacja konta bankowego przed przelewem B2B (split payment, limit 15 tys. zł). | NIP, REGON, status VAT, "sprawdź NIP", "biała lista", "rachunek na białej liście", split payment |
+| [`inpost`](skills/inpost/SKILL.md) | **InPost i Paczkomaty w całej Polsce**. Śledzenie przesyłek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie (np. WAW01M), ulicy, mieście oraz współrzędnych GPS (odległość w metrach, godziny 24/7, Strefa Łatwego Dostępu, płatności, nawigacja Google Maps). | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
+| [`filmweb`](skills/filmweb/SKILL.md) | Baza filmów, seriali i ludzi kina **Filmweb.pl**. Wyszukiwanie tytułów, oceny użytkowników i krytyków, pełna obsada, daty premier oraz dostępność na platformach VOD wraz z cenami w PLN. | Filmweb, ocena filmu, "gdzie obejrzę", "kto grał w", polskie recenzje, seriale |
 
 ---
 
-## Installation & Setup
+## ⚡ Szybka instalacja automatyczna
 
-Skills in this repository follow the open agent skill standard (`skills/<name>/SKILL.md`). They can be mounted into any AI coding assistant or agent framework.
+Możesz zainstalować wszystkie skille lub wybrany jednym poleceniem w terminalu:
+
+```bash
+# Instalacja wszystkich skilli w Twoim bieżącym projekcie
+curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash
+
+# Instalacja tylko wybranego skilla (np. inpost)
+curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s inpost
+
+# Instalacja globalna (dostępna we wszystkich projektach Google Antigravity)
+curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s -- --global
+```
+
+Instalator **automatycznie wykrywa środowisko**, w którym pracujesz (Google Antigravity, Claude Code, Cursor, Windsurf) i kopiuje pliki do właściwego katalogu.
+
+---
+
+## 🤖 Instalacja jednym promptem (dla Agenta AI)
+
+Jeśli pracujesz z agentem AI (Google Antigravity, Claude Code, Cursor, Windsurf), wklej mu w oknie czatu poniższe polecenie:
+
+```text
+Zainstaluj skille inpost oraz biala-lista z repozytorium https://github.com/b44x/ai-polish-skills w katalogu skilli naszego projektu.
+```
+
+Agent sam sklonuje lub pobierze wymagane katalogi i natychmiast zacznie z nich korzystać!
+
+---
+
+## Instalacja ręczna
 
 ### 1. Google Antigravity (AGY)
 
-#### Workspace-level (Recommended for project repos):
-Symlink or copy the desired skill directory into your project's `.agents/skills/` directory:
-
+#### Poziom projektu (zalecane):
 ```bash
 mkdir -p .agents/skills
-ln -s /path/to/ai-polish-skills/skills/biala-lista .agents/skills/biala-lista
-ln -s /path/to/ai-polish-skills/skills/inpost .agents/skills/inpost
+ln -s /sciezka/do/ai-polish-skills/skills/biala-lista .agents/skills/biala-lista
+ln -s /sciezka/do/ai-polish-skills/skills/inpost .agents/skills/inpost
 ```
 
-#### Global-level (Available across all projects):
-Symlink or copy into the global Antigravity config directory:
-
+#### Poziom globalny (dla wszystkich projektów na komputerze):
 ```bash
 mkdir -p ~/.gemini/config/skills
-ln -s /path/to/ai-polish-skills/skills/biala-lista ~/.gemini/config/skills/biala-lista
-ln -s /path/to/ai-polish-skills/skills/inpost ~/.gemini/config/skills/inpost
+ln -s /sciezka/do/ai-polish-skills/skills/biala-lista ~/.gemini/config/skills/biala-lista
+ln -s /sciezka/do/ai-polish-skills/skills/inpost ~/.gemini/config/skills/inpost
 ```
 
 ### 2. Claude Code
 
-Copy or symlink into your project's `.claude/skills/` or user-wide `~/.claude/skills/`:
-
 ```bash
 mkdir -p .claude/skills
-ln -s /path/to/ai-polish-skills/skills/inpost .claude/skills/inpost
+ln -s /sciezka/do/ai-polish-skills/skills/inpost .claude/skills/inpost
 ```
 
-### 3. Cursor / Windsurf / Custom Agents
+### 3. Cursor / Windsurf / Inne narzędzia
 
-Reference the skill folder in your project's system rules or prompt configuration (e.g., in `.cursorrules` or `.windsurfrules`):
+Wystarczy dodać odwołanie w regułach projektu (np. w `.cursorrules` lub `.windsurfrules`):
 
 ```markdown
-When dealing with Polish VAT or companies, follow the instructions in skills/biala-lista/SKILL.md.
-When dealing with InPost parcels or Paczkomaty, follow skills/inpost/SKILL.md.
+Gdy użytkownik pyta o polskie firmy, NIP lub podatki, korzystaj z instrukcji w skills/biala-lista/SKILL.md.
+Gdy pyta o paczki, przesyłki lub Paczkomaty InPost, korzystaj z skills/inpost/SKILL.md.
 ```
 
-### 4. Direct CLI Execution (Standalone)
+### 4. Uruchamianie bezpośrednio z terminala (CLI)
 
-All skill scripts are standalone Python 3 utilities using only the standard library:
+Wszystkie skrypty działają samodzielnie na standardowym Pythonie 3:
 
 ```bash
-# Verify contractor in Polish VAT White List
+# Sprawdzenie kontrahenta na Białej Liście VAT
 python3 skills/biala-lista/scripts/biala_lista.py nip 5252344078
 
-# Check bank account assignment
+# Weryfikacja konta bankowego kontrahenta przed przelewem
 python3 skills/biala-lista/scripts/biala_lista.py check 5252344078 93103015080000000504162006
 
-# Find nearest Paczkomat lockers
+# Wyszukanie najbliższych Paczkomatów InPost po współrzędnych GPS
 python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3
 ```
 
 ---
 
-## Best Practices
+## Dobre praktyki tworzenia skilli
 
-When authoring or contributing skills to this repository:
+Gdy tworzysz nowego skilla dla `ai-polish-skills`:
 
-1. **Progressive Disclosure:** Keep the root `SKILL.md` concise (< 500 lines). Offload large schemas, payload references, and background theory to `references/` so models only load what they need.
-2. **Deterministic Scripts Over Hallucination:** If a task involves APIs, calculations, or exact parsing, encapsulate it in a script (`scripts/<name>.py`). Models should execute the script rather than guessing.
-3. **Zero External Dependencies:** Scripts must run on standard Python 3.8+ (`urllib`, `json`, `argparse`, etc.) without requiring `pip install`.
-4. **Structured JSON Output:** CLI scripts must always emit valid JSON to `stdout` on success, and structured JSON error objects `{"error": "...", "type": "..."}` to `stderr` on failure.
-5. **Standard Exit Codes:**
-   - `0`: Success
-   - `2`: Resource not found
-   - `64`: Validation error / bad arguments
-   - `69`: Upstream API / network error
+1. **Progressive Disclosure:** Główny plik `SKILL.md` powinien być zwięzły (< 500 linii). Szczegółowe schematy odpowiedzi, słowniki i teorię przenoś do katalogu `references/`.
+2. **Deterministyczne skrypty zamiast halucynacji:** Jeśli zadanie wymaga odpytania API, parsowania lub obliczeń, zamknij to w skrypcie `scripts/<name>.py`. Agent powinien wykonać skrypt, zamiast zgadywać.
+3. **Zero zewnętrznych zależności:** Skrypty muszą działać na standardowym Pythonie 3.8+ (`urllib`, `json`, `argparse`) bez wymogu instalacji pakietów przez `pip`.
+4. **Czysty JSON:** Skrypty zawsze zwracają poprawny JSON na `stdout`, a błędy w formacie `{"error": "...", "type": "..."}` na `stderr`.
+5. **Kody wyjścia:** `0` (sukces), `2` (nie znaleziono), `64` (błąd walidacji / złe argumenty), `69` (błąd sieci / API).
 
 ---
 
-## Quality & Validation
+## Walidacja jakości
 
-Every PR and commit is automatically checked via GitHub Actions:
+Wszystkie commity i Pull Requesty są automatycznie sprawdzane w GitHub Actions:
 
 ```bash
 python3 scripts/validate_skills.py
 ```
 
-## Contributing & Releases
+## Publikacja wydań
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for branch strategy (`dev` -> `main`), semantic commit conventions, and release tagging procedures.
+Projekt posiada w pełni zautomatyzowany skrypt publikacji wydań:
+
+```bash
+python3 scripts/release.py
+```
 
 ---
 
-## Author & License
+## Autor i licencja
 
-Created and maintained by **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-polish-skills](https://github.com/b44x/ai-polish-skills)).
+Projekt stworzony i rozwijany przez: **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-polish-skills](https://github.com/b44x/ai-polish-skills)).
 
-Distributed under the [MIT License](LICENSE).
+Licencja: [MIT License](LICENSE).
