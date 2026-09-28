@@ -17,6 +17,7 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://api.nbp.pl/api"
+USER_AGENT = "ai-polish-skills-nbp/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 TROY_OUNCE_GRAMS = 31.1034768
 
 
@@ -33,7 +34,7 @@ def fetch_api(endpoint: str) -> Any:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-nbp/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )
@@ -103,7 +104,7 @@ def find_preceding_working_day_rate(currency: str, invoice_date: datetime.date) 
         d_str = current.isoformat()
         for table in ["A", "B"]:
             url = f"{API_BASE_URL}/exchangerates/rates/{table}/{curr}/{d_str}/?format=json"
-            req = urllib.request.Request(url, headers={"User-Agent": "ai-polish-skills-nbp/1.0.0 (+https://github.com/b44x/ai-polish-skills)"})
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             try:
                 with urllib.request.urlopen(req, timeout=5) as resp:
                     data = json.loads(resp.read().decode("utf-8"))

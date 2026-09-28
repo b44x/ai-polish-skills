@@ -18,6 +18,7 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://api-shipx-pl.easypack24.net/v1"
+USER_AGENT = "ai-polish-skills-inpost/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 COMMON_STATUS_TITLES: Dict[str, str] = {
     "created": "Przesyłka utworzona",
@@ -70,7 +71,7 @@ def fetch_api(path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, A
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-inpost/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )

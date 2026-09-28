@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://apinfz.nfz.gov.pl/app-itl-api-pcus"
+USER_AGENT = "ai-polish-skills-nfz/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 PROVINCES: Dict[str, str] = {
     "01": "dolnośląskie",
@@ -228,7 +229,7 @@ def fetch_api(endpoint: str, query_params: Optional[Dict[str, Any]] = None, time
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-nfz/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )

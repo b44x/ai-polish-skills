@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://api.sejm.gov.pl/sejm"
+USER_AGENT = "ai-polish-skills-sejm/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 DEFAULT_TERM = 10
 
 # Embedded terms catalogue (terms 1-10) for fast offline lookup and metadata validation
@@ -89,7 +90,7 @@ def fetch_api(endpoint: str, timeout: int = 15) -> Any:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-sejm/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )

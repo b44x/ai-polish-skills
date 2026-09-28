@@ -17,6 +17,7 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://api-krs.ms.gov.pl/api/krs"
+USER_AGENT = "ai-polish-skills-krs/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 
 def error_exit(message: str, error_type: str = "error", code: int = 64) -> None:
@@ -45,7 +46,7 @@ def fetch_odpis(krs_10: str, typ_odpisu: str = "OdpisAktualny", register: Option
         req = urllib.request.Request(
             url,
             headers={
-                "User-Agent": "ai-polish-skills-krs/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+                "User-Agent": USER_AGENT,
                 "Accept": "application/json",
             },
         )
