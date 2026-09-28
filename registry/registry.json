@@ -4,18 +4,18 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 6,
+  "skills_count": 7,
   "categories": [
     {
       "name": "finance",
       "count": 2
     },
     {
-      "name": "entertainment",
-      "count": 1
+      "name": "legal",
+      "count": 2
     },
     {
-      "name": "legal",
+      "name": "entertainment",
       "count": 1
     },
     {
@@ -290,6 +290,52 @@
         "SKILL.md",
         "references/output.md",
         "scripts/nbp.py"
+      ]
+    },
+    {
+      "name": "sejm",
+      "display_name": "Sejm Rzeczypospolitej Polskiej",
+      "version": "1.0.0",
+      "description": "Oficjalne dane parlamentarne Sejmu RP z otwartego API (api.sejm.gov.pl). Baza posłów X kadencji (okręgi wyborcze, kluby parlamentarne, komisje sejmowe, kontakt), szczegółowe wyniki głosowań (głosowania imienne, podział głosów wg klubów: za/przeciw/wstrzymał się/nieobecny, sprawdzanie jak głosował dany poseł), baza druków sejmowych i przebieg procesu legislacyjnego (etapy prac nad projektami ustaw i uchwał) oraz interpelacje poselskie i odpowiedzi ministerstw. Zero kluczy API, w 100% oficjalne dane publiczne. Użyj, gdy użytkownik pyta o: \"posłowie na Sejm\", \"kto jest posłem z okręgu X\", \"jak głosowano w Sejmie nad ustawą Y\", \"jak głosował poseł Kowalski\", \"na jakim etapie jest projekt ustawy\", \"druki sejmowe\", \"interpelacje poselskie\".",
+      "category": "legal",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Kancelaria Sejmu Rzeczypospolitej Polskiej",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://sejm.gov.pl",
+      "documentation": "https://api.sejm.gov.pl/",
+      "rate_limit": "fair use",
+      "last_verified": "2026-09-28",
+      "tags": [
+        "sejm",
+        "poslowie",
+        "glosowania",
+        "druki",
+        "proces-legislacyjny",
+        "ustawy",
+        "interpelacje",
+        "prawo",
+        "parlament"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); network access to api.sejm.gov.pl.",
+      "entrypoint": "scripts/sejm.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/sejm/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s sejm",
+        "cli": "python3 scripts/cli.py install sejm",
+        "target_dir": ".agents/skills/sejm"
+      },
+      "files": [
+        "SKILL.md",
+        "references/output.md",
+        "resources/fixtures.json",
+        "scripts/sejm.py"
       ]
     }
   ]

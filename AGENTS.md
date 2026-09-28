@@ -17,6 +17,7 @@ Match user prompt intent to the appropriate skill:
 | **Track InPost parcel, find Paczkomat lockers by code, address, or GPS** | `inpost` | `scripts/inpost.py` | `"gdzie jest moja paczka InPost"`, `"najbliższy paczkomat"` |
 | **Search Polish film/series ratings, reviews, cast, premiere, VOD streaming** | `filmweb` | `scripts/filmweb.py` | `"jaka ocena filmu na Filmwebie"`, `"gdzie obejrzę"` |
 | **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
+| **Sejm RP parliamentary data: MPs, roll-call votings, legislative bills, prints** | `sejm` | `scripts/sejm.py` | `"jak głosowano w Sejmie"`, `"jak głosował poseł"`, `"proces ustawy"` |
 
 ---
 
