@@ -4,14 +4,14 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 8,
+  "skills_count": 9,
   "categories": [
     {
-      "name": "finance",
-      "count": 2
+      "name": "legal",
+      "count": 3
     },
     {
-      "name": "legal",
+      "name": "finance",
       "count": 2
     },
     {
@@ -343,6 +343,50 @@
         "references/output.md",
         "resources/fixtures.json",
         "scripts/nfz.py"
+      ]
+    },
+    {
+      "name": "prawo",
+      "display_name": "Prawo (ISAP / Dziennik Ustaw)",
+      "version": "1.0.0",
+      "description": "Official Polish legal acts from the Sejm ELI API (ISAP: Dziennik Ustaw, Monitor Polski). Read the wording of a specific article of a code or statute, together with the source document and date, and a warning about amendments that entered into force later. Check whether an act is in force, find its latest consolidated text (tekst jednolity), list amendments with entry-into-force dates (including upcoming ones), and search acts by title. Shortcuts for the main codes (kp, kc, kk, kpc, ksh, kpa, vat, pit, cit, op…). Use whenever the user asks about Polish law, e.g. \"co mówi art. 30 Kodeksu pracy\", \"okres wypowiedzenia umowy o pracę\", \"czy ta ustawa obowiązuje\", \"tekst jednolity ustawy o VAT\", \"kiedy wchodzą zmiany w Kodeksie pracy\", \"Dz.U. 2023 poz. 1465\", \"przepisy o pracy zdalnej\".",
+      "category": "legal",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Kancelaria Sejmu RP (ISAP / ELI)",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://isap.sejm.gov.pl",
+      "documentation": "https://api.sejm.gov.pl/eli_pl.html",
+      "rate_limit": "fair use",
+      "last_verified": "2026-09-28",
+      "tags": [
+        "prawo",
+        "ustawy",
+        "kodeks",
+        "isap",
+        "dziennik-ustaw",
+        "tekst-jednolity",
+        "przepisy",
+        "eli"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); network access to api.sejm.gov.pl.",
+      "entrypoint": "scripts/prawo.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/prawo/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s prawo",
+        "cli": "python3 scripts/cli.py install prawo",
+        "target_dir": ".agents/skills/prawo"
+      },
+      "files": [
+        "SKILL.md",
+        "references/output.md",
+        "scripts/prawo.py"
       ]
     },
     {
