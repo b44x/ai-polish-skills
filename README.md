@@ -120,6 +120,20 @@ python3 scripts/cli.py install inpost biala-lista
 python3 scripts/cli.py update
 ```
 
+### 4. Claude Code — marketplace pluginów
+
+```bash
+/plugin marketplace add b44x/ai-polish-skills
+/plugin install polskie-skille@polskie-skille   # wszystkie skille
+/plugin install nbp@polskie-skille              # albo pojedynczy skill
+```
+
+### 5. Gemini CLI — rozszerzenie
+
+```bash
+gemini extensions install https://github.com/b44x/ai-polish-skills
+```
+
 ---
 
 ## 🚀 Jak uruchomić skill?
@@ -154,11 +168,14 @@ python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3
 
 | Środowisko | Obsługa `SKILL.md` | Katalog instalacji |
 |---|:---:|---|
-| **Claude Code** | Natywna | `.claude/skills/<skill>/` |
+| **Claude Code** | Natywna | marketplace pluginów lub `.claude/skills/<skill>/` |
+| **Gemini CLI** | Natywna (rozszerzenie) | `gemini extensions install …` |
+| **GitHub Copilot (VS Code, CLI)** | Natywna | `.agents/skills/<skill>/`, `.github/skills/<skill>/` lub `.claude/skills/<skill>/` |
 | **Google Antigravity (AGY)** | Natywna | `.agents/skills/<skill>/` lub `~/.gemini/config/skills/` |
 | **Cursor** | Przez `.cursorrules` / context | `.agents/skills/<skill>/` |
 | **Windsurf** | Przez `.windsurfrules` | `.agents/skills/<skill>/` |
-| **OpenAI Codex / Custom Agents** | Standard CLI & JSON | Dowolny katalog ze skryptami |
+| **OpenAI Codex** | Natywna | `.agents/skills/<skill>/` lub `~/.agents/skills/<skill>/` |
+| **Inne agenty** | Standard CLI & JSON | Dowolny katalog ze skryptami |
 
 ---
 
@@ -168,7 +185,7 @@ Dodanie nowego skilla do oficjalnego rejestru odbywa się przez prosty, 8-krokow
 
 1. Wybierz polską usługę lub rejestr publiczny.
 2. Zweryfikuj oficjalność źródła i warunki korzystania.
-3. Skopiuj szablon `skills/_template/` do `skills/<twoj-skill>/`.
+3. Skopiuj szablon `templates/skill/` do `skills/<twoj-skill>/`.
 4. Opisz instrukcje w `SKILL.md`.
 5. Uzupełnij metadane w nagłówku YAML (manifest).
 6. Napisz skrypt w `scripts/<twoj-skill>.py` (Python 3.8+ stdlib, JSON na stdout).
