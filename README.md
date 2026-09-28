@@ -180,14 +180,15 @@ Polskie Skille to projekt open source rozwijający ekosystem polskich narzędzi 
 - Utrzymaniu infrastruktury testów, walidatora i publicznego rejestru na [polskieskille.pl](https://polskieskille.pl).
 - Zapewnieniu bezpieczeństwa, stabilności i bieżącej weryfikacji API.
 
-Możesz wesprzeć projekt bezpośrednio przez **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)**:
+Możesz wesprzeć projekt bezpośrednio przez **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)** (wsparcie comiesięczne lub jednorazowe):
 
-| Poziom | Kwota | Przeznaczenie |
-|---|---|---|
-| **Supporter** | **€3** / mies. | Wsparcie bieżącego utrzymania projektu open source |
-| **AI Builder** | **€10** / mies. | Wsparcie tworzenia i weryfikacji nowych polskich skilli |
-| **Polish AI** | **€25** / mies. | Wsparcie infrastruktury testowej, rejestru i integracji z agentami |
-| **Company** | **€100** / mies. | Wsparcie ekosystemu przez firmy wdrażające agentów AI w Polsce |
+| Poziom | Kwota | Typ | Przeznaczenie |
+|---|---|---|---|
+| **Supporter** | **$3** / mies. | Monthly | Wsparcie bieżącego utrzymania projektu open source |
+| **AI Builder** | **$10** / mies. | Monthly | Wsparcie tworzenia i weryfikacji nowych polskich skilli |
+| **Polish AI** | **$25** / mies. | Monthly | Wsparcie infrastruktury testowej, rejestru i integracji z agentami |
+| **Company** | **$100** / mies. | Monthly | Wsparcie ekosystemu przez firmy wdrażające agentów AI w Polsce |
+| **Coffee** | **$10** | One-time | Jednorazowe docenienie pracy twórcy |
 
 Każda forma wsparcia pozwala poświęcić więcej czasu na rozwój, jakość i stabilność polskich narzędzi AI.
 
