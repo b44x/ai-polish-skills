@@ -2,144 +2,200 @@
   🇬🇧 <b>English</b> | 🇵🇱 <a href="README.md">Polski</a>
 </p>
 
-# ai-polish-skills
+# ai-polish-skills 🇵🇱
 
-A curated collection of modular, production-ready AI agent skills (`SKILL.md` format) tailored for Polish services, APIs, and workflows.
+Official open-source registry and catalog of AI agent skills tailored for the **Polish market, public registers, services, and APIs**.
 
-> 🌐 Official project site: [polskieskille.pl](https://polskieskille.pl)
-
-Every skill provides:
-- A standardized `SKILL.md` definition with YAML frontmatter (progressive disclosure).
-- Dependency-free Python 3 helper scripts that communicate via clean JSON.
-- Output references, schema documentation, and error specifications.
+> 🌐 Discovery layer & web catalog: **[polskieskille.pl](https://polskieskille.pl)**  
+> 📦 Open-source core & registry: **[github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills)**
 
 ---
 
-## Available Skills
+## 💡 What are Polish Skills?
 
-| Skill | Description | Triggers / Keywords |
-|---|---|---|
-| [`biala-lista`](skills/biala-lista/SKILL.md) | Official Polish Ministry of Finance White List (*Biała Lista Podatników VAT*). Verify active VAT payer status, company registry details, and registered settlement bank accounts before B2B transfers. | NIP, REGON, VAT status, "sprawdź NIP", "biała lista", "rachunek na białej liście", split payment |
-| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski**. Official currency exchange rates (Tables A & B), gold prices, and automated tax calculator converting foreign currency invoices to PLN according to Polish tax law (Art. 31a VAT). | NBP, exchange rates, "kurs do faktury", convert currency NBP, gold price NBP |
-| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** (Ministry of Justice). Official court registry extracts for companies (Sp. z o.o., S.A., P.S.A.) and foundations. Board members, proxies, share capital, and signing authority rules. | KRS, company registry, "kto może podpisać umowę", board members, representation rules |
-| [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty across Poland**. Parcel tracking by 24-digit tracking number, locker locator by code (e.g. WAW01M), street, city, or GPS coordinates with distance in meters, 24/7 access, and navigation. | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
-| [`filmweb`](skills/filmweb/SKILL.md) | Polish film and TV series database (Filmweb.pl). Search titles, ratings, user reviews, cast, premiere dates, and VOD availability with prices in PLN. | Filmweb, ocena filmu, "gdzie obejrzę", "kto grał w", polskie recenzje, seriale |
+**ai-polish-skills** is an ecosystem of modular extensions for AI agents that provide models with direct, real-time access to Polish services. Rather than hallucinating information about VAT numbers, exchange rates, or parcel tracking, the agent executes a deterministic script and parses structured JSON output.
+
+### Key Principles:
+- **Zero dependencies (pip-free):** All scripts use Python 3.8+ standard library only.
+- **Deterministic output:** Clean JSON on `stdout`, errors on `stderr`, standardized exit codes.
+- **Single source of truth:** All skill metadata is stored directly in the `SKILL.md` YAML frontmatter.
+- **Verified sources:** Explicit declaration whether the data source is an official API (`official_api`), public API, or unofficial API.
 
 ---
 
-## ⚡ Quick Automatic Installation
+## 📄 What is the `SKILL.md` standard?
 
-Install all skills or select specific ones with a single terminal command:
+`SKILL.md` is an open instruction format for AI agents. Each directory in `skills/<name>` contains a `SKILL.md` file featuring:
+1. **YAML Frontmatter (Manifest):** Skill metadata (`name`, `version`, `category`, `source`, `network`, `tags`, etc.). The agent inspects this header to determine whether the skill fits the user's intent (*Progressive Disclosure*).
+2. **Markdown Body:** Detailed instructions for the model, parameters, workflows, and command reference tables for Linux, macOS, and Windows.
+3. **Scripts in `scripts/`:** CLI utilities executed directly by the agent.
+
+---
+
+## 📦 Available Skills in Registry
+
+| Skill | Name & Category | Description | Data Source |
+|---|---|---|---|
+| [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
+| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
+| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
+| [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
+| [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
+
+---
+
+## 🔍 How to Find Skills?
+
+Browse and query the registry using the built-in CLI or installer:
+
+```bash
+# List all available skills
+./install.sh list
+# or
+python3 scripts/cli.py list
+
+# Search skills by keyword
+./install.sh search faktury
+python3 scripts/cli.py search paczkomat
+
+# Detailed skill info, source, and contract
+./install.sh info biala-lista
+python3 scripts/cli.py info krs
+```
+
+---
+
+## ⚡ How to Install Skills?
+
+### 1. Automatic Installer (Recommended)
+
+Install all or selected skills with a single command:
 
 ```bash
 # Install all skills into your current AI project
 curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash
 
-# Install a specific skill (e.g. inpost)
-curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s inpost
+# Install specific skills only (e.g. inpost, biala-lista)
+curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s inpost biala-lista
 
-# Install globally across all Antigravity projects
+# Global install (for Google Antigravity: ~/.gemini/config/skills)
 curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s -- --global
 ```
 
-The installer automatically detects whether you are using **Google Antigravity**, **Claude Code**, or other agent environments and sets up the correct paths.
+The installer **automatically detects** your environment (Claude Code, Antigravity, Cursor, Windsurf) and places files in the right path.
 
-### Install by prompting your AI Agent
+### 2. Install by Prompting your AI Agent
 
-You can also install skills simply by pasting this into your agent's chat (Antigravity, Claude Code, Cursor):
+Paste this prompt into your agent's chat:
 
 ```text
 Install the inpost and biala-lista skills from https://github.com/b44x/ai-polish-skills into our project's skills directory.
 ```
 
+Your agent will fetch the required directories and gain immediate access.
+
+### 3. Using the Built-in CLI
+
+If you have cloned the repository locally:
+
+```bash
+python3 scripts/cli.py install inpost biala-lista
+python3 scripts/cli.py update
+```
+
 ---
 
-## Manual Setup
+## 🚀 How to Run Skills?
 
-### 1. Google Antigravity (AGY)
+### Via AI Agent (Natural Language)
+Once installed, your agent automatically executes the appropriate script based on your question:
+- *"Check if contractor with NIP 5260250274 is an active VAT payer on the White List"*
+- *"Who can sign contracts on behalf of company KRS 0000006865?"*
+- *"Calculate PLN tax amount for a 1500 EUR invoice dated 2026-09-25 using official NBP rates"*
+- *"Find the nearest Paczkomat in Warsaw near Chmielna street"*
 
-#### Workspace-level:
-```bash
-mkdir -p .agents/skills
-ln -s /path/to/ai-polish-skills/skills/biala-lista .agents/skills/biala-lista
-ln -s /path/to/ai-polish-skills/skills/inpost .agents/skills/inpost
-```
-
-#### Global-level (Available across all projects):
-```bash
-mkdir -p ~/.gemini/config/skills
-ln -s /path/to/ai-polish-skills/skills/biala-lista ~/.gemini/config/skills/biala-lista
-ln -s /path/to/ai-polish-skills/skills/inpost ~/.gemini/config/skills/inpost
-```
-
-### 2. Claude Code
+### Standalone CLI Execution
+Every skill can be executed directly from terminal:
 
 ```bash
-mkdir -p .claude/skills
-ln -s /path/to/ai-polish-skills/skills/inpost .claude/skills/inpost
-```
+# Verify NIP in Polish VAT White List
+python3 skills/biala-lista/scripts/biala_lista.py nip 5260250274
 
-### 3. Cursor / Windsurf / Custom Agents
-
-Reference the skill in your project's rules (`.cursorrules` or `.windsurfrules`):
-
-```markdown
-When dealing with Polish VAT or companies, follow skills/biala-lista/SKILL.md.
-When dealing with InPost parcels or Paczkomaty, follow skills/inpost/SKILL.md.
-```
-
-### 4. Direct CLI Execution (Standalone)
-
-All skill scripts are standalone Python 3 utilities using only the standard library:
-
-```bash
-# Verify contractor in Polish VAT White List
-python3 skills/biala-lista/scripts/biala_lista.py nip 5252344078
-
-# Convert foreign currency invoice to PLN using official NBP tax rates (Art. 31a VAT)
-python3 skills/nbp/scripts/nbp.py invoice 1500 EUR 2026-09-28
-
-# Verify company board and signing representation in Ministry of Justice KRS
+# Verify signing authority in court register (KRS)
 python3 skills/krs/scripts/krs.py repr 0000006865
 
-# Find nearest Paczkomat lockers
+# Convert foreign currency invoice according to Art. 31a VAT law
+python3 skills/nbp/scripts/nbp.py invoice 1500 EUR 2026-09-25
+
+# Locate parcel lockers near GPS coordinates
 python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3
 ```
 
 ---
 
-## Best Practices
+## 🤖 Supported Agents and IDEs
 
-When authoring or contributing skills to this repository:
-
-1. **Progressive Disclosure:** Keep the root `SKILL.md` concise (< 500 lines). Offload large schemas, payload references, and background theory to `references/` so models only load what they need.
-2. **Deterministic Scripts Over Hallucination:** If a task involves APIs, calculations, or exact parsing, encapsulate it in a script (`scripts/<name>.py`). Models should execute the script rather than guessing.
-3. **Zero External Dependencies:** Scripts must run on standard Python 3.8+ (`urllib`, `json`, `argparse`, etc.) without requiring `pip install`.
-4. **Structured JSON Output:** CLI scripts must always emit valid JSON to `stdout` on success, and structured JSON error objects `{"error": "...", "type": "..."}` to `stderr` on failure.
-5. **Standard Exit Codes:**
-   - `0`: Success
-   - `2`: Resource not found
-   - `64`: Validation error / bad arguments
-   - `69`: Upstream API / network error
+| Environment | `SKILL.md` Support | Installation Directory |
+|---|:---:|---|
+| **Claude Code** | Native | `.claude/skills/<skill>/` |
+| **Google Antigravity (AGY)** | Native | `.agents/skills/<skill>/` or `~/.gemini/config/skills/` |
+| **Cursor** | Via `.cursorrules` / context | `.agents/skills/<skill>/` |
+| **Windsurf** | Via `.windsurfrules` | `.agents/skills/<skill>/` |
+| **OpenAI Codex / Custom Agents** | Standard CLI & JSON | Any directory with Python scripts |
 
 ---
 
-## Quality & Validation
+## 🛠 How to Add a New Skill?
 
-Every PR and commit is automatically checked via GitHub Actions:
+Contributing a skill follows a simple, 8-step Pull Request process:
 
-```bash
-python3 scripts/validate_skills.py
-```
+1. Select a Polish service or public register.
+2. Verify source authenticity and usage terms.
+3. Copy `skills/_template/` to `skills/<your-skill>/`.
+4. Write instructions in `SKILL.md`.
+5. Populate metadata in the YAML frontmatter header (manifest).
+6. Implement Python script in `scripts/<your-skill>.py` (Python 3.8+ stdlib, clean JSON on stdout).
+7. Run the validator (`python3 scripts/validate_skills.py`) and test harness (`python3 scripts/test_skills.py`).
+8. Open a Pull Request to branch `dev`.
 
-## Contributing & Releases
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed instructions and the PR checklist.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for branch strategy (`dev` -> `main`), semantic commit conventions, and release tagging procedures.
+---
+
+## 🌐 polskieskille.pl & Registry Layer
+
+The repository generates deterministic, static registry files:
+- `registry/registry.json` — Complete index of skills, metadata, categories, and file lists.
+- `registry/registry.min.json` — Minified version for fast web fetching.
+- `registry/schema.json` — Official JSON Schema for validation.
+
+The **polskieskille.pl** platform directly consumes this registry to serve an interactive web catalog and discovery layer.
+
+## Support the project
+
+Polskie Skille is an open-source initiative providing AI agents with reliable tools and real-time data from Polish services, registers, and APIs. Your sponsorship directly supports:
+
+- Building new Polish integrations (CEIDG, GUS/BIR, IMGW weather alerts, KSeF e-invoicing).
+- Refining the `SKILL.md` standard, test harness, validator, and static registry.
+- Ensuring ongoing compatibility with emerging AI agents (Claude Code, Cursor, Windsurf, Antigravity).
+- API maintenance, uptime checks, and security audits.
+
+Support the project via **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)**:
+
+| Tier | Amount | Focus |
+|---|---|---|
+| **Supporter** | **€3** / mo | General open-source maintenance & community support |
+| **AI Builder** | **€10** / mo | Accelerating development of new Polish skills & APIs |
+| **Polish AI** | **€25** / mo | Sustaining test infrastructure, registry updates & agent benchmarks |
+| **Company** | **€100** / mo | Organization sponsorship for building on the Polish AI ecosystem |
+
+Every contribution helps keep the project independent, well-tested, and actively maintained.
 
 ---
 
 ## Author & License
 
-Created and maintained by **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-polish-skills](https://github.com/b44x/ai-polish-skills)).
+Created and maintained by: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
+Repository: [github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills).  
+License: [MIT License](LICENSE).
 
-Distributed under the [MIT License](LICENSE).

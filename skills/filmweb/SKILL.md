@@ -1,5 +1,7 @@
 ---
 name: filmweb
+display_name: Filmweb
+version: 1.0.0
 description: >-
   Fetch film and TV series data from Filmweb.pl: search by title, rating and number
   of votes, critics rating, genres, duration, directors, cast, plot, premiere dates,
@@ -8,9 +10,29 @@ description: >-
   rating, opis, obsada or VOD info, e.g. "ile Matrix ma na Filmwebie", "kto grał w…",
   "kto wyreżyserował…", "o czym jest…", "gdzie obejrzę…", "kiedy premiera…",
   "jaki serial…", "ocena serialu…".
+category: entertainment
+language: pl
+country: PL
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
 repository: https://github.com/b44x/ai-polish-skills
+network: true
+authentication: none
+source: Filmweb.pl
+source_type: unofficial_api
+official: false
+homepage: https://www.filmweb.pl
+documentation: none
+rate_limit: fair use
+last_verified: 2026-09-28
+tags:
+  - filmweb
+  - filmy
+  - seriale
+  - kino
+  - vod
+  - recenzje
+  - obsada
 compatibility: Python 3.8+ (standard library only); network access to www.filmweb.pl.
 ---
 

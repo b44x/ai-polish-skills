@@ -1,5 +1,7 @@
 ---
 name: inpost
+display_name: InPost & Paczkomaty
+version: 1.0.0
 description: >-
   Track InPost shipments and find Paczkomat parcel lockers and pickup points across Poland.
   Check shipment status and historical events by 24-digit tracking number (e.g. "gdzie moja paczka InPost",
@@ -8,9 +10,28 @@ description: >-
   and photo. Search lockers by city, street, postal code, or find nearest Paczkomaty by GPS coordinates
   with distances in meters. Use whenever the user asks about an InPost parcel, Paczkomat location,
   "gdzie jest paczkomat", "najbliższy paczkomat", or pastes an InPost tracking link/number.
+category: logistics
+language: pl
+country: PL
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
 repository: https://github.com/b44x/ai-polish-skills
+network: true
+authentication: none
+source: InPost ShipX API
+source_type: public_api
+official: false
+homepage: https://inpost.pl
+documentation: https://dokumentacja-inpost.atlassian.net/wiki/spaces/PL/pages/11731057/ShipX+API
+rate_limit: fair use
+last_verified: 2026-09-28
+tags:
+  - inpost
+  - paczkomaty
+  - tracking
+  - przesylki
+  - kurier
+  - logistyka
 compatibility: Python 3.8+ (standard library only); network access to api-shipx-pl.easypack24.net.
 ---
 
