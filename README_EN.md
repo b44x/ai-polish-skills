@@ -43,6 +43,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 | [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Polish parliamentary open data: MPs, committees, roll-call and club voting results, prints, and legislative stages. | Chancellery of the Sejm (🏛 official API) |
+| [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
 
 ---
 

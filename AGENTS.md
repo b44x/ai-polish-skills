@@ -18,6 +18,7 @@ Match user prompt intent to the appropriate skill:
 | **Search Polish film/series ratings, reviews, cast, premiere, VOD streaming** | `filmweb` | `scripts/filmweb.py` | `"jaka ocena filmu na Filmwebie"`, `"gdzie obejrzę"` |
 | **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
 | **Sejm RP parliamentary data: MPs, roll-call votings, legislative bills, prints** | `sejm` | `scripts/sejm.py` | `"jak głosowano w Sejmie"`, `"jak głosował poseł"`, `"proces ustawy"` |
+| **NFZ healthcare queues, estimated waiting times (PCUŚ), clinics, benefit search** | `nfz` | `scripts/nfz.py` | `"czas oczekiwania NFZ"`, `"gdzie na rezonans"`, `"kolejki NFZ"` |
 
 ---
 

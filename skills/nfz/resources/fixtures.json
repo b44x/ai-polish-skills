@@ -1,0 +1,59 @@
+{
+  "benefit": {
+    "query": "rezonans",
+    "count": 1,
+    "benefits": [
+      "REZONANS MAGNETYCZNY"
+    ]
+  },
+  "queue": {
+    "id": "5c7044e8-6bb3-0369-e063-b4200a0a4532",
+    "benefit": "REZONANS MAGNETYCZNY",
+    "provider": "NADMORSKIE CENTRUM MEDYCZNE SP. Z O.O.",
+    "place": "PRACOWNIA REZONANSU MAGNETYCZNEGO 3T",
+    "locality": "GDAŃSK",
+    "address": "ŚWIĘTOKRZYSKA 4",
+    "phone": "+48 58 763 98 85",
+    "case": "stabilny",
+    "waitingTime": {
+      "pcus": "1 mies. 3 tyg.",
+      "averagePeriodDays": 63,
+      "awaiting": 820,
+      "dateSituationAsAt": "2026-09-02",
+      "statisticsUpdateMonth": "2026-08"
+    },
+    "coordinates": {
+      "lat": 54.325971,
+      "lon": 18.606809,
+      "isApproximate": false
+    },
+    "distanceKm": 3.9,
+    "queueInCer": false,
+    "accessibility": {
+      "toilet": true,
+      "ramp": true,
+      "carPark": true,
+      "elevator": true,
+      "ac": true
+    },
+    "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+  },
+  "provinces": [
+    { "code": "01", "name": "dolnośląskie" },
+    { "code": "02", "name": "kujawsko-pomorskie" },
+    { "code": "03", "name": "lubelskie" },
+    { "code": "04", "name": "lubuskie" },
+    { "code": "05", "name": "łódzkie" },
+    { "code": "06", "name": "małopolskie" },
+    { "code": "07", "name": "mazowieckie" },
+    { "code": "08", "name": "opolskie" },
+    { "code": "09", "name": "podkarpackie" },
+    { "code": "10", "name": "podlaskie" },
+    { "code": "11", "name": "pomorskie" },
+    { "code": "12", "name": "śląskie" },
+    { "code": "13", "name": "świętokrzyskie" },
+    { "code": "14", "name": "warmińsko-mazurskie" },
+    { "code": "15", "name": "wielkopolskie" },
+    { "code": "16", "name": "zachodniopomorskie" }
+  ]
+}

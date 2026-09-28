@@ -4,7 +4,7 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 7,
+  "skills_count": 8,
   "categories": [
     {
       "name": "finance",
@@ -16,6 +16,10 @@
     },
     {
       "name": "entertainment",
+      "count": 1
+    },
+    {
+      "name": "health",
       "count": 1
     },
     {
@@ -290,6 +294,55 @@
         "SKILL.md",
         "references/output.md",
         "scripts/nbp.py"
+      ]
+    },
+    {
+      "name": "nfz",
+      "display_name": "NFZ Kolejki i Czas Oczekiwania (PCUŚ)",
+      "version": "1.0.0",
+      "description": "Oficjalne dane Narodowego Funduszu Zdrowia (NFZ) dotyczące kolejek, placówek medycznych i prognozowanego czasu oczekiwania na świadczenia (PCUŚ). Wyszukuj świadczenia medyczne (rezonans magnetyczny, tomografia, kolonoskopia, gastroskopia, poradnia kardiologiczna, ortopeda, okulista), sprawdzaj prognozowany czas oczekiwania (w dniach i miesiącach) oraz liczbę oczekujących pacjentów w trybie stabilnym i pilnym. Znajduj najbliższe placówki w zadanym promieniu kilometrów (Haversine) i porównuj czas oczekiwania w szpitalach oraz przychodniach. Zero kluczy API, w 100% oficjalne dane publiczne z API Terminy Leczenia NFZ. Użyj, gdy użytkownik pyta o: \"kolejki NFZ\", \"czas oczekiwania do kardiologa\", \"gdzie na rezonans na NFZ\", \"terminy leczenia\", \"poradnia NFZ w Gdańsku\", \"najkrótsza kolejka do endokrynologa\", \"NFZ czas oczekiwania\".",
+      "category": "health",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Narodowy Fundusz Zdrowia (NFZ)",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://terminyleczenia.nfz.gov.pl/",
+      "documentation": "https://apinfz.nfz.gov.pl/app-itl-api-pcus/",
+      "rate_limit": "fair use",
+      "last_verified": "2026-09-28",
+      "tags": [
+        "nfz",
+        "zdrowie",
+        "kolejki",
+        "pcus",
+        "lekarz",
+        "przychodnia",
+        "szpital",
+        "rezonans",
+        "tomografia",
+        "kardiolog",
+        "stomatolog",
+        "terminy"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); network access to apinfz.nfz.gov.pl.",
+      "entrypoint": "scripts/nfz.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/nfz/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s nfz",
+        "cli": "python3 scripts/cli.py install nfz",
+        "target_dir": ".agents/skills/nfz"
+      },
+      "files": [
+        "SKILL.md",
+        "references/output.md",
+        "resources/fixtures.json",
+        "scripts/nfz.py"
       ]
     },
     {
