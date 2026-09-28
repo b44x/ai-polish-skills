@@ -56,6 +56,12 @@
       ],
       "compatibility": "Python 3.8+ (standard library only); network access to wl-api.mf.gov.pl.",
       "entrypoint": "scripts/biala_lista.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/biala-lista/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s biala-lista",
+        "cli": "python3 scripts/cli.py install biala-lista",
+        "target_dir": ".agents/skills/biala-lista"
+      },
       "files": [
         "SKILL.md",
         "references/output.md",
@@ -93,6 +99,12 @@
       ],
       "compatibility": "Python 3.8+ (standard library only); network access to www.filmweb.pl.",
       "entrypoint": "scripts/filmweb.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/filmweb/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s filmweb",
+        "cli": "python3 scripts/cli.py install filmweb",
+        "target_dir": ".agents/skills/filmweb"
+      },
       "files": [
         "SKILL.md",
         "references/output.md",
@@ -129,6 +141,12 @@
       ],
       "compatibility": "Python 3.8+ (standard library only); network access to api-shipx-pl.easypack24.net.",
       "entrypoint": "scripts/inpost.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/inpost/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s inpost",
+        "cli": "python3 scripts/cli.py install inpost",
+        "target_dir": ".agents/skills/inpost"
+      },
       "files": [
         "SKILL.md",
         "references/output.md",
@@ -166,6 +184,12 @@
       ],
       "compatibility": "Python 3.8+ (standard library only); network access to api-krs.ms.gov.pl.",
       "entrypoint": "scripts/krs.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/krs/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s krs",
+        "cli": "python3 scripts/cli.py install krs",
+        "target_dir": ".agents/skills/krs"
+      },
       "files": [
         "SKILL.md",
         "references/output.md",
@@ -205,6 +229,12 @@
       ],
       "compatibility": "Python 3.8+ (standard library only); network access to api.nbp.pl.",
       "entrypoint": "scripts/nbp.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/nbp/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s nbp",
+        "cli": "python3 scripts/cli.py install nbp",
+        "target_dir": ".agents/skills/nbp"
+      },
       "files": [
         "SKILL.md",
         "references/output.md",
