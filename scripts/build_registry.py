@@ -48,11 +48,14 @@ def build_registry_data(skills_dir: Path) -> Dict[str, Any]:
             print(f"ERROR: Invalid manifest for {sdir.name}: {val_errs}", file=sys.stderr)
             sys.exit(1)
 
-        # Collect files relative to skill directory
+        # Collect files relative to skill directory (ignoring hidden files, pycache and bytecode)
         files: List[str] = sorted(
             str(p.relative_to(sdir))
             for p in sdir.rglob("*")
-            if p.is_file() and not p.name.startswith(".")
+            if p.is_file()
+            and not p.name.startswith(".")
+            and "__pycache__" not in p.parts
+            and not p.name.endswith((".pyc", ".pyo", ".pyd"))
         )
 
         entrypoint = None
