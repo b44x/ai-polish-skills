@@ -21,6 +21,8 @@ Każdy skill w repozytorium zapewnia:
 | Skill | Opis | Słowa kluczowe / Triggery |
 |---|---|---|
 | [`biala-lista`](skills/biala-lista/SKILL.md) | Oficjalny Wykaz podatników VAT Ministerstwa Finansów (**Biała Lista VAT**). Weryfikacja statusu podatnika VAT (czynny/zwolniony), danych rejestrowych firmy (KRS, REGON, adres) oraz weryfikacja konta bankowego przed przelewem B2B (split payment, limit 15 tys. zł). | NIP, REGON, status VAT, "sprawdź NIP", "biała lista", "rachunek na białej liście", split payment |
+| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski**. Kursy średnie walut (tabela A i B), oficjalne ceny złota oraz automatyczny kalkulator podatkowy przeliczający faktury walutowe na PLN wg kursu NBP z ostatniego dnia roboczego (art. 31a ustawy o VAT). | NBP, kurs euro, kurs dolara, "kurs do faktury", "przelicz walutę NBP", cena złota NBP |
+| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** (Ministerstwo Sprawiedliwości). Oficjalne odpisy spółek (Sp. z o.o., S.A., P.S.A.) i fundacji. Skład zarządu, rady nadzorczej, prokurenci, kapitał zakładowy oraz zasady reprezentacji (kto może podpisać umowę). | KRS, "kto może podpisać umowę", "odpis KRS", "zarząd spółki", "reprezentacja spółki", kapitał zakładowy |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost i Paczkomaty w całej Polsce**. Śledzenie przesyłek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie (np. WAW01M), ulicy, mieście oraz współrzędnych GPS (odległość w metrach, godziny 24/7, Strefa Łatwego Dostępu, płatności, nawigacja Google Maps). | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
 | [`filmweb`](skills/filmweb/SKILL.md) | Baza filmów, seriali i ludzi kina **Filmweb.pl**. Wyszukiwanie tytułów, oceny użytkowników i krytyków, pełna obsada, daty premier oraz dostępność na platformach VOD wraz z cenami w PLN. | Filmweb, ocena filmu, "gdzie obejrzę", "kto grał w", polskie recenzje, seriale |
 
@@ -99,8 +101,11 @@ Wszystkie skrypty działają samodzielnie na standardowym Pythonie 3:
 # Sprawdzenie kontrahenta na Białej Liście VAT
 python3 skills/biala-lista/scripts/biala_lista.py nip 5252344078
 
-# Weryfikacja konta bankowego kontrahenta przed przelewem
-python3 skills/biala-lista/scripts/biala_lista.py check 5252344078 93103015080000000504162006
+# Przeliczenie faktury walutowej na PLN wg zasad podatkowych NBP (art. 31a VAT)
+python3 skills/nbp/scripts/nbp.py invoice 1500 EUR 2026-09-28
+
+# Weryfikacja reprezentacji spółki i uprawnień do podpisania umowy w KRS
+python3 skills/krs/scripts/krs.py repr 0000006865
 
 # Wyszukanie najbliższych Paczkomatów InPost po współrzędnych GPS
 python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3

@@ -20,7 +20,9 @@ Every skill provides:
 | Skill | Description | Triggers / Keywords |
 |---|---|---|
 | [`biala-lista`](skills/biala-lista/SKILL.md) | Official Polish Ministry of Finance White List (*Biała Lista Podatników VAT*). Verify active VAT payer status, company registry details, and registered settlement bank accounts before B2B transfers. | NIP, REGON, VAT status, "sprawdź NIP", "biała lista", "rachunek na białej liście", split payment |
-| [`inpost`](skills/inpost/SKILL.md) | InPost parcel tracking and Paczkomat parcel locker finder across Poland. Lookup locker details (address, 24/7 access, Strefa Łatwego Dostępu, photos) and find nearest lockers by GPS coordinates. | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
+| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski**. Official currency exchange rates (Tables A & B), gold prices, and automated tax calculator converting foreign currency invoices to PLN according to Polish tax law (Art. 31a VAT). | NBP, exchange rates, "kurs do faktury", convert currency NBP, gold price NBP |
+| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** (Ministry of Justice). Official court registry extracts for companies (Sp. z o.o., S.A., P.S.A.) and foundations. Board members, proxies, share capital, and signing authority rules. | KRS, company registry, "kto może podpisać umowę", board members, representation rules |
+| [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty across Poland**. Parcel tracking by 24-digit tracking number, locker locator by code (e.g. WAW01M), street, city, or GPS coordinates with distance in meters, 24/7 access, and navigation. | InPost, Paczkomat, "gdzie moja paczka", "status przesyłki InPost", "najbliższy paczkomat" |
 | [`filmweb`](skills/filmweb/SKILL.md) | Polish film and TV series database (Filmweb.pl). Search titles, ratings, user reviews, cast, premiere dates, and VOD availability with prices in PLN. | Filmweb, ocena filmu, "gdzie obejrzę", "kto grał w", polskie recenzje, seriale |
 
 ---
@@ -94,8 +96,11 @@ All skill scripts are standalone Python 3 utilities using only the standard libr
 # Verify contractor in Polish VAT White List
 python3 skills/biala-lista/scripts/biala_lista.py nip 5252344078
 
-# Check bank account assignment
-python3 skills/biala-lista/scripts/biala_lista.py check 5252344078 93103015080000000504162006
+# Convert foreign currency invoice to PLN using official NBP tax rates (Art. 31a VAT)
+python3 skills/nbp/scripts/nbp.py invoice 1500 EUR 2026-09-28
+
+# Verify company board and signing representation in Ministry of Justice KRS
+python3 skills/krs/scripts/krs.py repr 0000006865
 
 # Find nearest Paczkomat lockers
 python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3
