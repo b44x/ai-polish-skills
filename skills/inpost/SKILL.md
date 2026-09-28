@@ -10,7 +10,7 @@ description: >-
   "gdzie jest paczkomat", "najbliższy paczkomat", or pastes an InPost tracking link/number.
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
-repository: https://github.com/b44x/ai-skills
+repository: https://github.com/b44x/ai-polish-skills
 compatibility: Python 3.8+ (standard library only); network access to api-shipx-pl.easypack24.net.
 ---
 

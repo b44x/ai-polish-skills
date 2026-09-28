@@ -6,7 +6,7 @@ directory containing a `SKILL.md` file and optional resources.
 ## Layout
 
 ```
-ai-skills/
+ai-polish-skills/
 ├── skills/
 │   ├── _template/            # template — copy it to start a new skill
 │   │   ├── SKILL.md
