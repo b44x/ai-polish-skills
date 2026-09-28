@@ -55,6 +55,53 @@
       ]
     },
     {
+      "name": "polskie-skille-mcp",
+      "displayName": "Polskie Skille (MCP server)",
+      "source": "./",
+      "description": "Local MCP server exposing the Polish skills as MCP tools (stdio, Python standard library only).",
+      "skills": [
+        "./mcp"
+      ],
+      "mcpServers": {
+        "polskie-skille": {
+          "command": "python3",
+          "args": [
+            "${CLAUDE_PLUGIN_ROOT}/mcp/server.py"
+          ]
+        }
+      },
+      "homepage": "https://polskieskille.pl",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "keywords": [
+        "agent-skills",
+        "biala-lista",
+        "dni-robocze",
+        "filmweb",
+        "filmy",
+        "imgw",
+        "inpost",
+        "krs",
+        "nbp",
+        "nfz",
+        "paczkomaty",
+        "pogoda",
+        "poland",
+        "polish",
+        "poslowie",
+        "prawo",
+        "public-data",
+        "sejm",
+        "spolki",
+        "swieta",
+        "ustawy",
+        "vat",
+        "waluty",
+        "zdrowie"
+      ]
+    },
+    {
       "name": "biala-lista",
       "displayName": "Biała Lista Podatników VAT",
       "source": "./skills/biala-lista",

@@ -136,6 +136,17 @@ python3 scripts/cli.py update
 gemini extensions install https://github.com/b44x/ai-polish-skills
 ```
 
+### 6. MCP Server (Claude Desktop, Cursor, VS Code, Gemini CLI…)
+
+Every skill as an MCP tool in one local server, with nothing to install:
+
+```bash
+claude mcp add polskie-skille -- python3 /path/to/ai-polish-skills/mcp/server.py
+# or in Claude Code: /plugin install polskie-skille-mcp@polskie-skille
+```
+
+Configs for Claude Desktop, Cursor and VS Code: **[mcp/README.md](mcp/README.md)**.
+
 ---
 
 ## 🚀 How to Run Skills?

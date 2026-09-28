@@ -1,5 +1,14 @@
 {
   "name": "polskie-skille",
   "version": "0.8.0",
-  "description": "Agent skills for Polish services, official APIs and public data: Biała Lista VAT, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost, Filmweb."
+  "description": "Agent skills for Polish services, official APIs and public data: Biała Lista VAT, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost, Filmweb.",
+  "mcpServers": {
+    "polskie-skille": {
+      "command": "python3",
+      "args": [
+        "${extensionPath}${/}mcp${/}server.py"
+      ],
+      "cwd": "${extensionPath}"
+    }
+  }
 }

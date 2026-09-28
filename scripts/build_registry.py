@@ -133,7 +133,20 @@ def build_marketplace_data(registry: Dict[str, Any]) -> Dict[str, Any]:
         "category": "public_data",
         "keywords": keywords,
     }
-    plugins = [bundle]
+    mcp_plugin = {
+        "name": "polskie-skille-mcp",
+        "displayName": "Polskie Skille (MCP server)",
+        "source": "./",
+        "description": "Local MCP server exposing the Polish skills as MCP tools (stdio, Python standard library only).",
+        "skills": ["./mcp"],
+        "mcpServers": {"polskie-skille": {"command": "python3", "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/server.py"]}},
+        "homepage": "https://polskieskille.pl",
+        "repository": REPO_URL,
+        "license": "MIT",
+        "category": "public_data",
+        "keywords": keywords,
+    }
+    plugins = [bundle, mcp_plugin]
     for s in skills:
         plugins.append({
             "name": s["name"],
