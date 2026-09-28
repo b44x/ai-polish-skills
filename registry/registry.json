@@ -4,7 +4,7 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 8,
+  "skills_count": 9,
   "categories": [
     {
       "name": "finance",
@@ -28,6 +28,10 @@
     },
     {
       "name": "public_data",
+      "count": 1
+    },
+    {
+      "name": "utilities",
       "count": 1
     }
   ],
@@ -389,6 +393,50 @@
         "references/output.md",
         "resources/fixtures.json",
         "scripts/sejm.py"
+      ]
+    },
+    {
+      "name": "terminy",
+      "display_name": "Terminy, dni robocze i święta",
+      "version": "1.0.0",
+      "description": "Polish working days, public holidays and deadlines, computed offline with legal citations. Count working days between dates, get the monthly working-time norm (wymiar czasu pracy) per art. 130 Kodeksu pracy, list statutory holidays (including Wigilia 24 December from 2025), check a single day, compute a deadline such as invoice payment terms (date + N days, moved to the next working day under art. 115 KC), and list monthly tax and social-security deadlines (ZUS, PIT, CIT, VAT/JPK_V7M, PPK) moved off weekends and holidays per art. 12 § 5 Ordynacji podatkowej. Use whenever the user asks e.g. \"ile dni roboczych w październiku\", \"wymiar czasu pracy grudzień\", \"do kiedy zapłacić ZUS\", \"termin VAT za wrzesień\", \"czy 24 grudnia jest wolny\", \"termin płatności 14 dni od faktury\", \"kiedy wypada Boże Ciało\".",
+      "category": "utilities",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": false,
+      "authentication": "none",
+      "source": "Polskie przepisy (ustawa o dniach wolnych od pracy, Kodeks pracy, Ordynacja podatkowa, Kodeks cywilny, ustawy podatkowe)",
+      "source_type": "static_data",
+      "official": false,
+      "homepage": "https://isap.sejm.gov.pl",
+      "documentation": "none",
+      "rate_limit": "none",
+      "last_verified": "2026-09-28",
+      "tags": [
+        "dni-robocze",
+        "swieta",
+        "wymiar-czasu-pracy",
+        "terminy",
+        "zus",
+        "vat",
+        "pit",
+        "ksiegowosc"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); works fully offline.",
+      "entrypoint": "scripts/terminy.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/terminy/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s terminy",
+        "cli": "python3 scripts/cli.py install terminy",
+        "target_dir": ".agents/skills/terminy"
+      },
+      "files": [
+        "SKILL.md",
+        "references/output.md",
+        "scripts/terminy.py"
       ]
     }
   ]

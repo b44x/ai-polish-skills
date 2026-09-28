@@ -217,6 +217,57 @@ def main() -> int:
                 print(f"  ✗ Offline Filmweb URL ID parser failed: {e}")
                 failed_tests += 1
 
+        elif skill_name == "terminy":
+            # Holidays: movable feasts and Wigilia (day off since 2025)
+            total_tests += 1
+            try:
+                def check_holidays(data):
+                    dates = {h.get("date") for h in data.get("holidays", [])}
+                    for expected in ("2026-04-05", "2026-06-04", "2026-12-24"):
+                        if expected not in dates:
+                            raise TestFailure(f"Missing holiday {expected} in 2026")
+
+                test_json_stdout_contract(script, ["holidays", "--year", "2026"], check_holidays)
+                print("  ✓ Offline holidays passed (Easter, Corpus Christi, Wigilia 2026)")
+            except TestFailure as e:
+                print(f"  ✗ Offline holidays failed: {e}")
+                failed_tests += 1
+
+            # Working-time norm (art. 130 KP): Saturday holiday also reduces the norm
+            total_tests += 1
+            try:
+                def check_month(data):
+                    if data.get("workingTimeNormHours") != 160 or data.get("workingDays") != 21:
+                        raise TestFailure(f"Expected 160 h / 21 days for 2026-12, got {data.get('workingTimeNormHours')} / {data.get('workingDays')}")
+
+                test_json_stdout_contract(script, ["month", "2026-12"], check_month)
+                print("  ✓ Offline working-time norm passed (2026-12 = 160 h)")
+            except TestFailure as e:
+                print(f"  ✗ Offline working-time norm failed: {e}")
+                failed_tests += 1
+
+            # VAT deadline on a Sunday moves to Monday (art. 12 § 5 OP)
+            total_tests += 1
+            try:
+                def check_vat(data):
+                    vat = data.get("deadlines", [{}])[0]
+                    if vat.get("deadline") != "2026-10-26" or not vat.get("shifted"):
+                        raise TestFailure(f"Expected VAT deadline 2026-10-26 (shifted), got {vat}")
+
+                test_json_stdout_contract(script, ["deadlines", "2026-09", "--only", "vat"], check_vat)
+                print("  ✓ Offline deadline shifting passed (VAT 2026-10-25 Sunday -> 2026-10-26)")
+            except TestFailure as e:
+                print(f"  ✗ Offline deadline shifting failed: {e}")
+                failed_tests += 1
+
+            total_tests += 1
+            try:
+                test_error_contract(script, ["month", "2026-13"], expected_exit=64)
+                print("  ✓ Invalid month rejected (exit 64, JSON error on stderr)")
+            except TestFailure as e:
+                print(f"  ✗ Invalid month contract failed: {e}")
+                failed_tests += 1
+
         elif skill_name == "imgw":
             # Test offline station search
             total_tests += 1
