@@ -3,14 +3,16 @@ name: sejm
 display_name: Sejm Rzeczypospolitej Polskiej
 version: 1.0.0
 description: >-
-  Oficjalne dane parlamentarne Sejmu RP z otwartego API (api.sejm.gov.pl). Baza posłów X kadencji
-  (okręgi wyborcze, kluby parlamentarne, komisje sejmowe, kontakt), szczegółowe wyniki głosowań
-  (głosowania imienne, podział głosów wg klubów: za/przeciw/wstrzymał się/nieobecny, sprawdzanie jak
-  głosował dany poseł), baza druków sejmowych i przebieg procesu legislacyjnego (etapy prac nad
-  projektami ustaw i uchwał) oraz interpelacje poselskie i odpowiedzi ministerstw. Zero kluczy API,
-  w 100% oficjalne dane publiczne. Użyj, gdy użytkownik pyta o: "posłowie na Sejm", "kto jest posłem z
-  okręgu X", "jak głosowano w Sejmie nad ustawą Y", "jak głosował poseł Kowalski", "na jakim etapie
-  jest projekt ustawy", "druki sejmowe", "interpelacje poselskie".
+  Official parliamentary data of the Sejm RP (Polish lower house) from the open API
+  (api.sejm.gov.pl). Database of MPs of the 10th term (X kadencja) (electoral districts,
+  parliamentary clubs, Sejm committees, contact details), detailed voting results (roll-call
+  votes, breakdown of votes by club: for/against/abstained/absent, checking how a given MP
+  voted), the database of druki sejmowe (Sejm prints) and the course of the legislative process
+  (stages of work on bills and resolutions), as well as interpelacje poselskie (MPs'
+  interpellations) and ministries' replies. No API keys, 100% official public data. Use
+  whenever the user asks about: "posłowie na Sejm", "kto jest posłem z okręgu X", "jak
+  głosowano w Sejmie nad ustawą Y", "jak głosował poseł Kowalski", "na jakim etapie jest
+  projekt ustawy", "druki sejmowe", "interpelacje poselskie".
 category: legal
 language: pl
 country: PL
@@ -41,85 +43,85 @@ compatibility: Python 3.8+ (standard library only); network access to api.sejm.g
 
 # Sejm Rzeczypospolitej Polskiej
 
-Oficjalny skill integrujący otwarte API Sejmu RP za pomocą `scripts/sejm.py`.
-Umożliwia agentom AI neutralny dostęp do oficjalnych danych o posłach, głosowaniach,
-drukach sejmowych, procesie legislacyjnym i interpelacjach. Zwraca czysty format JSON na `stdout`.
+Official skill integrating the open Sejm RP API via `scripts/sejm.py`.
+Gives AI agents neutral access to official data on MPs, votings,
+druki sejmowe (Sejm prints), the legislative process and interpelacje (interpellations). Returns clean JSON on `stdout`.
 
-## Uruchamianie
+## Running
 
-Uruchamiaj z katalogu skilla (lub ze ścieżki głównej repozytorium):
+Run from the skill directory (or from the repository root path):
 
-| System operacyjny | Komenda |
+| Operating system | Command |
 |---|---|
-| Linux / macOS | `python3 scripts/sejm.py <komenda> …` |
-| Windows | `py scripts/sejm.py <komenda> …` (lub `python`) |
+| Linux / macOS | `python3 scripts/sejm.py <command> …` |
+| Windows | `py scripts/sejm.py <command> …` (or `python`) |
 
-Zero zewnętrznych bibliotek (standardowa biblioteka Pythona 3.8+).
+Zero external libraries (Python 3.8+ standard library).
 
-## Główne scenariusze użycia
+## Main Use Cases
 
-1. **Baza posłów i komisji:**
-   - Wyszukiwanie posłów z danego okręgu wyborczego lub po nazwisku:
+1. **MPs and committees database:**
+   - Searching for MPs from a given electoral district or by surname:
      `python3 scripts/sejm.py mps --district "Gdańsk"`
      `python3 scripts/sejm.py mps --search "Kowalski"`
      `python3 scripts/sejm.py mps --club "PiS"`
-   - Sprawdzenie szczegółów posła i komisji, w których zasiada:
+   - Checking an MP's details and the committees they sit on:
      `python3 scripts/sejm.py mps --id 133`
 
-2. **Głosowania i weryfikacja głosu konkretnego posła:**
-   - Sprawdzenie wyników głosowania i podziału głosów według klubów (za, przeciw, wstrzymał się):
+2. **Votings and checking a specific MP's vote:**
+   - Checking voting results and the breakdown of votes by club (for, against, abstained):
      `python3 scripts/sejm.py voting 1 2`
-   - Sprawdzenie jak głosował konkretny poseł w danym głosowaniu:
+   - Checking how a specific MP voted in a given voting:
      `python3 scripts/sejm.py voting 1 2 --mp "Hołownia"`
-   - Przegląd tematów głosowań na ostatnim posiedzeniu:
+   - Overview of voting topics at the latest posiedzenie (sitting):
      `python3 scripts/sejm.py votings`
      `python3 scripts/sejm.py votings --sitting 1 --search "Wicemarszałków"`
 
-3. **Druki sejmowe i proces legislacyjny:**
-   - Sprawdzenie druku sejmowego po numerze:
+3. **Druki sejmowe and the legislative process:**
+   - Looking up a druk sejmowy (Sejm print) by number:
      `python3 scripts/sejm.py prints --number 1`
-   - Wyszukiwanie druków po temacie:
+   - Searching prints by topic:
      `python3 scripts/sejm.py prints --search "podatku"`
-   - Sprawdzenie etapów prac nad projektem ustawy (czy wpłynął, I/II/III czytanie, czy uchwalono):
+   - Checking the stages of work on a bill (whether it was submitted, 1st/2nd/3rd reading, whether it was passed):
      `python3 scripts/sejm.py process 1`
 
-4. **Interpelacje poselskie:**
-   - Wyszukiwanie interpelacji wg tematu lub po numerze:
+4. **Interpelacje poselskie (MPs' interpellations):**
+   - Searching interpellations by topic or by number:
      `python3 scripts/sejm.py interpellations --search "CPK"`
      `python3 scripts/sejm.py interpellations --number 1`
 
-## Komendy
+## Commands
 
-| Komenda | Opis | Zwracane dane |
+| Command | Description | Returned data |
 |---|---|---|
-| `mps [--search S] [--club C] [--district D]` | Lista i wyszukiwanie posłów | `id`, `firstLastName`, `club`, `districtName`, `email`, `profession` |
-| `mps --id <id>` | Pełne dane posła i komisje sejmowe | `birthDate`, `profession`, `committees` (z pełnioną funkcją) |
-| `voting <sitting> <number> [--mp MP]` | Szczegóły głosowania i głos posła | `results`, `clubSummary` (głosy wg klubów), `mpVote` |
-| `votings [--sitting S] [--search Q]` | Lista głosowań na posiedzeniu | `votingNumber`, `date`, `title`, `topic`, `yes`, `no`, `abstain` |
-| `prints [--number N] [--search Q]` | Wyszukiwanie druków sejmowych | `number`, `title`, `documentDate`, `attachments` |
-| `process <numer_druku>` | Etapy procesu legislacyjnego ustawy | `documentType`, `passed`, `closureDate`, chronologiczne `stages` |
-| `interpellations [--number N] [--search Q]` | Interpelacje i odpowiedzi | `number`, `title`, `sentDate`, `fromMpIds`, `replies` |
-| `terms` | Wykaz kadencji Sejmu (I–X) | `terms` (daty, numer, flaga `current`) |
+| `mps [--search S] [--club C] [--district D]` | List and search MPs | `id`, `firstLastName`, `club`, `districtName`, `email`, `profession` |
+| `mps --id <id>` | Full MP details and Sejm committees | `birthDate`, `profession`, `committees` (with the role held) |
+| `voting <sitting> <number> [--mp MP]` | Voting details and an MP's vote | `results`, `clubSummary` (votes by club), `mpVote` |
+| `votings [--sitting S] [--search Q]` | List of votings at a sitting | `votingNumber`, `date`, `title`, `topic`, `yes`, `no`, `abstain` |
+| `prints [--number N] [--search Q]` | Search druki sejmowe | `number`, `title`, `documentDate`, `attachments` |
+| `process <print_number>` | Stages of a bill's legislative process | `documentType`, `passed`, `closureDate`, chronological `stages` |
+| `interpellations [--number N] [--search Q]` | Interpellations and replies | `number`, `title`, `sentDate`, `fromMpIds`, `replies` |
+| `terms` | List of Sejm terms (kadencje I–X) | `terms` (dates, number, `current` flag) |
 
-Szczegółowy opis schematów JSON: [references/output.md](references/output.md).
+Detailed description of JSON schemas: [references/output.md](references/output.md).
 
-## Zasady neutralności
+## Neutrality Rules
 
-- To narzędzie dostarcza obiektywnych danych parlamentarnych, a nie opinii politycznych.
-- Nie formułuj ocen, rankingów moralnych ani politycznych interpretacji zachowań posłów.
-- Każda odpowiedź powinna jednoznacznie wskazywać:
-  * Źródło: **Sejm Rzeczypospolitej Polskiej** (`api.sejm.gov.pl`),
-  * Numer kadencji (domyślnie **X kadencja**),
-  * Numer posiedzenia i numer głosowania lub druku,
-  * Datę zdarzenia.
+- This tool provides objective parliamentary data, not political opinions.
+- Do not make evaluations, moral rankings or political interpretations of MPs' behavior.
+- Every response should clearly state:
+  * Source: **Sejm Rzeczypospolitej Polskiej** (`api.sejm.gov.pl`),
+  * Term number (kadencja; default **X kadencja**),
+  * Sitting (posiedzenie) number and voting or print number,
+  * Date of the event.
 
-## Kody wyjścia
+## Exit Codes
 
-Czysty JSON trafia na `stdout`; błędy na `stderr` jako `{"error": "...", "type": "..."}`.
+Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": "..."}`.
 
-| Kod | Znaczenie | Działanie |
+| Code | Meaning | Action |
 |---|---|---|
-| `0` | Sukces | Przetwórz dane JSON |
-| `2` | Nie znaleziono | Poseł, głosowanie, druk lub proces nie istnieje |
-| `64` | Błędne wywołanie / walidacja | Sprawdź parametry wywołania polecenia |
-| `69` | Błąd serwera Sejmu RP / sieci | Chwilowy problem z API; spróbuj ponownie |
+| `0` | Success | Process the JSON data |
+| `2` | Not found | MP, voting, print or process does not exist |
+| `64` | Invalid invocation / validation | Check the command parameters |
+| `69` | Sejm RP server / network error | Temporary API problem; try again |

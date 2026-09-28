@@ -1,148 +1,148 @@
-# Sejm RP CLI — Dokumentacja Wyjścia i Schematów Danych
+# Sejm RP CLI — Output and Data Schema Reference
 
-Wszystkie polecenia zwracają ustrukturyzowany format JSON na standardowym wyjściu (`stdout`), a błędy na `stderr`.
-Brakujące wartości zwracane są jako `null`, a puste zbiory jako `[]`.
+All commands return structured JSON on standard output (`stdout`), and errors on `stderr`.
+Missing values are returned as `null`, and empty collections as `[]`.
 
 ---
 
-## 1. `mps` (lub `mp`)
+## 1. `mps` (or `mp`)
 
-Pobiera bazę posłów na Sejm RP (domyślnie X kadencja).
+Fetches the database of MPs of the Sejm RP (default: X kadencja, 10th term).
 
-### Wyszukiwanie / lista:
-`python3 scripts/sejm.py mps [--search <nazwisko>] [--club <klub>] [--district <okręg>]`
+### Search / list:
+`python3 scripts/sejm.py mps [--search <surname>] [--club <club>] [--district <district>]`
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `id` | int | Unikalny identyfikator posła w bazie Sejmu RP |
-| `firstLastName` | string | Imię i nazwisko posła (np. `"Szymon Hołownia"`) |
-| `club` | string | Skrót klubu lub koła poselskiego (np. `"PiS"`, `"KO"`, `"Polska2050"`, `"PSL-TD"`, `"Konfederacja"`, `"Lewica"`, `"Razem"`, `"niez."`) |
-| `districtName` | string | Siedziba okręgowej komisji wyborczej (np. `"Białystok"`, `"Gdańsk"`, `"Warszawa"`) |
-| `districtNum` | int | Numer okręgu wyborczego |
-| `voivodeship` | string | Województwo |
-| `email` | string | Oficjalny adres e-mail w domenie `@sejm.pl` |
-| `active` | bool | Czy mandat poselski jest aktywny |
-| `profession` | string | Wykonywany zawód zgłoszony przez posła |
+| `id` | int | Unique MP identifier in the Sejm RP database |
+| `firstLastName` | string | MP's first and last name (e.g. `"Szymon Hołownia"`) |
+| `club` | string | Abbreviation of the parliamentary club (klub) or circle (koło) (e.g. `"PiS"`, `"KO"`, `"Polska2050"`, `"PSL-TD"`, `"Konfederacja"`, `"Lewica"`, `"Razem"`, `"niez."`) |
+| `districtName` | string | Seat of the district electoral commission (e.g. `"Białystok"`, `"Gdańsk"`, `"Warszawa"`) |
+| `districtNum` | int | Electoral district number |
+| `voivodeship` | string | Voivodeship (województwo) |
+| `email` | string | Official e-mail address in the `@sejm.pl` domain |
+| `active` | bool | Whether the MP's mandate is active |
+| `profession` | string | Profession declared by the MP |
 
-### Szczegóły posła i komisje:
+### MP details and committees:
 `python3 scripts/sejm.py mps --id <id>`
 
-Dodatkowe pola:
+Additional fields:
 - `birthDate`, `birthLocation`, `educationLevel`, `numberOfVotes`, `oathDate`
-- `committees`: lista komisji sejmowych, w których zasiada poseł, wraz z pełnioną funkcją (`"przewodniczący"`, `"zastępca przewodniczącego"`, `"członek"`).
+- `committees`: list of Sejm committees the MP sits on, with the role held (`"przewodniczący"`, `"zastępca przewodniczącego"`, `"członek"`).
 
 ---
 
 ## 2. `voting`
 
-Pobiera szczegółowe wyniki pojedynczego głosowania, zestawienie klubowe oraz głos konkretnego posła.
+Fetches detailed results of a single voting, the per-club summary and a specific MP's vote.
 
-`python3 scripts/sejm.py voting <posiedzenie> <głosowanie> [--mp <nazwisko_lub_id>]`
+`python3 scripts/sejm.py voting <sitting> <voting> [--mp <surname_or_id>]`
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `term` | int | Numer kadencji (np. `10`) |
-| `sitting` | int | Numer posiedzenia Sejmu |
-| `votingNumber` | int | Numer głosowania na posiedzeniu |
-| `date` | string | Dokładna data i godzina głosowania ISO-8601 |
-| `title` | string | Pełny oficjalny tytuł głosowania (np. punkt porządku dziennego, numer druku) |
-| `topic` | string | Temat głosowania / skrócony opis |
-| `totalVoted` | int | Liczba posłów biorących udział w głosowaniu |
-| `majorityVotes` | int | Wymagana większość głosów |
-| `majorityType` | string | Typ większości (np. `"SIMPLE_MAJORITY"`, `"ABSOLUTE_MAJORITY"`) |
-| `results` | object | Wyniki ogólne: `yes`, `no`, `abstain`, `notParticipating` |
-| `clubSummary` | object | Zagregowane wyniki dla każdego klubu: `{ "PiS": {"total": 194, "yes": 192, "absent": 2}, ... }` |
-| `mpVote` | object \| null | Głos wskazanego posła: `{ "id": 133, "name": "...", "club": "...", "vote": "YES" }` |
+| `term` | int | Term (kadencja) number (e.g. `10`) |
+| `sitting` | int | Sejm sitting (posiedzenie) number |
+| `votingNumber` | int | Voting number within the sitting |
+| `date` | string | Exact date and time of the voting, ISO-8601 |
+| `title` | string | Full official voting title (e.g. agenda item, print number) |
+| `topic` | string | Voting topic / short description |
+| `totalVoted` | int | Number of MPs who took part in the voting |
+| `majorityVotes` | int | Required majority of votes |
+| `majorityType` | string | Majority type (e.g. `"SIMPLE_MAJORITY"`, `"ABSOLUTE_MAJORITY"`) |
+| `results` | object | Overall results: `yes`, `no`, `abstain`, `notParticipating` |
+| `clubSummary` | object | Aggregated results for each club: `{ "PiS": {"total": 194, "yes": 192, "absent": 2}, ... }` |
+| `mpVote` | object \| null | Vote of the specified MP: `{ "id": 133, "name": "...", "club": "...", "vote": "YES" }` |
 
-Wartości głosu posła (`vote`):
-- `YES` — za
-- `NO` — przeciw
-- `ABSTAIN` — wstrzymał się
-- `ABSENT` / `NOT_PARTICIPATING` — nieobecny / brak udziału
+MP vote values (`vote`):
+- `YES` — for
+- `NO` — against
+- `ABSTAIN` — abstained
+- `ABSENT` / `NOT_PARTICIPATING` — absent / did not participate
 
 ---
 
 ## 3. `votings`
 
-Przegląd głosowań na danym posiedzeniu Sejmu.
+Overview of votings at a given Sejm sitting.
 
-`python3 scripts/sejm.py votings [--sitting <nr>] [--search <fraza>]`
+`python3 scripts/sejm.py votings [--sitting <no>] [--search <phrase>]`
 
 ---
 
-## 4. `prints` (lub `print`)
+## 4. `prints` (or `print`)
 
-Wyszukiwanie i pobieranie druków sejmowych (projekty ustaw, uchwał, sprawozdania komisji, wnioski).
+Search and retrieve druki sejmowe (Sejm prints: bills, draft resolutions, committee reports, motions).
 
-`python3 scripts/sejm.py prints [--number <nr>] [--search <fraza>]`
+`python3 scripts/sejm.py prints [--number <no>] [--search <phrase>]`
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `number` | string | Numer druku sejmowego |
-| `title` | string | Oficjalny tytuł druku |
-| `documentDate` | string | Data sporządzenia dokumentu |
-| `deliveryDate` | string | Data wpłynięcia / doręczenia do Sejmu |
-| `attachments` | string[] | Pliki załączników PDF dostępne w API |
-| `processPrint` | string[] | Powiązane numery druków w procesie legislacyjnym |
+| `number` | string | Druk sejmowy (Sejm print) number |
+| `title` | string | Official print title |
+| `documentDate` | string | Date the document was drawn up |
+| `deliveryDate` | string | Date of receipt / delivery to the Sejm |
+| `attachments` | string[] | PDF attachment files available in the API |
+| `processPrint` | string[] | Related print numbers in the legislative process |
 
 ---
 
 ## 5. `process`
 
-Śledzenie etapów procesu legislacyjnego nad danym drukiem / projektem ustawy.
+Tracking the stages of the legislative process for a given print / bill.
 
-`python3 scripts/sejm.py process <numer_druku>`
+`python3 scripts/sejm.py process <print_number>`
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `number` | string | Numer druku |
-| `title` | string | Tytuł projektu ustawy lub uchwały |
-| `titleFinal` | string \| null | Ostateczny tytuł przyjętego aktu prawnego |
-| `documentType` | string | Rodzaj dokumentu (np. `"projekt ustawy"`, `"projekt uchwały"`) |
-| `processStartDate` | string | Data rozpoczęcia procedowania w Sejmie |
-| `closureDate` | string \| null | Data zakończenia prac w Sejmie |
-| `passed` | bool | Czy ustawa / uchwała została uchwalona przez Sejm |
-| `displayAddress` | string \| null | Pozycja w Dzienniku Ustaw lub Monitorze Polskim |
-| `stages` | list | Chronologiczna lista etapów prac: `{ "date", "stageName", "stageType", "sitting" }` |
-| `links` | list | Linki do ISAP, ELI oraz treści ustawy |
+| `number` | string | Print number |
+| `title` | string | Title of the bill or draft resolution |
+| `titleFinal` | string \| null | Final title of the adopted legal act |
+| `documentType` | string | Document type (e.g. `"projekt ustawy"`, `"projekt uchwały"`) |
+| `processStartDate` | string | Date processing started in the Sejm |
+| `closureDate` | string \| null | Date work in the Sejm was completed |
+| `passed` | bool | Whether the act / resolution was passed by the Sejm |
+| `displayAddress` | string \| null | Entry in the Dziennik Ustaw or Monitor Polski (official journals) |
+| `stages` | list | Chronological list of work stages: `{ "date", "stageName", "stageType", "sitting" }` |
+| `links` | list | Links to ISAP, ELI and the text of the act |
 
 ---
 
 ## 6. `interpellations`
 
-Wyszukiwanie interpelacji poselskich i odpowiedzi resortów.
+Search interpelacje poselskie (MPs' interpellations) and ministries' replies.
 
-`python3 scripts/sejm.py interpellations [--number <nr>] [--search <fraza>] [--mp-id <id>]`
+`python3 scripts/sejm.py interpellations [--number <no>] [--search <phrase>] [--mp-id <id>]`
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `number` | int | Numer interpelacji |
-| `title` | string | Tytuł interpelacji |
-| `receiptDate` | string | Data wpływu do Marszałka Sejmu |
-| `sentDate` | string | Data przekazania do właściwego ministerstwa |
-| `fromMpIds` | string[] | Identyfikatory posłów wnioskujących |
-| `toRecipients` | string[] | Adresaci (np. `"minister finansów"`, `"minister infrastruktury"`) |
-| `replies` | list | Odpowiedzi ministerstw: autor odpowiedzi, data wpływu, data modyfikacji |
+| `number` | int | Interpellation number |
+| `title` | string | Interpellation title |
+| `receiptDate` | string | Date of receipt by the Marszałek Sejmu (Speaker of the Sejm) |
+| `sentDate` | string | Date forwarded to the competent ministry |
+| `fromMpIds` | string[] | Identifiers of the submitting MPs |
+| `toRecipients` | string[] | Recipients (e.g. `"minister finansów"`, `"minister infrastruktury"`) |
+| `replies` | list | Ministries' replies: reply author, receipt date, modification date |
 
 ---
 
 ## 7. `terms`
 
-Katalog kadencji Sejmu RP (od I do X kadencji). Działa w 100% offline.
+Catalog of Sejm RP terms (kadencje I to X). Works 100% offline.
 
 ---
 
-## Kody Wyjścia
+## Exit Codes
 
-| Kod | Znaczenie | Działanie Agenta |
+| Code | Meaning | Agent Action |
 |---|---|---|
-| `0` | Sukces | Odczytaj wynik z formatu JSON na `stdout` |
-| `2` | Nie znaleziono | Poseł, głosowanie, druk lub proces nie istnieje |
-| `64` | Błąd walidacji / argumentów | Sprawdź parametry wywołania polecenia |
-| `69` | Błąd serwera Sejmu RP / sieci | Chwilowy błąd API Sejmu; ponów próbę za chwilę |
+| `0` | Success | Read the result from the JSON on `stdout` |
+| `2` | Not found | MP, voting, print or process does not exist |
+| `64` | Validation / argument error | Check the command parameters |
+| `69` | Sejm RP server / network error | Temporary Sejm API error; retry shortly |
 
 ---
 
-## Neutralność i Prawa Autorskie
+## Neutrality and Copyright
 
-Dane pochodzą z oficjalnego Otwartego API Sejmu Rzeczypospolitej Polskiej (`https://api.sejm.gov.pl/`). Zgodnie z polskim prawem autorskim, materiały urzędowe, dokumenty i materiały parlamentarne nie podlegają prawu autorskiemu (art. 4 ustawy o prawie autorskim i prawach pokrewnych). Odpowiedzi powinny zawsze wskazywać źródło danych: **Kancelaria Sejmu RP** oraz jednoznacznie określać kadencję i identyfikator sprawy.
+The data comes from the official Open API of the Sejm Rzeczypospolitej Polskiej (`https://api.sejm.gov.pl/`). Under Polish copyright law, official materials, documents and parliamentary materials are not subject to copyright (art. 4 of the ustawa o prawie autorskim i prawach pokrewnych — Act on Copyright and Related Rights). Responses should always cite the data source: **Kancelaria Sejmu RP**, and clearly specify the term (kadencja) and the case identifier.

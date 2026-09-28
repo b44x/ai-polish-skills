@@ -3,15 +3,15 @@ name: imgw
 display_name: IMGW-PIB Pogoda i Ostrzeżenia
 version: 1.0.0
 description: >-
-  Pobieraj oficjalne dane meteorologiczne i hydrologiczne dla Polski z Instytutu Meteorologii
-  i Gospodarki Wodnej (IMGW-PIB). Sprawdzaj aktualną temperaturę, ciśnienie atmosferyczne,
-  wilgotność, prędkość i kierunek wiatru oraz sumę opadów ze stacji synoptycznych (Warszawa,
-  Kraków, Gdańsk, Zakopane i 58 innych). Wyszukuj najbliższą stację pogodową po współrzędnych GPS.
-  Pobieraj oficjalne ostrzeżenia meteorologiczne (burze, wichury, upały, mrozy) oraz hydrologiczne
-  (susza hydrologiczna, stany wód rzek, stany alarmowe i ostrzegawcze na Wiśle, Odrze itp.). Zero
-  kluczy API, w 100% oficjalne dane publiczne. Użyj, gdy użytkownik pyta o: "pogoda IMGW", "jaka jest
-  temperatura w Warszawie", "ostrzeżenia IMGW", "stan Wisły", "stan wody", "alerty pogodowe",
-  "ciśnienie", "wiatr", "opady w Polsce".
+  Fetch official meteorological and hydrological data for Poland from the Instytut Meteorologii
+  i Gospodarki Wodnej (IMGW-PIB). Check current temperature, atmospheric pressure, humidity,
+  wind speed and direction, and rainfall totals from synoptic stations (Warszawa, Kraków,
+  Gdańsk, Zakopane and 58 others). Find the nearest weather station by GPS coordinates.
+  Fetch official meteorological warnings (storms, gales, heat, frost) and hydrological
+  warnings (hydrological drought, river water levels, alarm and warning levels on the Wisła,
+  Odra, etc.). No API keys, 100% official public data. Use whenever the user asks about:
+  "pogoda IMGW", "jaka jest temperatura w Warszawie", "ostrzeżenia IMGW", "stan Wisły",
+  "stan wody", "alerty pogodowe", "ciśnienie", "wiatr", "opady w Polsce".
 category: public_data
 language: pl
 country: PL
@@ -42,85 +42,85 @@ tags:
 compatibility: Python 3.8+ (standard library only); network access to danepubliczne.imgw.pl.
 ---
 
-# IMGW-PIB Pogoda, Alerty i Hydrologia
+# IMGW-PIB Weather, Alerts and Hydrology
 
-Oficjalny skill integrujący publiczne dane Instytutu Meteorologii i Gospodarki Wodnej (IMGW-PIB)
-za pomocą `scripts/imgw.py`. Działa bez kluczy API, korzysta wyłącznie z biblioteki standardowej Pythona
-i zwraca ustrukturyzowany format JSON na `stdout`.
+Official skill integrating public data from the Instytut Meteorologii i Gospodarki Wodnej (IMGW-PIB)
+via `scripts/imgw.py`. Works without API keys, uses only the Python standard library,
+and returns structured JSON on `stdout`.
 
-## Uruchamianie
+## Running
 
-Uruchamiaj z katalogu skilla (lub ze ścieżki głównej repozytorium):
+Run from the skill directory (or from the repository root path):
 
-| System operacyjny | Komenda |
+| Operating system | Command |
 |---|---|
-| Linux / macOS | `python3 scripts/imgw.py <komenda> …` |
-| Windows | `py scripts/imgw.py <komenda> …` (lub `python`) |
+| Linux / macOS | `python3 scripts/imgw.py <command> …` |
+| Windows | `py scripts/imgw.py <command> …` (or `python`) |
 
-Zero zewnętrznych bibliotek (Python 3.8+ stdlib).
+Zero external libraries (Python 3.8+ stdlib).
 
-## Główne scenariusze użycia
+## Main Use Cases
 
-1. **Aktualna pogoda dla konkretnego miasta / stacji:**
-   - Gdy użytkownik pyta np. „Jaka jest teraz temperatura w Warszawie?”, „Pokaż pogodę z IMGW dla Zakopanego”:
+1. **Current weather for a specific city / station:**
+   - When the user asks e.g. „Jaka jest teraz temperatura w Warszawie?”, „Pokaż pogodę z IMGW dla Zakopanego”:
      `python3 scripts/imgw.py weather Warszawa`
      `python3 scripts/imgw.py weather Kraków`
      `python3 scripts/imgw.py weather Zakopane`
-   - Skrypt automatycznie radzi sobie z polskimi znakami diakrytycznymi (np. `Kraków` -> `krakow`),
-     oraz bezpiecznie obsługuje stacje górskie, gdzie ciśnienie na poziomie morza jest `null`.
+   - The script automatically handles Polish diacritics (e.g. `Kraków` -> `krakow`),
+     and safely handles mountain stations, where sea-level pressure is `null`.
 
-2. **Wyszukanie najbliższej stacji IMGW po współrzędnych GPS:**
-   - Gdy użytkownik pyta o pogodę w miejscowości bez stacji synoptycznej (np. Sopot, Gdynia, Piaseczno)
-     lub podaje koordynaty GPS:
+2. **Finding the nearest IMGW station by GPS coordinates:**
+   - When the user asks about weather in a town without a synoptic station (e.g. Sopot, Gdynia, Piaseczno)
+     or provides GPS coordinates:
      `python3 scripts/imgw.py near 54.44 18.56`
-   - Oblicza odległość ortodromiczną (Haversine) do wszystkich 62 stacji w Polsce i automatycznie
-     pobiera bieżącą pogodę z najbliższej stacji (w tym przykładzie: Gdańsk, 7 km).
+   - Computes the great-circle (Haversine) distance to all 62 stations in Poland and automatically
+     fetches current weather from the nearest station (in this example: Gdańsk, 7 km).
 
-3. **Oficjalne ostrzeżenia i alerty IMGW:**
-   - Gdy użytkownik pyta np. „Czy IMGW wydało ostrzeżenia dla województwa pomorskiego?”, „Czy są alerty pogodowe?”:
+3. **Official IMGW warnings and alerts:**
+   - When the user asks e.g. „Czy IMGW wydało ostrzeżenia dla województwa pomorskiego?”, „Czy są alerty pogodowe?”:
      `python3 scripts/imgw.py warnings --type all`
      `python3 scripts/imgw.py warnings --voivodeship pomorskie`
      `python3 scripts/imgw.py warnings --type meteo`
 
-4. **Stany rzek i zagrożenie powodziowe / suszą (Hydrologia):**
-   - Gdy użytkownik pyta np. „Jaki jest stan wody na Wiśle?”, „Czy gdzieś w Polsce przekroczono stan alarmowy?”:
+4. **River levels and flood / drought risk (Hydrology):**
+   - When the user asks e.g. „Jaki jest stan wody na Wiśle?”, „Czy gdzieś w Polsce przekroczono stan alarmowy?”:
      `python3 scripts/imgw.py hydro --river Wisła`
      `python3 scripts/imgw.py hydro --alarm-only`
      `python3 scripts/imgw.py hydro --station Warszawa`
 
-5. **Przegląd całej Polski (Synop) lub lista stacji:**
-   - Gdzie jest teraz najcieplej / najzimniej w Polsce:
+5. **Overview of all of Poland (Synop) or station list:**
+   - Where it is currently warmest / coldest in Poland:
      `python3 scripts/imgw.py synop --sort temp_desc --limit 5`
      `python3 scripts/imgw.py synop --sort wind_desc --limit 5`
-   - Sprawdzenie dostępnych stacji offline:
+   - Checking available stations offline:
      `python3 scripts/imgw.py stations --search Poznań`
 
-## Komendy
+## Commands
 
-| Komenda | Opis | Zwracane dane |
+| Command | Description | Returned data |
 |---|---|---|
-| `weather <stacja>` | Aktualna pogoda ze stacji synoptycznej | `temperatureC`, `pressureHpa`, `windSpeedMs`, `windDirectionDeg`, `relativeHumidityPercent`, `rainfallMm`, `formatted`, `coordinates` |
-| `near <lat> <lon> [--limit N]` | Najbliższa stacja synoptyczna do GPS | `closestStation` (z odległością w km i pogodą), `nearbyStations` |
-| `warnings [--type meteo\|hydro\|all] [--voivodeship V]` | Oficjalne ostrzeżenia meteo i hydro | Lista aktywnych alertów: `event`, `level`, `published`, `validFrom`, `validTo`, `course`, `voivodeships` |
-| `hydro [--river R] [--station S] [--alarm-only]` | Pomiary ze stacji wodowskazowych | `river`, `stationName`, `status`, `waterLevelCm`, `warningLevelCm`, `alarmLevelCm`, `waterTemperatureC` |
-| `synop [--sort S] [--limit N]` | Przegląd wszystkich 62 stacji w Polsce | Zbiorcza lista stacji posortowana wg temperatury, wiatru, ciśnienia lub nazwy |
-| `stations [--search Q]` | Katalog stacji synoptycznych (offline) | `stationId`, `stationName`, `slug`, `coordinates` |
+| `weather <station>` | Current weather from a synoptic station | `temperatureC`, `pressureHpa`, `windSpeedMs`, `windDirectionDeg`, `relativeHumidityPercent`, `rainfallMm`, `formatted`, `coordinates` |
+| `near <lat> <lon> [--limit N]` | Nearest synoptic station to GPS coordinates | `closestStation` (with distance in km and weather), `nearbyStations` |
+| `warnings [--type meteo\|hydro\|all] [--voivodeship V]` | Official meteo and hydro warnings | List of active alerts: `event`, `level`, `published`, `validFrom`, `validTo`, `course`, `voivodeships` |
+| `hydro [--river R] [--station S] [--alarm-only]` | Measurements from water-gauge stations | `river`, `stationName`, `status`, `waterLevelCm`, `warningLevelCm`, `alarmLevelCm`, `waterTemperatureC` |
+| `synop [--sort S] [--limit N]` | Overview of all 62 stations in Poland | Aggregate list of stations sorted by temperature, wind, pressure or name |
+| `stations [--search Q]` | Catalog of synoptic stations (offline) | `stationId`, `stationName`, `slug`, `coordinates` |
 
-Szczegółowy opis schematów i pól: [references/output.md](references/output.md).
+Detailed description of schemas and fields: [references/output.md](references/output.md).
 
-## Kody wyjścia
+## Exit Codes
 
-Czysty JSON trafia na `stdout`; błędy na `stderr` jako `{"error": "...", "type": "..."}`.
+Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": "..."}`.
 
-| Kod | Znaczenie | Działanie |
+| Code | Meaning | Action |
 |---|---|---|
-| `0` | Sukces | Użyj danych JSON |
-| `2` | Nie znaleziono | Stacja lub rzeka nie istnieje w bazie IMGW |
-| `64` | Błędne wywołanie / walidacja | Sprawdź parametry polecenia lub współrzędne |
-| `69` | Błąd serwera IMGW / sieci | Chwilowy błąd sieciowy; spróbuj ponownie |
+| `0` | Success | Use the JSON data |
+| `2` | Not found | Station or river does not exist in the IMGW database |
+| `64` | Invalid invocation / validation | Check the command parameters or coordinates |
+| `69` | IMGW server / network error | Temporary network error; try again |
 
-## Zasady i Dobre Praktyki
+## Rules and Best Practices
 
-- Zawsze podawaj źródło danych: **IMGW-PIB**.
-- Na stacjach górskich (np. Kasprowy Wierch, Śnieżka, Zakopane) ciśnienie jest często pomijane (`null`), ponieważ nie redukuje się go do poziomu morza w standardowy sposób — informuj o tym użytkownika.
-- W odpowiedziach dla użytkownika korzystaj z gotowych sformatowanych pól w obiekcie `formatted` (`20.4 °C`, `1028.5 hPa`, `3.0 m/s (100°)`).
+- Always cite the data source: **IMGW-PIB**.
+- At mountain stations (e.g. Kasprowy Wierch, Śnieżka, Zakopane) pressure is often omitted (`null`), because it is not reduced to sea level in the standard way — inform the user about this.
+- In responses to the user, use the ready-made formatted fields in the `formatted` object (`20.4 °C`, `1028.5 hPa`, `3.0 m/s (100°)`).
