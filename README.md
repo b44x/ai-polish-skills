@@ -1,6 +1,6 @@
-# ai-skills
+# ai-polish-skills
 
-A curated collection of modular, production-ready AI agent skills (`SKILL.md` format) tailored for real-world workflows and services.
+A curated collection of modular, production-ready AI agent skills (`SKILL.md` format) tailored for Polish services, APIs, and workflows.
 
 Every skill provides:
 - A standardized `SKILL.md` definition with YAML frontmatter (progressive disclosure).
@@ -30,8 +30,8 @@ Symlink or copy the desired skill directory into your project's `.agents/skills/
 
 ```bash
 mkdir -p .agents/skills
-ln -s /path/to/ai-skills/skills/biala-lista .agents/skills/biala-lista
-ln -s /path/to/ai-skills/skills/inpost .agents/skills/inpost
+ln -s /path/to/ai-polish-skills/skills/biala-lista .agents/skills/biala-lista
+ln -s /path/to/ai-polish-skills/skills/inpost .agents/skills/inpost
 ```
 
 #### Global-level (Available across all projects):
@@ -39,8 +39,8 @@ Symlink or copy into the global Antigravity config directory:
 
 ```bash
 mkdir -p ~/.gemini/config/skills
-ln -s /path/to/ai-skills/skills/biala-lista ~/.gemini/config/skills/biala-lista
-ln -s /path/to/ai-skills/skills/inpost ~/.gemini/config/skills/inpost
+ln -s /path/to/ai-polish-skills/skills/biala-lista ~/.gemini/config/skills/biala-lista
+ln -s /path/to/ai-polish-skills/skills/inpost ~/.gemini/config/skills/inpost
 ```
 
 ### 2. Claude Code
@@ -49,7 +49,7 @@ Copy or symlink into your project's `.claude/skills/` or user-wide `~/.claude/sk
 
 ```bash
 mkdir -p .claude/skills
-ln -s /path/to/ai-skills/skills/inpost .claude/skills/inpost
+ln -s /path/to/ai-polish-skills/skills/inpost .claude/skills/inpost
 ```
 
 ### 3. Cursor / Windsurf / Custom Agents
@@ -110,6 +110,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for branch strategy (`dev` -> `main`), se
 
 ## Author & License
 
-Created and maintained by **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-skills](https://github.com/b44x/ai-skills)).
+Created and maintained by **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-polish-skills](https://github.com/b44x/ai-polish-skills)).
 
 Distributed under the [MIT License](LICENSE).

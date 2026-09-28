@@ -12,7 +12,7 @@ description: >-
   "status VAT spółki", "czy numer konta jest na białej liście", or verifying a Polish invoice.
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
-repository: https://github.com/b44x/ai-skills
+repository: https://github.com/b44x/ai-polish-skills
 compatibility: Python 3.8+ (standard library only); network access to wl-api.mf.gov.pl.
 ---
 
