@@ -11,6 +11,20 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 ---
 
+## Demo
+
+**See Polskie Skille in action** — one question in Polish, the agent picks a skill, the skill queries an official Polish source (Ministry of Finance, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost) and returns a human-readable result. Every value in the video comes from real runs of the skills.
+
+<p align="center">
+  <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille demo: an AI agent using Polish APIs and public data" width="960"></a>
+</p>
+
+<p align="center">
+  ▶️ <a href="docs/demo/demo.mp4"><b>Watch the full demo (MP4, 1080p, 95 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">how to regenerate the demo</a>
+</p>
+
+---
+
 ## 💡 What are Polish Skills?
 
 **ai-polish-skills** is an ecosystem of modular extensions for AI agents that provide models with direct, real-time access to Polish services. Rather than hallucinating information about VAT numbers, exchange rates, or parcel tracking, the agent executes a deterministic script and parses structured JSON output.

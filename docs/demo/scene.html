@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Polskie Skille — demo</title>
+<!--
+  Deterministic 1920×1080 animation for the demo video.
+  render.mjs injects window.DEMO_DATA (from demo_data.json) and calls
+  window.renderAt(seconds) once per frame. Nothing here depends on wall-clock time.
+-->
+<style>
+  :root {
+    --bg: #07090d;
+    --panel: #0d1117;
+    --panel-2: #121821;
+    --line: #232c38;
+    --text: #e6edf3;
+    --muted: #8b98a8;
+    --dim: #5b6776;
+    --accent: #ff4d5e;      /* Polish red, used sparingly */
+    --ok: #3fd18b;
+    --cyan: #6cc7ff;
+    --amber: #f2c46d;
+    --mono: "DejaVu Sans Mono", "Liberation Mono", monospace;
+    --sans: "DejaVu Sans", "Liberation Sans", sans-serif;
+    --emoji: "Noto Color Emoji";
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--sans); }
+  #stage { position: absolute; inset: 0; background:
+      radial-gradient(1200px 700px at 50% 38%, #111823 0%, rgba(7,9,13,0) 70%), var(--bg); }
+
+  /* ---------- title cards ---------- */
+  .card-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .brand { font-size: 104px; font-weight: 700; letter-spacing: 6px; }
+  .brand .flag { font-family: var(--emoji); font-size: 92px; margin-right: 28px; vertical-align: -6px; letter-spacing: 0; }
+  .tagline { margin-top: 26px; font-size: 40px; color: var(--text); opacity: .9; }
+  .small { margin-top: 30px; font-size: 26px; color: var(--muted); letter-spacing: 3px; }
+  .rule { width: 120px; height: 3px; background: var(--accent); margin: 34px auto 0; border-radius: 2px; }
+  .outro-line { font-size: 64px; font-weight: 700; margin: 10px 0; }
+  .outro-line.url { color: var(--accent); font-family: var(--mono); font-size: 56px; font-weight: 400; margin-top: 26px; }
+  .outro-final { font-size: 66px; font-weight: 700; }
+  .outro-final .flag { font-family: var(--emoji); margin-right: 22px; }
+  .outro-gh { margin-top: 30px; font-family: var(--mono); font-size: 34px; color: var(--muted); }
+
+  /* ---------- terminal ---------- */
+  #term { position: absolute; left: 150px; top: 58px; width: 1620px; height: 840px; border-radius: 16px;
+          background: var(--panel); border: 1px solid var(--line);
+          box-shadow: 0 40px 120px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.02) inset; overflow: hidden; }
+  #term .bar { height: 48px; display: flex; align-items: center; padding: 0 20px; background: #0a0e14; border-bottom: 1px solid var(--line); }
+  #term .dot { width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; background: #2a323d; }
+  #term .title { flex: 1; text-align: center; font-family: var(--mono); font-size: 18px; color: var(--muted); margin-right: 72px; }
+  #term .body { position: absolute; top: 48px; left: 0; right: 0; bottom: 0; padding: 30px 44px; font-family: var(--mono); }
+  .scene { position: absolute; left: 44px; right: 44px; top: 30px; bottom: 26px; }
+  .ln { font-size: 27px; line-height: 44px; white-space: pre; }
+  .prompt { color: var(--text); }
+  .prompt .chev { color: var(--accent); margin-right: 16px; font-weight: 700; }
+  .caret { display: inline-block; width: 14px; height: 30px; background: var(--text); vertical-align: -5px; margin-left: 3px; }
+  .agent { color: var(--muted); font-size: 23px; line-height: 40px; margin-top: 6px; }
+  .agent .spin { color: var(--cyan); display: inline-block; width: 30px; }
+  .route { font-size: 25px; line-height: 40px; margin-top: 6px; }
+  .route .arrow { color: var(--accent); font-weight: 700; margin-right: 10px; }
+  .route .skill { color: #0b0f14; background: var(--cyan); padding: 2px 12px; border-radius: 6px; font-weight: 700; }
+  .route .src { color: var(--muted); margin-left: 16px; }
+  .cmd { font-size: 19px; line-height: 34px; color: var(--dim); white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+  .cmd .dollar { color: var(--dim); margin-right: 10px; }
+  .cmd .st { margin-left: 16px; }
+  .cmd .st.ok { color: var(--ok); }
+  .cmd .st.run { color: var(--cyan); }
+  .step { font-size: 20px; line-height: 32px; color: var(--muted); white-space: pre; }
+  .step b { color: var(--ok); font-weight: 400; margin-right: 10px; }
+
+  .result { margin-top: 20px; background: var(--panel-2); border: 1px solid var(--line); border-left: 4px solid var(--ok);
+            border-radius: 12px; padding: 24px 30px; font-family: var(--sans); }
+  .r-head { display: flex; align-items: baseline; gap: 20px; }
+  .r-title { font-size: 33px; font-weight: 700; }
+  .badge { font-family: var(--mono); font-size: 18px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .badge.ok { color: var(--ok); border-color: rgba(63,209,139,.45); background: rgba(63,209,139,.08); }
+  .big { font-size: 52px; font-weight: 700; margin-top: 14px; color: var(--text); }
+  .rows { display: grid; grid-template-columns: 330px 1fr; column-gap: 26px; row-gap: 8px; margin-top: 16px; font-size: 25px; line-height: 34px; }
+  .rows .k { color: var(--muted); }
+  .rows .v { color: var(--text); }
+  .plist { margin-top: 12px; font-family: var(--mono); font-size: 21px; line-height: 32px; color: var(--text); }
+  .plist div::before { content: "•  "; color: var(--dim); }
+  table.t { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 22px; }
+  table.t th { text-align: left; font-family: var(--mono); font-size: 16px; letter-spacing: 1px; color: var(--muted); font-weight: 400; padding: 0 12px 10px 0; border-bottom: 1px solid var(--line); }
+  table.t td { padding: 10px 12px 10px 0; border-bottom: 1px solid rgba(35,44,56,.6); white-space: nowrap; }
+  table.t td.w { color: var(--amber); font-family: var(--mono); font-size: 21px; }
+  table.t td.d { font-family: var(--mono); font-size: 21px; color: var(--muted); }
+  .notes { margin-top: 12px; font-size: 18px; line-height: 26px; color: var(--muted); }
+  .votes { margin-top: 18px; }
+  .vrow { display: grid; grid-template-columns: 240px 1fr 90px; align-items: center; gap: 18px; font-size: 25px; line-height: 44px; }
+  .vrow .lab { color: var(--muted); }
+  .vrow .track { height: 18px; background: #18202b; border-radius: 9px; overflow: hidden; }
+  .vrow .fill { height: 100%; background: #7d8ea3; border-radius: 9px; }
+  .vrow .num { text-align: right; font-family: var(--mono); }
+  .footer { position: absolute; left: 0; right: 0; bottom: 0; font-family: var(--mono); font-size: 17px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ---------- flow strip ---------- */
+  #flow { position: absolute; left: 150px; width: 1620px; top: 930px; height: 110px; display: flex; align-items: flex-start; justify-content: center; font-family: var(--mono); }
+  .node { min-width: 200px; text-align: center; white-space: nowrap; }
+  .node .n { display: inline-block; font-size: 19px; letter-spacing: 2px; padding: 9px 18px; border-radius: 8px; border: 1px solid var(--line); color: var(--dim); background: #0b0f15; }
+  .node.on .n { color: var(--text); border-color: #3a4757; background: #111822; }
+  .node.hot .n { color: #0b0f14; background: var(--cyan); border-color: var(--cyan); }
+  .node .sub { margin-top: 10px; font-size: 18px; color: var(--muted); height: 24px; white-space: nowrap; }
+  .conn { width: 70px; height: 2px; background: var(--line); margin-top: 20px; position: relative; }
+  .conn .p { position: absolute; left: 0; top: 0; bottom: 0; background: var(--cyan); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="intro" class="card-screen">
+    <div class="brand" id="i1"><span class="flag">🇵🇱</span>POLSKIE SKILLE</div>
+    <div class="tagline" id="i2">Open-source skills for AI agents</div>
+    <div class="small" id="i3">Polish APIs • Services • Public Data</div>
+    <div class="rule" id="i4"></div>
+  </div>
+
+  <div id="term">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <div class="title">agent — ~/projekt · 8 polskich skilli zainstalowanych</div></div>
+    <div class="body" id="tbody"></div>
+  </div>
+
+  <div id="flow"></div>
+
+  <div id="outro" class="card-screen">
+    <div id="o1" class="outro-line">8 Polish AI skills.</div>
+    <div id="o2" class="outro-line">One open-source registry.</div>
+    <div id="o3" class="outro-line url">polskieskille.pl</div>
+  </div>
+  <div id="final" class="card-screen">
+    <div id="f1" class="outro-final"><span class="flag">🇵🇱</span>Give AI skills for Poland.</div>
+    <div id="f2" class="outro-gh">github.com/b44x/ai-polish-skills</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // Scene windows in seconds (intro 0–6, outro 87–95).
+  const TIMING = { "biala-lista": [6, 18], "krs": [18, 30], "nbp": [30, 40], "imgw": [40, 52],
+                   "nfz": [52, 68], "sejm": [68, 80], "inpost": [80, 87] };
+  const DURATION = 95;
+  const SPIN = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏";
+
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const ease = (x) => { x = clamp(x, 0, 1); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const prog = (t, t0, d) => ease((t - t0) / d);
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const shellQuote = (a) => /[\s"']/.test(a) ? `"${a}"` : a;
+  const plnSec = (ms) => (ms / 1000).toFixed(1).replace(".", ",") + " s";
+  function show(e, p, dy) { e.style.opacity = p; e.style.transform = `translateY(${(1 - p) * (dy == null ? 14 : dy)}px)`; }
+
+  const tracks = [];   // per-element animation callbacks
+  const at = (fn) => tracks.push(fn);
+
+  // ---------------- flow strip ----------------
+  const flow = document.getElementById("flow");
+  const FLOW = ["PYTANIE", "AGENT", "POLSKI SKILL", "OFICJALNE ŹRÓDŁO", "WYNIK"];
+  const nodes = [], conns = [];
+  FLOW.forEach((label, i) => {
+    if (i) { const c = el("div", "conn"); const p = el("div", "p"); c.appendChild(p); flow.appendChild(c); conns.push(p); }
+    const n = el("div", "node"); n.appendChild(el("div", "n", label)); const sub = el("div", "sub"); n.appendChild(sub);
+    flow.appendChild(n); nodes.push({ n, sub });
+  });
+
+  // ---------------- build scenes ----------------
+  const body = document.getElementById("tbody");
+  const scenes = (window.DEMO_DATA && window.DEMO_DATA.scenes) || [];
+  const sceneMeta = [];
+
+  scenes.forEach((s) => {
+    const [t0, t1] = TIMING[s.id];
+    const root = el("div", "scene"); body.appendChild(root);
+    const lay = []; // timeline of relative times
+    let t = 0.45;
+
+    // prompt typing
+    const pr = el("div", "ln prompt"); const chev = el("span", "chev", "❯"); const txt = el("span"); const caret = el("span", "caret");
+    pr.append(chev, txt, caret); root.appendChild(pr);
+    const typeStart = t, cps = s.question.length > 50 ? 34 : 26;
+    const typeEnd = typeStart + s.question.length / cps;
+    t = typeEnd + 0.25;
+
+    // agent thinking -> route line (same slot)
+    const ag = el("div", "agent"); const sp = el("span", "spin"); ag.append(sp, document.createTextNode("agent dobiera skill…")); root.appendChild(ag);
+    const thinkStart = t; t += 0.75;
+    const route = el("div", "route",
+      `<span class="arrow">→</span><span class="skill">${esc(s.skill)}</span><span class="src">Agent → ${esc(s.skill)} → ${esc(s.sourceShort)}</span>`);
+    root.appendChild(route);
+    const routeAt = t; t += 0.35;
+
+    // commands
+    const cmdEls = [];
+    s.runs.forEach((r, i) => {
+      const c = el("div", "cmd");
+      c.innerHTML = `<span class="dollar">$</span>${esc(r.command.map(shellQuote).join(" "))}`;
+      const st = el("span", "st"); c.appendChild(st); root.appendChild(c);
+      const cAt = t; const wait = 0.55; t += wait + 0.2;
+      cmdEls.push({ c, st, cAt, done: cAt + wait, ms: r.durationMs });
+      if (s.steps && s.steps[i]) {
+        const stp = el("div", "step", `<b>✓</b>${esc(s.steps[i])}`); root.appendChild(stp);
+        cmdEls.push({ step: stp, cAt: cAt + wait + 0.05 });
+      }
+    });
+    const firstCmdAt = cmdEls[0].cAt;
+    const cardAt = t + 0.05;
+
+    // result card
+    const card = s.card; const res = el("div", "result");
+    const head = el("div", "r-head");
+    head.appendChild(el("div", "r-title", esc(card.title)));
+    if (card.badge) head.appendChild(el("div", "badge" + (card.badgeOk ? " ok" : ""), esc(card.badge)));
+    res.appendChild(head);
+    const parts = [];
+    if (card.big) { const b = el("div", "big", esc(card.big)); res.appendChild(b); parts.push(b); }
+    if (card.rows) {
+      const g = el("div", "rows"); res.appendChild(g);
+      card.rows.forEach(([k, v]) => { const kk = el("div", "k", esc(k)), vv = el("div", "v", esc(v)); g.append(kk, vv); parts.push([kk, vv]); });
+    }
+    if (card.list) {
+      const l = el("div", "plist"); res.appendChild(l);
+      card.list.forEach((x) => { const d = el("div", null, esc(x)); l.appendChild(d); parts.push(d); });
+    }
+    if (card.table) {
+      const tb = el("table", "t"); const hr = el("tr");
+      card.table.head.forEach((h) => hr.appendChild(el("th", null, esc(h)))); tb.appendChild(hr);
+      card.table.rows.forEach((r) => {
+        const tr = el("tr"); r.forEach((v, i) => tr.appendChild(el("td", i === 2 ? "w" : i === 3 ? "d" : null, esc(v))));
+        tb.appendChild(tr); parts.push(tr);
+      });
+      res.appendChild(tb);
+    }
+    if (card.votes) {
+      const box = el("div", "votes"); res.appendChild(box);
+      const max = Math.max(...card.votes.map((v) => v[1] || 0), 1);
+      card.votes.forEach(([lab, n]) => {
+        const row = el("div", "vrow"); const tr = el("div", "track"); const f = el("div", "fill"); tr.appendChild(f);
+        row.append(el("div", "lab", esc(lab)), tr, el("div", "num", esc(n))); box.appendChild(row);
+        parts.push({ row, f, w: (n || 0) / max });
+      });
+    }
+    if (card.notes) card.notes.forEach((n) => { const d = el("div", "notes", esc(n)); res.appendChild(d); parts.push(d); });
+    root.appendChild(res);
+    const foot = el("div", "footer", esc(s.footer)); root.appendChild(foot);
+
+    sceneMeta.push({ s, t0, t1, routeAt, firstCmdAt, cardAt, typeStart, thinkStart });
+
+    at((T) => {
+      const r = T - t0;
+      const visible = T >= t0 - 0.01 && T < t1 + 0.6;
+      root.style.display = visible ? "block" : "none";
+      if (!visible) return;
+      // scene enter / exit
+      const enter = prog(r, 0, 0.4), exit = prog(T, t1 - 0.05, 0.45);
+      root.style.opacity = Math.min(enter, 1 - exit);
+      root.style.transform = `translateY(${(1 - enter) * 18 - exit * 60}px)`;
+
+      const n = clamp(Math.floor((r - typeStart) * cps), 0, s.question.length);
+      txt.textContent = s.question.slice(0, n);
+      const typing = r < typeEnd + 0.2;
+      caret.style.visibility = typing || Math.floor(r * 2) % 2 === 0 ? (r < routeAt ? "visible" : "hidden") : "hidden";
+
+      ag.style.display = r >= thinkStart && r < routeAt ? "block" : "none";
+      sp.textContent = SPIN[Math.floor(r * 12) % SPIN.length];
+      route.style.display = r >= routeAt ? "block" : "none";
+      show(route, prog(r, routeAt, 0.25), 8);
+
+      cmdEls.forEach((c) => {
+        if (c.step) { c.step.style.display = r >= c.cAt ? "block" : "none"; show(c.step, prog(r, c.cAt, 0.25), 6); return; }
+        c.c.style.display = r >= c.cAt ? "block" : "none"; show(c.c, prog(r, c.cAt, 0.2), 6);
+        if (r < c.done) { c.st.className = "st run"; c.st.textContent = SPIN[Math.floor(r * 12) % SPIN.length] + " łączę z API…"; }
+        else { c.st.className = "st ok"; c.st.textContent = `✓ ${plnSec(c.ms)}`; }
+      });
+
+      res.style.display = r >= cardAt ? "block" : "none";
+      show(res, prog(r, cardAt, 0.35), 20);
+      parts.forEach((p, i) => {
+        const pp = prog(r, cardAt + 0.2 + i * 0.09, 0.3);
+        if (Array.isArray(p)) { show(p[0], pp, 6); show(p[1], pp, 6); }
+        else if (p.row) { show(p.row, pp, 6); p.f.style.width = (p.w * 100 * prog(r, cardAt + 0.3 + i * 0.09, 0.8)).toFixed(2) + "%"; }
+        else show(p, pp, 6);
+      });
+      show(foot, prog(r, cardAt + 0.6, 0.4), 0);
+    });
+  });
+
+  // ---------------- global elements ----------------
+  const $ = (id) => document.getElementById(id);
+  const term = $("term"), intro = $("intro"), outro = $("outro"), fin = $("final");
+
+  at((T) => {
+    // intro
+    intro.style.display = T < 6.2 ? "flex" : "none";
+    const iOut = prog(T, 5.0, 0.7);
+    show($("i1"), prog(T, 0.3, 0.9) * (1 - iOut), 24);
+    $("i1").style.transform += ` scale(${0.97 + 0.03 * prog(T, 0.3, 1.2)})`;
+    show($("i2"), prog(T, 1.2, 0.7) * (1 - iOut), 16);
+    show($("i3"), prog(T, 2.2, 0.7) * (1 - iOut), 10);
+    const r4 = prog(T, 2.6, 0.8); $("i4").style.width = (120 * r4) + "px"; $("i4").style.opacity = 1 - iOut;
+
+    // terminal + flow strip
+    const tIn = prog(T, 5.35, 0.7), tOut = prog(T, 87.0, 0.7);
+    const tv = Math.min(tIn, 1 - tOut);
+    term.style.display = flow.style.display = tv > 0 ? "" : "none";
+    term.style.opacity = tv; flow.style.opacity = tv;
+    term.style.transform = `scale(${0.965 + 0.035 * tIn - 0.02 * tOut})`;
+
+    // outro
+    const oOut = prog(T, 91.9, 0.5);
+    outro.style.display = T >= 87.5 && T < 92.6 ? "flex" : "none";
+    show($("o1"), prog(T, 87.7, 0.6) * (1 - oOut), 16);
+    show($("o2"), prog(T, 89.0, 0.6) * (1 - oOut), 16);
+    show($("o3"), prog(T, 90.2, 0.6) * (1 - oOut), 16);
+    fin.style.display = T >= 92.3 ? "flex" : "none";
+    show($("f1"), prog(T, 92.4, 0.7), 16);
+    show($("f2"), prog(T, 93.2, 0.6), 10);
+
+    // flow strip state for the current scene
+    const m = sceneMeta.find((x) => T >= x.t0 && T < x.t1) || null;
+    const r = m ? T - m.t0 : -1;
+    const marks = m ? [m.typeStart, m.thinkStart, m.routeAt, m.firstCmdAt, m.cardAt] : [];
+    const subs = m ? ["użytkownik", "wybór narzędzia", m.s.skill, m.s.source, "dane dla człowieka"] : [];
+    nodes.forEach((nd, i) => {
+      const on = m && r >= marks[i];
+      const hot = on && (i === nodes.length - 1 || r < marks[i + 1]);
+      nd.n.className = "node" + (on ? " on" : "") + (hot ? " hot" : "");
+      nd.sub.textContent = on ? subs[i] : "";
+    });
+    conns.forEach((c, i) => { c.style.width = m ? (prog(r, marks[i + 1] - 0.2, 0.2) * 100) + "%" : "0%"; });
+  });
+
+  window.DEMO_DURATION = DURATION;
+  window.renderAt = function (T) { tracks.forEach((f) => f(T)); };
+  // Manual preview: open scene.html?t=58 in a browser (after injecting data).
+  const q = new URLSearchParams(location.search).get("t");
+  window.renderAt(q ? parseFloat(q) : 0);
+})();
+</script>
+</body>
+</html>

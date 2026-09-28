@@ -11,6 +11,20 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 
 ---
 
+## Demo
+
+**See Polskie Skille in action** — jedno pytanie po polsku, agent wybiera skill, skill odpytuje oficjalne polskie źródło (MF, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost) i zwraca czytelny wynik. Wszystkie dane w filmie pochodzą z rzeczywistych uruchomień skilli.
+
+<p align="center">
+  <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille — demo: agent AI korzysta z polskich API i danych publicznych" width="960"></a>
+</p>
+
+<p align="center">
+  ▶️ <a href="docs/demo/demo.mp4"><b>Obejrzyj pełne demo (MP4, 1080p, 95 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">jak wygenerować demo</a>
+</p>
+
+---
+
 ## 💡 Czym są Polskie Skille?
 
 **ai-polish-skills** to ekosystem modularnych rozszerzeń dla agentów AI, które dają modelom bezpośredni dostęp do polskich danych w czasie rzeczywistym. Zamiast halucynować dane o firmach, kursach czy przesyłkach, agent uruchamia deterministyczny skrypt i otrzymuje ustrukturyzowany JSON.
