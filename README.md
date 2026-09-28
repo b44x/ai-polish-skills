@@ -52,12 +52,14 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 |---|---|---|---|
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Średnie kursy walut (tabela A i B), ceny złota oraz przeliczanie faktur walutowych na PLN wg art. 31a ustawy o VAT. | Narodowy Bank Polski (🏛 oficjalne API) |
+| [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Dni robocze, święta (z Wigilią), wymiar czasu pracy (art. 130 KP), terminy płatności oraz terminy ZUS, PIT, CIT, VAT i PPK przesuwane z weekendów i świąt. Działa offline. | Przepisy prawa (📚 dane statyczne, z podstawą prawną) |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Odpisy spółek i fundacji, skład zarządu, prokurenci, kapitał zakładowy oraz zasady reprezentacji (kto może podpisać umowę). | Ministerstwo Sprawiedliwości (🏛 oficjalne API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Śledzenie paczek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie, ulicy, mieście lub GPS z odległością. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Baza filmów, seriali, ocen krytyków/widzów, obsada, daty premier oraz platformy VOD z cenami w PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Pogoda i Alerty** `[public_data]` | Oficjalne dane pogodowe (temperatura, ciśnienie, wiatr, opady) z 62 stacji w Polsce, ostrzeżenia meteo/hydro oraz stany rzek. | IMGW-PIB (🏛 oficjalne API) |
 | [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Baza posłów, komisji, wyniki głosowań imiennych i klubowych, druki sejmowe oraz etapy procesu legislacyjnego. | Kancelaria Sejmu (🏛 oficjalne API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Kolejki i Czas Oczekiwania (PCUŚ)** `[health]` | Oficjalne dane o czasie oczekiwania na świadczenia (rezonans, tomografia, poradnie), liczba oczekujących, tryb stabilny i pilny oraz wyszukiwanie placówek w promieniu km. | Narodowy Fundusz Zdrowia (🏛 oficjalne API) |
+| [`prawo`](skills/prawo/SKILL.md) | **Prawo (ISAP / Dziennik Ustaw)** `[legal]` | Brzmienie artykułów kodeksów i ustaw z datą źródła i ostrzeżeniem o późniejszych zmianach, status aktu, teksty jednolite i nadchodzące zmiany. | Kancelaria Sejmu — ISAP/ELI (🏛 oficjalne API) |
 
 ---
 

@@ -10,7 +10,7 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 8 Polish skills: Biała Lista Podatników VAT, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Sejm Rzeczypospolitej Polskiej.",
+      "description": "All 10 Polish skills: Biała Lista Podatników VAT, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Prawo (ISAP / Dziennik Ustaw), Sejm Rzeczypospolitej Polskiej, Terminy, dni robocze i święta.",
       "skills": [
         "./skills/biala-lista",
         "./skills/filmweb",
@@ -19,7 +19,9 @@
         "./skills/krs",
         "./skills/nbp",
         "./skills/nfz",
-        "./skills/sejm"
+        "./skills/prawo",
+        "./skills/sejm",
+        "./skills/terminy"
       ],
       "homepage": "https://polskieskille.pl",
       "repository": "https://github.com/b44x/ai-polish-skills",
@@ -28,6 +30,7 @@
       "keywords": [
         "agent-skills",
         "biala-lista",
+        "dni-robocze",
         "filmweb",
         "filmy",
         "imgw",
@@ -40,9 +43,12 @@
         "poland",
         "polish",
         "poslowie",
+        "prawo",
         "public-data",
         "sejm",
         "spolki",
+        "swieta",
+        "ustawy",
         "vat",
         "waluty",
         "zdrowie"
@@ -193,6 +199,26 @@
       ]
     },
     {
+      "name": "prawo",
+      "displayName": "Prawo (ISAP / Dziennik Ustaw)",
+      "source": "./skills/prawo",
+      "description": "Official Polish legal acts from the Sejm ELI API (ISAP: Dziennik Ustaw, Monitor Polski).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/prawo",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "legal",
+      "tags": [
+        "prawo",
+        "ustawy",
+        "kodeks",
+        "isap",
+        "dziennik-ustaw",
+        "tekst-jednolity",
+        "przepisy",
+        "eli"
+      ]
+    },
+    {
       "name": "sejm",
       "displayName": "Sejm Rzeczypospolitej Polskiej",
       "source": "./skills/sejm",
@@ -211,6 +237,26 @@
         "interpelacje",
         "prawo",
         "parlament"
+      ]
+    },
+    {
+      "name": "terminy",
+      "displayName": "Terminy, dni robocze i święta",
+      "source": "./skills/terminy",
+      "description": "Polish working days, public holidays and deadlines, computed offline with legal citations.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/terminy",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "utilities",
+      "tags": [
+        "dni-robocze",
+        "swieta",
+        "wymiar-czasu-pracy",
+        "terminy",
+        "zus",
+        "vat",
+        "pit",
+        "ksiegowosc"
       ]
     }
   ]

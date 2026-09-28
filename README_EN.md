@@ -52,12 +52,14 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 |---|---|---|---|
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
+| [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 | [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Polish parliamentary open data: MPs, committees, roll-call and club voting results, prints, and legislative stages. | Chancellery of the Sejm (🏛 official API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
+| [`prawo`](skills/prawo/SKILL.md) | **Prawo (ISAP / Dziennik Ustaw)** `[legal]` | Wording of articles of Polish codes and statutes with the source date and a warning about later amendments, act status, consolidated texts and upcoming changes. | Chancellery of the Sejm — ISAP/ELI (🏛 official API) |
 
 ---
 
