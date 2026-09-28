@@ -16,6 +16,7 @@ Match user prompt intent to the appropriate skill:
 | **NBP exchange rates (EUR/USD...), Art. 31a VAT tax invoice calculation, gold** | `nbp` | `scripts/nbp.py` | `"kurs EUR z NBP do faktury z 2026-09-25"` |
 | **Track InPost parcel, find Paczkomat lockers by code, address, or GPS** | `inpost` | `scripts/inpost.py` | `"gdzie jest moja paczka InPost"`, `"najbliższy paczkomat"` |
 | **Search Polish film/series ratings, reviews, cast, premiere, VOD streaming** | `filmweb` | `scripts/filmweb.py` | `"jaka ocena filmu na Filmwebie"`, `"gdzie obejrzę"` |
+| **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
 
 ---
 
