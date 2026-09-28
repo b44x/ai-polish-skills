@@ -180,14 +180,15 @@ Polskie Skille is an open-source initiative providing AI agents with reliable to
 - Ensuring ongoing compatibility with emerging AI agents (Claude Code, Cursor, Windsurf, Antigravity).
 - API maintenance, uptime checks, and security audits.
 
-Support the project via **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)**:
+Support the project via **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)** (monthly or one-time):
 
-| Tier | Amount | Focus |
-|---|---|---|
-| **Supporter** | **€3** / mo | General open-source maintenance & community support |
-| **AI Builder** | **€10** / mo | Accelerating development of new Polish skills & APIs |
-| **Polish AI** | **€25** / mo | Sustaining test infrastructure, registry updates & agent benchmarks |
-| **Company** | **€100** / mo | Organization sponsorship for building on the Polish AI ecosystem |
+| Tier | Amount | Type | Focus |
+|---|---|---|---|
+| **Supporter** | **$3** / mo | Monthly | General open-source maintenance & community support |
+| **AI Builder** | **$10** / mo | Monthly | Accelerating development of new Polish skills & APIs |
+| **Polish AI** | **$25** / mo | Monthly | Sustaining test infrastructure, registry updates & agent benchmarks |
+| **Company** | **$100** / mo | Monthly | Organization sponsorship for building on the Polish AI ecosystem |
+| **Coffee** | **$10** | One-time | One-time coffee contribution supporting the maintainer |
 
 Every contribution helps keep the project independent, well-tested, and actively maintained.
 
