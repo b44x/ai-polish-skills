@@ -16,6 +16,7 @@ Zero external dependencies (Python 3.8+ standard library only).
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -126,28 +127,82 @@ def desc_line(text: str) -> str:
     return f"{DIM}{text}{RESET}"
 
 
+def score_skill(query: str, skill_name: str, s: Dict[str, Any]) -> int:
+    """Calculate relevance score for a skill based on query tokens, stems, and fields."""
+    query_clean = re.sub(r"[^\w\s-]", " ", query.lower()).strip()
+    if not query_clean:
+        return 0
+
+    tokens = [w for w in query_clean.split() if len(w) > 1]
+    if not tokens:
+        return 0
+
+    stems = [t[:4] if len(t) >= 4 else t for t in tokens]
+
+    name = skill_name.lower()
+    display = s.get("display_name", "").lower()
+    category = s.get("category", "").lower()
+    tags = [t.lower() for t in s.get("tags", [])]
+    desc = s.get("description", "").lower()
+    source = s.get("source", "").lower()
+
+    score = 0
+
+    # Exact full match
+    if query_clean == name or query_clean in name:
+        score += 100
+    if query_clean in display:
+        score += 50
+    if any(query_clean in t for t in tags):
+        score += 50
+    if query_clean in desc:
+        score += 40
+
+    # Token and stem matching
+    for token, stem in zip(tokens, stems):
+        # Match against name
+        if token == name:
+            score += 80
+        elif token in name or stem in name:
+            score += 35
+
+        # Match against tags
+        for t in tags:
+            if token == t:
+                score += 50
+            elif token in t or stem in t:
+                score += 25
+
+        # Match against display name
+        if token in display:
+            score += 30
+        elif stem in display:
+            score += 15
+
+        # Match against category
+        if token in category:
+            score += 25
+
+        # Match against source
+        if token in source or stem in source:
+            score += 15
+
+        # Match against description
+        if token in desc:
+            score += 15
+        elif stem in desc:
+            score += 8
+
+    return score
+
+
 def cmd_search(args: argparse.Namespace) -> int:
-    query = args.query.lower().strip()
+    query = args.query.strip()
     skills = get_all_skills()
     matches = {}
 
     for name, s in skills.items():
-        score = 0
-        if query == name:
-            score += 100
-        elif query in name:
-            score += 40
-        if query in s.get("display_name", "").lower():
-            score += 30
-        if query in s.get("category", "").lower():
-            score += 25
-        if any(query in t.lower() for t in s.get("tags", [])):
-            score += 20
-        if query in s.get("description", "").lower():
-            score += 10
-        if query in s.get("source", "").lower():
-            score += 10
-
+        score = score_skill(query, name, s)
         if score > 0:
             matches[name] = (score, s)
 

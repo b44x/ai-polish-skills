@@ -73,6 +73,12 @@ def build_registry_data(skills_dir: Path) -> Dict[str, Any]:
         skill_data = dict(manifest)
         if entrypoint:
             skill_data["entrypoint"] = entrypoint
+        skill_data["skill_md_url"] = f"https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/{sdir.name}/SKILL.md"
+        skill_data["install"] = {
+            "curl": f"curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s {sdir.name}",
+            "cli": f"python3 scripts/cli.py install {sdir.name}",
+            "target_dir": f".agents/skills/{sdir.name}",
+        }
         skill_data["files"] = files
 
         skills_list.append(skill_data)
