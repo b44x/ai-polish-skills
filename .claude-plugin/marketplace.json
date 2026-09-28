@@ -1,0 +1,217 @@
+{
+  "name": "polskie-skille",
+  "description": "Skills that give AI agents access to Polish services, official APIs and public data.",
+  "owner": {
+    "name": "Michell Hoduń",
+    "url": "https://github.com/b44x"
+  },
+  "plugins": [
+    {
+      "name": "polskie-skille",
+      "displayName": "Polskie Skille (all skills)",
+      "source": "./",
+      "description": "All 8 Polish skills: Biała Lista Podatników VAT, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Sejm Rzeczypospolitej Polskiej.",
+      "skills": [
+        "./skills/biala-lista",
+        "./skills/filmweb",
+        "./skills/imgw",
+        "./skills/inpost",
+        "./skills/krs",
+        "./skills/nbp",
+        "./skills/nfz",
+        "./skills/sejm"
+      ],
+      "homepage": "https://polskieskille.pl",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "keywords": [
+        "agent-skills",
+        "biala-lista",
+        "filmweb",
+        "filmy",
+        "imgw",
+        "inpost",
+        "krs",
+        "nbp",
+        "nfz",
+        "paczkomaty",
+        "pogoda",
+        "poland",
+        "polish",
+        "poslowie",
+        "public-data",
+        "sejm",
+        "spolki",
+        "vat",
+        "waluty",
+        "zdrowie"
+      ]
+    },
+    {
+      "name": "biala-lista",
+      "displayName": "Biała Lista Podatników VAT",
+      "source": "./skills/biala-lista",
+      "description": "Check Polish businesses and VAT status in the official Ministry of Finance White List (Biała Lista Podatników VAT).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/biala-lista",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "finance",
+      "tags": [
+        "biala-lista",
+        "vat",
+        "nip",
+        "regon",
+        "split-payment",
+        "podatki",
+        "faktury",
+        "rachunek-bankowy"
+      ]
+    },
+    {
+      "name": "filmweb",
+      "displayName": "Filmweb",
+      "source": "./skills/filmweb",
+      "description": "Fetch film and TV series data from Filmweb.pl: search by title, rating and number of votes, critics rating, genres, duration, directors, cast, plot, premiere dates, where to watch (VOD providers and prices) and actor details.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/filmweb",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "entertainment",
+      "tags": [
+        "filmweb",
+        "filmy",
+        "seriale",
+        "kino",
+        "vod",
+        "recenzje",
+        "obsada"
+      ]
+    },
+    {
+      "name": "imgw",
+      "displayName": "IMGW-PIB Pogoda i Ostrzeżenia",
+      "source": "./skills/imgw",
+      "description": "Fetch official meteorological and hydrological data for Poland from the Instytut Meteorologii i Gospodarki Wodnej (IMGW-PIB).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/imgw",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "tags": [
+        "imgw",
+        "pogoda",
+        "synop",
+        "temperatura",
+        "cisnienie",
+        "wiatr",
+        "opady",
+        "ostrzezenia",
+        "alerty",
+        "hydro",
+        "rzeki"
+      ]
+    },
+    {
+      "name": "inpost",
+      "displayName": "InPost & Paczkomaty",
+      "source": "./skills/inpost",
+      "description": "Track InPost shipments and find Paczkomat parcel lockers and pickup points across Poland.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/inpost",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "logistics",
+      "tags": [
+        "inpost",
+        "paczkomaty",
+        "tracking",
+        "przesylki",
+        "kurier",
+        "logistyka"
+      ]
+    },
+    {
+      "name": "krs",
+      "displayName": "Krajowy Rejestr Sądowy (KRS)",
+      "source": "./skills/krs",
+      "description": "Fetch official company and foundation records from Krajowy Rejestr Sądowy (KRS) via the Ministry of Justice API.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/krs",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "legal",
+      "tags": [
+        "krs",
+        "spolki",
+        "zarzad",
+        "reprezentacja",
+        "prawo",
+        "umowy",
+        "rejestr-sadowy"
+      ]
+    },
+    {
+      "name": "nbp",
+      "displayName": "Narodowy Bank Polski (NBP)",
+      "source": "./skills/nbp",
+      "description": "Fetch official exchange rates, calculate tax conversions for foreign currency invoices, and check gold prices from Narodowy Bank Polski (NBP).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/nbp",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "finance",
+      "tags": [
+        "nbp",
+        "waluty",
+        "kursy-walut",
+        "euro",
+        "dolar",
+        "podatki",
+        "vat",
+        "zloto",
+        "faktury"
+      ]
+    },
+    {
+      "name": "nfz",
+      "displayName": "NFZ Kolejki i Czas Oczekiwania (PCUŚ)",
+      "source": "./skills/nfz",
+      "description": "Official data from the Narodowy Fundusz Zdrowia (NFZ, Polish National Health Fund) on queues, medical facilities and estimated waiting times for healthcare services (PCUŚ).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/nfz",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "health",
+      "tags": [
+        "nfz",
+        "zdrowie",
+        "kolejki",
+        "pcus",
+        "lekarz",
+        "przychodnia",
+        "szpital",
+        "rezonans",
+        "tomografia",
+        "kardiolog",
+        "stomatolog",
+        "terminy"
+      ]
+    },
+    {
+      "name": "sejm",
+      "displayName": "Sejm Rzeczypospolitej Polskiej",
+      "source": "./skills/sejm",
+      "description": "Official parliamentary data of the Sejm RP (Polish lower house) from the open API (api.sejm.gov.pl).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/sejm",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "legal",
+      "tags": [
+        "sejm",
+        "poslowie",
+        "glosowania",
+        "druki",
+        "proces-legislacyjny",
+        "ustawy",
+        "interpelacje",
+        "prawo",
+        "parlament"
+      ]
+    }
+  ]
+}

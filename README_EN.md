@@ -120,6 +120,20 @@ python3 scripts/cli.py install inpost biala-lista
 python3 scripts/cli.py update
 ```
 
+### 4. Claude Code — Plugin Marketplace
+
+```bash
+/plugin marketplace add b44x/ai-polish-skills
+/plugin install polskie-skille@polskie-skille   # every skill
+/plugin install nbp@polskie-skille              # or a single skill
+```
+
+### 5. Gemini CLI — Extension
+
+```bash
+gemini extensions install https://github.com/b44x/ai-polish-skills
+```
+
 ---
 
 ## 🚀 How to Run Skills?
@@ -154,11 +168,14 @@ python3 skills/inpost/scripts/inpost.py near 52.2297 21.0122 --limit 3
 
 | Environment | `SKILL.md` Support | Installation Directory |
 |---|:---:|---|
-| **Claude Code** | Native | `.claude/skills/<skill>/` |
+| **Claude Code** | Native | plugin marketplace or `.claude/skills/<skill>/` |
+| **Gemini CLI** | Native (extension) | `gemini extensions install …` |
+| **GitHub Copilot (VS Code, CLI)** | Native | `.agents/skills/<skill>/`, `.github/skills/<skill>/` or `.claude/skills/<skill>/` |
 | **Google Antigravity (AGY)** | Native | `.agents/skills/<skill>/` or `~/.gemini/config/skills/` |
 | **Cursor** | Via `.cursorrules` / context | `.agents/skills/<skill>/` |
 | **Windsurf** | Via `.windsurfrules` | `.agents/skills/<skill>/` |
-| **OpenAI Codex / Custom Agents** | Standard CLI & JSON | Any directory with Python scripts |
+| **OpenAI Codex** | Native | `.agents/skills/<skill>/` or `~/.agents/skills/<skill>/` |
+| **Other agents** | Standard CLI & JSON | Any directory with Python scripts |
 
 ---
 
@@ -168,7 +185,7 @@ Contributing a skill follows a simple, 8-step Pull Request process:
 
 1. Select a Polish service or public register.
 2. Verify source authenticity and usage terms.
-3. Copy `skills/_template/` to `skills/<your-skill>/`.
+3. Copy `templates/skill/` to `skills/<your-skill>/`.
 4. Write instructions in `SKILL.md`.
 5. Populate metadata in the YAML frontmatter header (manifest).
 6. Implement Python script in `scripts/<your-skill>.py` (Python 3.8+ stdlib, clean JSON on stdout).

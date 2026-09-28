@@ -5,6 +5,7 @@ Standard library only.
 Generates:
 - registry/registry.json (formatted)
 - registry/registry.min.json (compact)
+- .claude-plugin/marketplace.json (Claude Code plugin marketplace)
 
 Usage:
   python3 scripts/build_registry.py
@@ -102,6 +103,57 @@ def build_registry_data(skills_dir: Path) -> Dict[str, Any]:
     return registry_obj
 
 
+REPO_URL = "https://github.com/b44x/ai-polish-skills"
+
+
+def first_sentence(text: str) -> str:
+    """Return the first sentence of a skill description for short listings."""
+    text = " ".join(text.split())
+    end = text.find(". ")
+    return text if end < 0 else text[: end + 1]
+
+
+def build_marketplace_data(registry: Dict[str, Any]) -> Dict[str, Any]:
+    """Claude Code plugin marketplace: one bundle with every skill plus one plugin per skill.
+
+    A per-skill plugin points at skills/<name>/, which holds SKILL.md at its root and
+    therefore loads as a single skill without a plugin.json.
+    """
+    skills = registry["skills"]
+    keywords = sorted({"poland", "polish", "agent-skills", "public-data"} | {t for s in skills for t in s.get("tags", [])[:2]})
+    bundle = {
+        "name": "polskie-skille",
+        "displayName": "Polskie Skille (all skills)",
+        "source": "./",
+        "description": f"All {len(skills)} Polish skills: " + ", ".join(s["display_name"] for s in skills) + ".",
+        "skills": [f"./skills/{s['name']}" for s in skills],
+        "homepage": "https://polskieskille.pl",
+        "repository": REPO_URL,
+        "license": "MIT",
+        "category": "public_data",
+        "keywords": keywords,
+    }
+    plugins = [bundle]
+    for s in skills:
+        plugins.append({
+            "name": s["name"],
+            "displayName": s["display_name"],
+            "source": f"./skills/{s['name']}",
+            "description": first_sentence(s["description"]),
+            "homepage": f"{REPO_URL}/tree/main/skills/{s['name']}",
+            "repository": REPO_URL,
+            "license": s.get("license", "MIT"),
+            "category": s["category"],
+            "tags": s.get("tags", []),
+        })
+    return {
+        "name": "polskie-skille",
+        "description": "Skills that give AI agents access to Polish services, official APIs and public data.",
+        "owner": {"name": "Michell Hoduń", "url": "https://github.com/b44x"},
+        "plugins": plugins,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate or check registry.json")
     parser.add_argument(
@@ -128,6 +180,9 @@ def main() -> int:
     generated_pretty = json.dumps(registry_data, indent=2, ensure_ascii=False) + "\n"
     generated_min = json.dumps(registry_data, separators=(",", ":"), ensure_ascii=False) + "\n"
 
+    target_marketplace = ROOT_DIR / ".claude-plugin" / "marketplace.json"
+    generated_marketplace = json.dumps(build_marketplace_data(registry_data), indent=2, ensure_ascii=False) + "\n"
+
     if args.check:
         if not target_json.is_file():
             print(f"FAIL: {target_json} does not exist. Run 'python3 scripts/build_registry.py' to generate.", file=sys.stderr)
@@ -136,16 +191,21 @@ def main() -> int:
         if current_content != generated_pretty:
             print(f"FAIL: {target_json} is out of date. Run 'python3 scripts/build_registry.py' and commit.", file=sys.stderr)
             return 1
-        print("OK: registry.json is up to date.")
+        if not target_marketplace.is_file() or target_marketplace.read_text(encoding="utf-8") != generated_marketplace:
+            print(f"FAIL: {target_marketplace} is out of date. Run 'python3 scripts/build_registry.py' and commit.", file=sys.stderr)
+            return 1
+        print("OK: registry.json and .claude-plugin/marketplace.json are up to date.")
         return 0
 
     target_json.write_text(generated_pretty, encoding="utf-8")
     target_min.write_text(generated_min, encoding="utf-8")
+    target_marketplace.parent.mkdir(exist_ok=True)
+    target_marketplace.write_text(generated_marketplace, encoding="utf-8")
 
     print(f"Successfully generated registry with {registry_data['skills_count']} skills:")
     for skill in registry_data["skills"]:
         print(f"  • {skill['name']} (v{skill['version']}) [{skill['category']}] - {skill['display_name']}")
-    print(f"\nWrote:\n  ➔ {target_json}\n  ➔ {target_min}")
+    print(f"\nWrote:\n  ➔ {target_json}\n  ➔ {target_min}\n  ➔ {target_marketplace}")
     return 0
 
 

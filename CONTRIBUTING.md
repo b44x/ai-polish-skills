@@ -42,11 +42,11 @@ Określ jednoznacznie charakter źródła:
 *Zasada uczciwości:* Nie zgaduj danych. Jeżeli rate limit lub dokumentacja nie są publicznie znane, wpisz `fair use` lub `none`. Nie wprowadzaj fikcyjnych informacji.
 
 ### Krok 3: Utwórz katalog skilla
-Skopiuj szablon z `skills/_template`:
+Skopiuj szablon z `templates/skill`:
 ```bash
 git switch dev && git pull
 git switch -c skill/<nazwa-skilla>
-cp -r skills/_template skills/<nazwa-skilla>
+cp -r templates/skill skills/<nazwa-skilla>
 ```
 Nazwa skilla **musi** być w formacie `kebab-case` (np. `ceidg`, `pogoda-imgw`, `otodom`).
 
