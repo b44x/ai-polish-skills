@@ -61,6 +61,29 @@ def test_invalid_args_contract(script_path: Path) -> None:
             raise TestFailure(f"Stray output on stdout during error: {res.stdout[:100]}")
 
 
+def test_error_contract(
+    script_path: Path,
+    args: List[str],
+    expected_exit: int = 64,
+) -> None:
+    """Verify command exits with expected error code, clean stdout, and JSON error on stderr."""
+    cmd = [sys.executable, str(script_path)] + args
+    res = run_cmd(cmd)
+    if res.returncode != expected_exit:
+        raise TestFailure(f"Command {' '.join(cmd)} exited with {res.returncode}, expected {expected_exit}")
+    if res.stdout.strip():
+        raise TestFailure(f"Stdout should be empty on error, got: {res.stdout[:100]}")
+    stderr_raw = res.stderr.strip()
+    if not stderr_raw:
+        raise TestFailure("Stderr is empty, expected error JSON")
+    try:
+        err = json.loads(stderr_raw)
+        if "error" not in err:
+            raise TestFailure(f"Stderr JSON missing 'error' key: {err}")
+    except json.JSONDecodeError:
+        raise TestFailure(f"Stderr is not valid JSON: {stderr_raw}")
+
+
 def test_json_stdout_contract(
     script_path: Path,
     args: List[str],
@@ -192,6 +215,60 @@ def main() -> int:
                 print("  ✓ Offline Filmweb URL ID parser passed (id=628, valid JSON)")
             except TestFailure as e:
                 print(f"  ✗ Offline Filmweb URL ID parser failed: {e}")
+                failed_tests += 1
+
+        elif skill_name == "imgw":
+            # Test offline station search
+            total_tests += 1
+            try:
+                def check_station(data):
+                    stations = data.get("stations", [])
+                    if not stations or stations[0].get("stationId") != "12375":
+                        raise TestFailure(f"Expected station 12375 (Warszawa), got {stations}")
+                    if "lat" not in stations[0].get("coordinates", {}):
+                        raise TestFailure("Missing coordinates in station info")
+
+                test_json_stdout_contract(
+                    script,
+                    ["stations", "--search", "Warszawa"],
+                    check_station,
+                )
+                print("  ✓ Offline IMGW station search passed (id=12375, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline IMGW station search failed: {e}")
+                failed_tests += 1
+
+            # Test offline nearest station calculation via GPS
+            total_tests += 1
+            try:
+                def check_near(data):
+                    closest = data.get("closestStation", {})
+                    if closest.get("stationId") != "12375":
+                        raise TestFailure(f"Expected closest station 12375 for (52.23, 21.01), got {closest}")
+                    if closest.get("distanceKm", 999) > 15.0:
+                        raise TestFailure(f"Distance too high: {closest.get('distanceKm')} km")
+
+                test_json_stdout_contract(
+                    script,
+                    ["near", "52.23", "21.01", "--no-weather"],
+                    check_near,
+                )
+                print("  ✓ Offline IMGW GPS distance calculation passed (Warszawa <15km, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline IMGW GPS distance calculation failed: {e}")
+                failed_tests += 1
+
+            # Test invalid GPS coordinates contract
+            total_tests += 1
+            try:
+                test_error_contract(
+                    script,
+                    ["near", "999.0", "999.0"],
+                    expected_exit=64,
+                )
+                print("  ✓ Offline IMGW invalid GPS validation passed (exit=64, error JSON on stderr)")
+            except TestFailure as e:
+                print(f"  ✗ Offline IMGW invalid GPS validation failed: {e}")
                 failed_tests += 1
 
     elapsed = time.time() - start_time

@@ -41,6 +41,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
+| [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 
 ---
 
