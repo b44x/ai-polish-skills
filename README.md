@@ -52,6 +52,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 |---|---|---|---|
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Średnie kursy walut (tabela A i B), ceny złota oraz przeliczanie faktur walutowych na PLN wg art. 31a ustawy o VAT. | Narodowy Bank Polski (🏛 oficjalne API) |
+| [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Dni robocze, święta (z Wigilią), wymiar czasu pracy (art. 130 KP), terminy płatności oraz terminy ZUS, PIT, CIT, VAT i PPK przesuwane z weekendów i świąt. Działa offline. | Przepisy prawa (📚 dane statyczne, z podstawą prawną) |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Odpisy spółek i fundacji, skład zarządu, prokurenci, kapitał zakładowy oraz zasady reprezentacji (kto może podpisać umowę). | Ministerstwo Sprawiedliwości (🏛 oficjalne API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Śledzenie paczek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie, ulicy, mieście lub GPS z odległością. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Baza filmów, seriali, ocen krytyków/widzów, obsada, daty premier oraz platformy VOD z cenami w PLN. | Filmweb.pl (🔗 reverse-engineered API) |
