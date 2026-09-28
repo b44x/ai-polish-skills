@@ -20,6 +20,7 @@ Match user prompt intent to the appropriate skill:
 | **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
 | **Sejm RP parliamentary data: MPs, roll-call votings, legislative bills, prints** | `sejm` | `scripts/sejm.py` | `"jak głosowano w Sejmie"`, `"jak głosował poseł"`, `"proces ustawy"` |
 | **NFZ healthcare queues, estimated waiting times (PCUŚ), clinics, benefit search** | `nfz` | `scripts/nfz.py` | `"czas oczekiwania NFZ"`, `"gdzie na rezonans"`, `"kolejki NFZ"` |
+| **Polish law: article wording, act status, consolidated texts (ISAP / Dziennik Ustaw)** | `prawo` | `scripts/prawo.py` | `"co mówi art. 30 Kodeksu pracy"`, `"czy ustawa obowiązuje"` |
 
 ---
 

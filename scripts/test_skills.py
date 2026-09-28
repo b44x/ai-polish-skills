@@ -268,6 +268,30 @@ def main() -> int:
                 print(f"  ✗ Invalid month contract failed: {e}")
                 failed_tests += 1
 
+        elif skill_name == "prawo":
+            # Test offline shortcut list
+            total_tests += 1
+            try:
+                def check_codes(data):
+                    codes = {c.get("code"): c.get("ref") for c in data.get("codes", [])}
+                    if codes.get("kp") != "DU/1974/141":
+                        raise TestFailure(f"Expected kp -> DU/1974/141, got {codes.get('kp')}")
+
+                test_json_stdout_contract(script, ["codes"], check_codes)
+                print("  ✓ Offline legal code shortcuts passed (kp=DU/1974/141, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline legal code shortcuts failed: {e}")
+                failed_tests += 1
+
+            # Unknown act reference is rejected before any network call
+            total_tests += 1
+            try:
+                test_error_contract(script, ["act", "nie-ma-takiego-aktu"], expected_exit=64)
+                print("  ✓ Invalid act reference rejected (exit 64, JSON error on stderr)")
+            except TestFailure as e:
+                print(f"  ✗ Invalid act reference contract failed: {e}")
+                failed_tests += 1
+
         elif skill_name == "imgw":
             # Test offline station search
             total_tests += 1

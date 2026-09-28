@@ -59,6 +59,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Pogoda i Alerty** `[public_data]` | Oficjalne dane pogodowe (temperatura, ciśnienie, wiatr, opady) z 62 stacji w Polsce, ostrzeżenia meteo/hydro oraz stany rzek. | IMGW-PIB (🏛 oficjalne API) |
 | [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Baza posłów, komisji, wyniki głosowań imiennych i klubowych, druki sejmowe oraz etapy procesu legislacyjnego. | Kancelaria Sejmu (🏛 oficjalne API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Kolejki i Czas Oczekiwania (PCUŚ)** `[health]` | Oficjalne dane o czasie oczekiwania na świadczenia (rezonans, tomografia, poradnie), liczba oczekujących, tryb stabilny i pilny oraz wyszukiwanie placówek w promieniu km. | Narodowy Fundusz Zdrowia (🏛 oficjalne API) |
+| [`prawo`](skills/prawo/SKILL.md) | **Prawo (ISAP / Dziennik Ustaw)** `[legal]` | Brzmienie artykułów kodeksów i ustaw z datą źródła i ostrzeżeniem o późniejszych zmianach, status aktu, teksty jednolite i nadchodzące zmiany. | Kancelaria Sejmu — ISAP/ELI (🏛 oficjalne API) |
 
 ---
 
