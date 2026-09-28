@@ -1,0 +1,5 @@
+{
+  "name": "polskie-skille",
+  "version": "0.7.0",
+  "description": "Agent skills for Polish services, official APIs and public data: Biała Lista VAT, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost, Filmweb."
+}
