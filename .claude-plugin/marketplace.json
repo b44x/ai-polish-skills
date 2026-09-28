@@ -10,7 +10,7 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 8 Polish skills: Biała Lista Podatników VAT, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Sejm Rzeczypospolitej Polskiej.",
+      "description": "All 9 Polish skills: Biała Lista Podatników VAT, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Prawo (ISAP / Dziennik Ustaw), Sejm Rzeczypospolitej Polskiej.",
       "skills": [
         "./skills/biala-lista",
         "./skills/filmweb",
@@ -19,6 +19,7 @@
         "./skills/krs",
         "./skills/nbp",
         "./skills/nfz",
+        "./skills/prawo",
         "./skills/sejm"
       ],
       "homepage": "https://polskieskille.pl",
@@ -40,9 +41,11 @@
         "poland",
         "polish",
         "poslowie",
+        "prawo",
         "public-data",
         "sejm",
         "spolki",
+        "ustawy",
         "vat",
         "waluty",
         "zdrowie"
@@ -190,6 +193,26 @@
         "kardiolog",
         "stomatolog",
         "terminy"
+      ]
+    },
+    {
+      "name": "prawo",
+      "displayName": "Prawo (ISAP / Dziennik Ustaw)",
+      "source": "./skills/prawo",
+      "description": "Official Polish legal acts from the Sejm ELI API (ISAP: Dziennik Ustaw, Monitor Polski).",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/prawo",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "legal",
+      "tags": [
+        "prawo",
+        "ustawy",
+        "kodeks",
+        "isap",
+        "dziennik-ustaw",
+        "tekst-jednolity",
+        "przepisy",
+        "eli"
       ]
     },
     {
