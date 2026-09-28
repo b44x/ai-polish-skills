@@ -220,6 +220,9 @@ def cmd_search(args: argparse.Namespace) -> None:
         params["post_code"] = args.post_code.strip()
     if args.type:
         params["type"] = args.type.strip()
+    if args.query:
+        params["query"] = args.query.strip()
+    params["per_page"] = 100
 
     # ShipX points endpoint
     data = fetch_api("points", params)
