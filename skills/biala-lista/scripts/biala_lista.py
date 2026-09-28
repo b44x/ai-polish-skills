@@ -3,6 +3,9 @@
 
 Official API docs: https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat
 No external dependencies required (Python 3.8+ stdlib only).
+
+Copyright (c) 2026 Michell Hoduń <mhodun@gmail.com> (https://github.com/b44x)
+Licensed under the MIT License.
 """
 
 import argparse

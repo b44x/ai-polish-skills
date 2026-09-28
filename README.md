@@ -105,3 +105,11 @@ python3 scripts/validate_skills.py
 ## Contributing & Releases
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for branch strategy (`dev` -> `main`), semantic commit conventions, and release tagging procedures.
+
+---
+
+## Author & License
+
+Created and maintained by **Michell Hoduń** ([@b44x](https://github.com/b44x) / [ai-skills](https://github.com/b44x/ai-skills)).
+
+Distributed under the [MIT License](LICENSE).
