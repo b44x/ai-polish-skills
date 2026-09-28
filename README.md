@@ -171,6 +171,26 @@ Projekt generuje deterministyczny, statyczny rejestr w formatach:
 
 Strona **polskieskille.pl** bezpośrednio konsumuje ten rejestr, prezentując interaktywny katalog, statystyki i dokumentację.
 
+## Support the project
+
+Polskie Skille to projekt open source rozwijający ekosystem polskich narzędzi dla agentów AI. Wsparcie finansowe pomaga w utrzymaniu i ciągłym rozwoju projektu:
+
+- Rozwoju kolejnych polskich integracji (GUS/BIR, CEIDG, IMGW, e-Doręczenia, KSeF).
+- Rozbudowie standardu `SKILL.md` i kompatybilności z agentami AI (Claude Code, Cursor, Windsurf, Antigravity).
+- Utrzymaniu infrastruktury testów, walidatora i publicznego rejestru na [polskieskille.pl](https://polskieskille.pl).
+- Zapewnieniu bezpieczeństwa, stabilności i bieżącej weryfikacji API.
+
+Możesz wesprzeć projekt bezpośrednio przez **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)**:
+
+| Poziom | Kwota | Przeznaczenie |
+|---|---|---|
+| **Supporter** | **€3** / mies. | Wsparcie bieżącego utrzymania projektu open source |
+| **AI Builder** | **€10** / mies. | Wsparcie tworzenia i weryfikacji nowych polskich skilli |
+| **Polish AI** | **€25** / mies. | Wsparcie infrastruktury testowej, rejestru i integracji z agentami |
+| **Company** | **€100** / mies. | Wsparcie ekosystemu przez firmy wdrażające agentów AI w Polsce |
+
+Każda forma wsparcia pozwala poświęcić więcej czasu na rozwój, jakość i stabilność polskich narzędzi AI.
+
 ---
 
 ## Autor i licencja
@@ -178,3 +198,4 @@ Strona **polskieskille.pl** bezpośrednio konsumuje ten rejestr, prezentując in
 Twórca i maintainer: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
 Repozytorium: [github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills).  
 Licencja: [MIT License](LICENSE).
+
