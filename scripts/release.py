@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Automated release script for ai-skills.
+"""Automated release script for ai-polish-skills.
 
 Orchestrates the entire release process according to CONTRIBUTING.md:
 1. Runs validation (validate_skills.py)
@@ -112,7 +112,7 @@ Release automated by `scripts/release.py`.
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Automate full release flow for ai-skills.")
+    parser = argparse.ArgumentParser(description="Automate full release flow for ai-polish-skills.")
     parser.add_argument("--version", help="Explicit version tag to release (e.g. v0.2.0)")
     parser.add_argument(
         "--type",
@@ -123,7 +123,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="Print release steps without executing")
     args = parser.parse_args()
 
-    print("=== ai-skills Release Automation ===")
+    print("=== ai-polish-skills Release Automation ===")
 
     # 1. Validation
     print("\n1. Validating skills...")

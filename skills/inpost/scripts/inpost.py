@@ -3,6 +3,9 @@
 
 Official endpoints from InPost ShipX API (api-shipx-pl.easypack24.net).
 Zero external dependencies required (Python 3.8+ stdlib only).
+
+Copyright (c) 2026 Michell Hoduń <mhodun@gmail.com> (https://github.com/b44x)
+Licensed under the MIT License.
 """
 
 import argparse

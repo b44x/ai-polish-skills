@@ -4,6 +4,9 @@
 Uses the JSON API behind www.filmweb.pl (https://www.filmweb.pl/api/v1).
 Prints JSON to stdout; errors go to stderr as {"error": ..., "type": ...}.
 Run without arguments to list commands.
+
+Copyright (c) 2026 Michell Hoduń <mhodun@gmail.com> (https://github.com/b44x)
+Licensed under the MIT License.
 """
 
 import datetime
