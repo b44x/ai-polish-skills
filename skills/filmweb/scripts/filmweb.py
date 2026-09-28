@@ -288,10 +288,15 @@ def run(argv):
     command = positional[0] if positional else None
     arg = " ".join(positional[1:])
 
+    if command in ("--help", "-h", "help", None):
+        usage = "\n".join("  %-12s %-50s %s" % (n, a, d) for n, (a, d) in COMMANDS.items())
+        sys.stdout.write("Usage: python3 filmweb.py <command> [arguments]\n\n%s\n" % usage)
+        return EXIT_OK
+
     if command not in COMMANDS:
         usage = "\n".join("  %-12s %-50s %s" % (n, a, d) for n, (a, d) in COMMANDS.items())
         sys.stderr.write("Usage: python3 filmweb.py <command> [arguments]\n\n%s\n" % usage)
-        return EXIT_OK if command is None else EXIT_USAGE
+        return EXIT_USAGE
 
     try:
         limit = int(options.get("limit", 10))

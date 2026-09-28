@@ -125,10 +125,12 @@ def main() -> None:
 
     print("=== ai-polish-skills Release Automation ===")
 
-    # 1. Validation
-    print("\n1. Validating skills...")
+    # 1. Validation & Test Contract
+    print("\n1. Validating skills, test contract, and registry...")
     check_working_tree()
     run(["python3", "scripts/validate_skills.py"])
+    run(["python3", "scripts/test_skills.py"])
+    run(["python3", "scripts/build_registry.py", "--check"])
 
     # 2. Determine version
     run(["git", "fetch", "origin", "--tags"], check=False)

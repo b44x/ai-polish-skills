@@ -1,5 +1,7 @@
 ---
 name: biala-lista
+display_name: Biała Lista Podatników VAT
+version: 1.0.0
 description: >-
   Check Polish businesses and VAT status in the official Ministry of Finance White
   List (Biała Lista Podatników VAT). Verify active VAT payer status (Czynny /
@@ -10,9 +12,30 @@ description: >-
   account number (NRB/IBAN). Validate NIP, REGON, and IBAN checksums offline. Use
   whenever the user asks about NIP, REGON, Biała Lista VAT, "sprawdź NIP", "sprawdź kontrahenta",
   "status VAT spółki", "czy numer konta jest na białej liście", or verifying a Polish invoice.
+category: finance
+language: pl
+country: PL
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
 repository: https://github.com/b44x/ai-polish-skills
+network: true
+authentication: none
+source: Ministerstwo Finansów (KAS)
+source_type: official_api
+official: true
+homepage: https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/
+documentation: https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat
+rate_limit: 300 requests/day per IP
+last_verified: 2026-09-28
+tags:
+  - biala-lista
+  - vat
+  - nip
+  - regon
+  - split-payment
+  - podatki
+  - faktury
+  - rachunek-bankowy
 compatibility: Python 3.8+ (standard library only); network access to wl-api.mf.gov.pl.
 ---
 

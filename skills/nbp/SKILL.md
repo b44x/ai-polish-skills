@@ -1,5 +1,7 @@
 ---
 name: nbp
+display_name: Narodowy Bank Polski (NBP)
+version: 1.0.0
 description: >-
   Fetch official exchange rates, calculate tax conversions for foreign currency invoices,
   and check gold prices from Narodowy Bank Polski (NBP). Get current or historical average
@@ -9,9 +11,31 @@ description: >-
   invoice date. Convert between any currency pairs. Get official gold prices per gram and
   troy ounce. Use whenever the user asks about "kurs euro", "kurs dolara", "tabela NBP",
   "kurs do faktury", "przelicz walutę NBP", "cena złota NBP", or foreign invoice conversion.
+category: finance
+language: pl
+country: PL
 license: MIT
 author: Michell Hoduń (https://github.com/b44x)
 repository: https://github.com/b44x/ai-polish-skills
+network: true
+authentication: none
+source: Narodowy Bank Polski
+source_type: official_api
+official: true
+homepage: https://nbp.pl
+documentation: https://api.nbp.pl/
+rate_limit: fair use
+last_verified: 2026-09-28
+tags:
+  - nbp
+  - waluty
+  - kursy-walut
+  - euro
+  - dolar
+  - podatki
+  - vat
+  - zloto
+  - faktury
 compatibility: Python 3.8+ (standard library only); network access to api.nbp.pl.
 ---
 
