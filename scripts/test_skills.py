@@ -271,6 +271,149 @@ def main() -> int:
                 print(f"  ✗ Offline IMGW invalid GPS validation failed: {e}")
                 failed_tests += 1
 
+        elif skill_name == "sejm":
+            # 1. Test offline terms catalogue
+            total_tests += 1
+            try:
+                def check_terms(data):
+                    if data.get("currentTerm") != 10 or data.get("count", 0) < 10:
+                        raise TestFailure(f"Unexpected terms payload: {data}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["terms", "--offline"],
+                    check_terms,
+                )
+                print("  ✓ Offline Sejm terms catalogue passed (10 terms, current=10, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline Sejm terms catalogue failed: {e}")
+                failed_tests += 1
+
+            # 2. Test offline MP fixture
+            total_tests += 1
+            try:
+                def check_mp(data):
+                    mps = data.get("mps", [])
+                    if not mps or mps[0].get("firstLastName") != "Szymon Hołownia":
+                        raise TestFailure(f"Unexpected MP payload: {mps}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["mps", "--offline"],
+                    check_mp,
+                )
+                print("  ✓ Offline Sejm MP fixture passed (Szymon Hołownia, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline Sejm MP fixture failed: {e}")
+                failed_tests += 1
+
+            # 3. Test offline voting fixture
+            total_tests += 1
+            try:
+                def check_voting(data):
+                    if data.get("totalVoted") != 458 or data.get("yes") != 458:
+                        raise TestFailure(f"Unexpected voting payload: {data}")
+                    if "PiS" not in data.get("clubSummary", {}):
+                        raise TestFailure(f"Missing clubSummary in voting: {data}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["voting", "1", "2", "--offline"],
+                    check_voting,
+                )
+                print("  ✓ Offline Sejm voting fixture passed (total=458, yes=458, clubSummary, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline Sejm voting fixture failed: {e}")
+                failed_tests += 1
+
+            # 4. Test invalid arguments contract
+            total_tests += 1
+            try:
+                test_error_contract(
+                    script,
+                    ["voting", "-1", "-1"],
+                    expected_exit=64,
+                )
+                print("  ✓ Offline Sejm invalid args validation passed (exit=64, error JSON on stderr)")
+            except TestFailure as e:
+                print(f"  ✗ Offline Sejm invalid args validation failed: {e}")
+                failed_tests += 1
+
+        elif skill_name == "nfz":
+            # 1. Test offline provinces dictionary
+            total_tests += 1
+            try:
+                def check_provinces(data):
+                    provs = data.get("provinces", [])
+                    if len(provs) != 16:
+                        raise TestFailure(f"Expected 16 provinces, got {len(provs)}")
+                    pom = [p for p in provs if p.get("code") == "11"]
+                    if not pom or pom[0].get("name") != "pomorskie":
+                        raise TestFailure(f"Missing or invalid pomorskie province: {provs}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["provinces"],
+                    check_provinces,
+                )
+                print("  ✓ Offline NFZ provinces dictionary passed (16 provinces, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline NFZ provinces dictionary failed: {e}")
+                failed_tests += 1
+
+            # 2. Test offline benefits fixture
+            total_tests += 1
+            try:
+                def check_benefits(data):
+                    bens = data.get("benefits", [])
+                    if "REZONANS MAGNETYCZNY" not in bens:
+                        raise TestFailure(f"Expected REZONANS MAGNETYCZNY in benefits: {bens}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["benefits", "--offline", "rezonans"],
+                    check_benefits,
+                )
+                print("  ✓ Offline NFZ benefits fixture passed (REZONANS MAGNETYCZNY, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline NFZ benefits fixture failed: {e}")
+                failed_tests += 1
+
+            # 3. Test offline queue fixture
+            total_tests += 1
+            try:
+                def check_queues(data):
+                    queues = data.get("queues", [])
+                    if not queues:
+                        raise TestFailure(f"Expected at least one queue in fixture: {data}")
+                    q0 = queues[0]
+                    wt = q0.get("waitingTime", {})
+                    if wt.get("averagePeriodDays") != 63 or wt.get("pcus") != "1 mies. 3 tyg.":
+                        raise TestFailure(f"Unexpected waitingTime: {wt}")
+
+                test_json_stdout_contract(
+                    script,
+                    ["queues", "--offline"],
+                    check_queues,
+                )
+                print("  ✓ Offline NFZ queue fixture passed (PCUŚ waiting time, valid JSON)")
+            except TestFailure as e:
+                print(f"  ✗ Offline NFZ queue fixture failed: {e}")
+                failed_tests += 1
+
+            # 4. Test invalid query argument contract
+            total_tests += 1
+            try:
+                test_error_contract(
+                    script,
+                    ["benefits", "ab"],
+                    expected_exit=64,
+                )
+                print("  ✓ Offline NFZ short query validation passed (exit=64, error JSON on stderr)")
+            except TestFailure as e:
+                print(f"  ✗ Offline NFZ short query validation failed: {e}")
+                failed_tests += 1
+
     elapsed = time.time() - start_time
     print("\n───────────────────────────────────────────────────────────────")
     print(f"Ran {total_tests} contract tests across {len(skill_dirs)} skills in {elapsed:.2f}s.")

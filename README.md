@@ -11,6 +11,20 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 
 ---
 
+## Demo
+
+**See Polskie Skille in action** — jedno pytanie po polsku, agent wybiera skill, skill odpytuje oficjalne polskie źródło (MF, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost) i zwraca czytelny wynik. Wszystkie dane w filmie pochodzą z rzeczywistych uruchomień skilli.
+
+<p align="center">
+  <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille — demo: agent AI korzysta z polskich API i danych publicznych" width="960"></a>
+</p>
+
+<p align="center">
+  ▶️ <a href="docs/demo/demo.mp4"><b>Obejrzyj pełne demo (MP4, 1080p, 95 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">jak wygenerować demo</a>
+</p>
+
+---
+
 ## 💡 Czym są Polskie Skille?
 
 **ai-polish-skills** to ekosystem modularnych rozszerzeń dla agentów AI, które dają modelom bezpośredni dostęp do polskich danych w czasie rzeczywistym. Zamiast halucynować dane o firmach, kursach czy przesyłkach, agent uruchamia deterministyczny skrypt i otrzymuje ustrukturyzowany JSON.
@@ -42,6 +56,8 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Śledzenie paczek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie, ulicy, mieście lub GPS z odległością. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Baza filmów, seriali, ocen krytyków/widzów, obsada, daty premier oraz platformy VOD z cenami w PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Pogoda i Alerty** `[public_data]` | Oficjalne dane pogodowe (temperatura, ciśnienie, wiatr, opady) z 62 stacji w Polsce, ostrzeżenia meteo/hydro oraz stany rzek. | IMGW-PIB (🏛 oficjalne API) |
+| [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Baza posłów, komisji, wyniki głosowań imiennych i klubowych, druki sejmowe oraz etapy procesu legislacyjnego. | Kancelaria Sejmu (🏛 oficjalne API) |
+| [`nfz`](skills/nfz/SKILL.md) | **NFZ Kolejki i Czas Oczekiwania (PCUŚ)** `[health]` | Oficjalne dane o czasie oczekiwania na świadczenia (rezonans, tomografia, poradnie), liczba oczekujących, tryb stabilny i pilny oraz wyszukiwanie placówek w promieniu km. | Narodowy Fundusz Zdrowia (🏛 oficjalne API) |
 
 ---
 

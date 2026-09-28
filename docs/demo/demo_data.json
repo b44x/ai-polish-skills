@@ -1,0 +1,2449 @@
+{
+  "generatedAt": "2026-09-28T14:26:42+00:00",
+  "complete": true,
+  "note": "Live output of the unmodified skills in skills/. Regenerate with docs/demo/generate_demo.sh.",
+  "scenes": [
+    {
+      "id": "biala-lista",
+      "question": "Sprawdź firmę po NIP 5261040828",
+      "skill": "biala-lista",
+      "source": "Ministerstwo Finansów",
+      "sourceShort": "Biała Lista VAT",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/biala-lista/scripts/biala_lista.py",
+            "nip",
+            "5261040828"
+          ],
+          "exitCode": 0,
+          "durationMs": 898,
+          "attempts": 3,
+          "capturedAt": "2026-09-28T14:26:32+00:00",
+          "output": {
+            "name": "GŁÓWNY URZĄD STATYSTYCZNY",
+            "nip": "5261040828",
+            "nipFormatted": "526-104-08-28",
+            "statusVat": "Czynny",
+            "isVatActive": true,
+            "regon": "000331501",
+            "krs": null,
+            "pesel": null,
+            "residenceAddress": null,
+            "workingAddress": "ALEJA NIEPODLAGŁOŚCI 208, 00-925 WARSZAWA",
+            "registrationLegalDate": "1996-01-29",
+            "hasVirtualAccounts": true,
+            "accountCount": 7,
+            "accounts": [
+              {
+                "raw": "07101010100024791339300000",
+                "formatted": "07 1010 1010 0024 7913 3930 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "31101010100024791391200000",
+                "formatted": "31 1010 1010 0024 7913 9120 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "79101010100024791398000000",
+                "formatted": "79 1010 1010 0024 7913 9800 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "42101010100024792231000000",
+                "formatted": "42 1010 1010 0024 7922 3100 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "26101010100024791391300000",
+                "formatted": "26 1010 1010 0024 7913 9130 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "92101010100024792230000000",
+                "formatted": "92 1010 1010 0024 7922 3000 0000",
+                "bank": "Narodowy Bank Polski"
+              },
+              {
+                "raw": "62101010100024791891100000",
+                "formatted": "62 1010 1010 0024 7918 9110 0000",
+                "bank": "Narodowy Bank Polski"
+              }
+            ],
+            "representatives": [],
+            "authorizedClerks": [],
+            "partners": [],
+            "registrationDenialDate": null,
+            "registrationDenialBasis": null,
+            "restorationDate": null,
+            "restorationBasis": null,
+            "removalDate": null,
+            "removalBasis": null,
+            "requestId": "ZrQ0y-98l0i68",
+            "requestDateTime": "28-09-2026 16:26:32"
+          }
+        }
+      ],
+      "card": {
+        "title": "GŁÓWNY URZĄD STATYSTYCZNY",
+        "badge": "Czynny",
+        "badgeOk": true,
+        "rows": [
+          [
+            "NIP",
+            "526-104-08-28"
+          ],
+          [
+            "Status VAT",
+            "Czynny"
+          ],
+          [
+            "REGON",
+            "000331501"
+          ],
+          [
+            "Adres",
+            "ALEJA NIEPODLAGŁOŚCI 208, 00-925 WARSZAWA"
+          ],
+          [
+            "Rachunki na Białej Liście",
+            "7"
+          ]
+        ]
+      },
+      "footer": "Źródło: wl-api.mf.gov.pl · stan na 28-09-2026 16:26:32 · requestId ZrQ0y-98l0i68"
+    },
+    {
+      "id": "krs",
+      "question": "Kto reprezentuje spółkę o numerze KRS 0000006865?",
+      "skill": "krs",
+      "source": "Ministerstwo Sprawiedliwości",
+      "sourceShort": "KRS",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/krs/scripts/krs.py",
+            "repr",
+            "0000006865"
+          ],
+          "exitCode": 0,
+          "durationMs": 1280,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:26:35+00:00",
+          "output": {
+            "krs": "0000006865",
+            "nazwa": "CD PROJEKT RED SPÓŁKA AKCYJNA",
+            "formaPrawna": "SPÓŁKA AKCYJNA",
+            "sposobReprezentacji": "W PRZYPADKU ZARZĄDU JEDNOOSOBOWEGO DO REPREZENTOWANIA SPÓŁKI UPOWAŻNIONY JEST JEDNOOSOBOWO CZŁONEK ZARZĄDU.\nW PRZYPADKU POWOŁANIA ZARZĄDU WIELOOSOBOWEGO DO REPREZENTOWANIA SPÓŁKI UPOWAŻNIENI SĄ DWAJ CZŁONKOWIE ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE ALBO JEDEN CZŁONEK ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE Z PROKURENTEM.",
+            "zarzad": [
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "P**** N**********"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "A*** B*******"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "M***** N*********"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "P**** K********"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "P**** Z******"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "J******* C***"
+              },
+              {
+                "funkcja": "CZŁONEK ZARZĄDU",
+                "nazwisko": "K******* R***********"
+              }
+            ],
+            "prokurenci": [
+              {
+                "rodzaj": "ŁĄCZNA Z INNYM PROKURENTEM LUB CZŁONKIEM ZARZĄDU",
+                "nazwisko": "A******** T**********"
+              },
+              {
+                "rodzaj": "ŁĄCZNA Z INNYM PROKURENTEM LUB CZŁONKIEM ZARZĄDU",
+                "nazwisko": "A******** P********"
+              }
+            ],
+            "wazneZasady": "Przed podpisaniem umowy zweryfikuj zgodność podpisów ze sposobem reprezentacji."
+          }
+        }
+      ],
+      "card": {
+        "title": "CD PROJEKT RED SPÓŁKA AKCYJNA",
+        "badge": "KRS 0000006865",
+        "badgeOk": true,
+        "rows": [
+          [
+            "Forma prawna",
+            "Spółka akcyjna"
+          ],
+          [
+            "Zarząd",
+            "7 os. · prokurenci: 2"
+          ],
+          [
+            "Reprezentacja",
+            "W przypadku powołania zarządu wieloosobowego do reprezentowania spółki upoważnieni są dwaj członkowie zarządu działający łącznie albo jeden członek zarządu działający łącznie z prokurentem."
+          ]
+        ],
+        "list": [
+          "P**** N********** — członek zarządu",
+          "A*** B******* — członek zarządu",
+          "M***** N********* — członek zarządu",
+          "P**** K******** — członek zarządu",
+          "P**** Z****** — członek zarządu",
+          "+ 4 kolejne osoby"
+        ]
+      },
+      "footer": "Źródło: api-krs.ms.gov.pl · dane osobowe zanonimizowane przez API KRS"
+    },
+    {
+      "id": "nbp",
+      "question": "Jaki jest dzisiaj kurs EUR i ile to jest 25 000 EUR w PLN?",
+      "skill": "nbp",
+      "source": "Narodowy Bank Polski",
+      "sourceShort": "NBP",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/nbp/scripts/nbp.py",
+            "rate",
+            "EUR"
+          ],
+          "exitCode": 0,
+          "durationMs": 945,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:24:25+00:00",
+          "output": {
+            "currency": "EUR",
+            "currencyName": "euro",
+            "table": "A",
+            "tableNumber": "188/A/NBP/2026",
+            "effectiveDate": "2026-09-28",
+            "mid": 4.3769
+          }
+        },
+        {
+          "command": [
+            "python3",
+            "skills/nbp/scripts/nbp.py",
+            "convert",
+            "25000",
+            "EUR",
+            "PLN"
+          ],
+          "exitCode": 0,
+          "durationMs": 985,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:24:28+00:00",
+          "output": {
+            "amount": 25000.0,
+            "fromCurrency": "EUR",
+            "toCurrency": "PLN",
+            "convertedAmount": 109422.5,
+            "convertedAmountExact": 109422.5,
+            "rateFromPln": 4.3769,
+            "rateToPln": 1.0,
+            "effectiveRate": 4.3769,
+            "date": "2026-09-28"
+          }
+        }
+      ],
+      "card": {
+        "title": "1 EUR = 4,3769 PLN",
+        "badge": "tabela 188/A/NBP/2026",
+        "badgeOk": true,
+        "big": "25 000 EUR = 109 422,50 zł",
+        "rows": [
+          [
+            "Kurs średni NBP",
+            "4,3769 PLN"
+          ],
+          [
+            "Tabela",
+            "188/A/NBP/2026 z 2026-09-28"
+          ]
+        ]
+      },
+      "footer": "Źródło: api.nbp.pl · kurs średni (tabela A)"
+    },
+    {
+      "id": "imgw",
+      "question": "Jaka jest teraz pogoda w Zakopanem?",
+      "skill": "imgw",
+      "source": "IMGW-PIB",
+      "sourceShort": "IMGW-PIB",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/imgw/scripts/imgw.py",
+            "weather",
+            "zakopane"
+          ],
+          "exitCode": 0,
+          "durationMs": 1034,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:24:31+00:00",
+          "output": {
+            "stationId": "12625",
+            "stationName": "Zakopane",
+            "measurementDate": "2026-09-28",
+            "measurementHour": 14,
+            "measurementTime": "2026-09-28 14:00 UTC",
+            "temperatureC": 18.1,
+            "windSpeedMs": 2.0,
+            "windDirectionDeg": 30,
+            "relativeHumidityPercent": 42.3,
+            "rainfallMm": 0.0,
+            "pressureHpa": null,
+            "formatted": {
+              "temperature": "18.1 °C",
+              "pressure": "brak danych (stacja górska lub brak pomiaru)",
+              "wind": "2.0 m/s (30°)",
+              "humidity": "42.3 %",
+              "rainfall": "0.0 mm"
+            },
+            "coordinates": {
+              "lat": 49.3,
+              "lon": 19.96
+            },
+            "source": "Instytut Meteorologii i Gospodarki Wodnej – Państwowy Instytut Badawczy (IMGW-PIB)"
+          }
+        }
+      ],
+      "card": {
+        "title": "Stacja synoptyczna Zakopane",
+        "badge": "pomiar 16:00 (czas PL)",
+        "badgeOk": true,
+        "big": "18.1 °C",
+        "rows": [
+          [
+            "Ciśnienie",
+            "brak danych (stacja górska lub brak pomiaru)"
+          ],
+          [
+            "Wiatr",
+            "2.0 m/s (30°)"
+          ],
+          [
+            "Wilgotność",
+            "42.3 %"
+          ],
+          [
+            "Opad",
+            "0.0 mm"
+          ],
+          [
+            "Czas pomiaru",
+            "2026-09-28 14:00 UTC"
+          ]
+        ]
+      },
+      "footer": "Źródło: Instytut Meteorologii i Gospodarki Wodnej – PIB (danepubliczne.imgw.pl)"
+    },
+    {
+      "id": "nfz",
+      "question": "Gdzie w promieniu 50 km od Gdańska mogę zrobić rezonans na NFZ?",
+      "skill": "nfz",
+      "source": "Narodowy Fundusz Zdrowia",
+      "sourceShort": "NFZ API",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/nfz/scripts/nfz.py",
+            "benefits",
+            "rezonans"
+          ],
+          "exitCode": 0,
+          "durationMs": 1060,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:24:34+00:00",
+          "output": {
+            "query": "rezonans",
+            "count": 1,
+            "benefits": [
+              "REZONANS MAGNETYCZNY"
+            ],
+            "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+          }
+        },
+        {
+          "command": [
+            "python3",
+            "skills/nfz/scripts/nfz.py",
+            "near",
+            "Gdańsk",
+            "--benefit",
+            "REZONANS MAGNETYCZNY",
+            "--radius-km",
+            "50",
+            "--limit",
+            "5"
+          ],
+          "exitCode": 0,
+          "durationMs": 2354,
+          "attempts": 3,
+          "capturedAt": "2026-09-28T14:24:59+00:00",
+          "output": {
+            "query": {
+              "benefit": "REZONANS MAGNETYCZNY",
+              "location": "Gdańsk",
+              "coordinates": {
+                "lat": 54.352,
+                "lon": 18.646
+              },
+              "radiusKm": 50.0,
+              "case": "stabilny"
+            },
+            "count": 5,
+            "results": [
+              {
+                "id": "5c7044e8-6ba8-0369-e063-b4200a0a4532",
+                "benefit": "REZONANS MAGNETYCZNY",
+                "provider": "SZPITALE POMORSKIE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+                "place": "PRACOWNIA MRI",
+                "locality": "GDYNIA",
+                "address": "POWSTANIA STYCZNIOWEGO 1",
+                "phone": "+48 58 726 05 42",
+                "case": "stabilny",
+                "waitingTime": {
+                  "pcus": "19 dni",
+                  "averagePeriodDays": 27,
+                  "awaiting": 52,
+                  "dateSituationAsAt": "2026-09-02",
+                  "statisticsUpdateMonth": "2026-08"
+                },
+                "coordinates": {
+                  "lat": 54.518,
+                  "lon": 18.53,
+                  "isApproximate": true
+                },
+                "distanceKm": 19.9,
+                "queueInCer": false,
+                "accessibility": {
+                  "toilet": true,
+                  "ramp": true,
+                  "carPark": true,
+                  "elevator": true,
+                  "ac": false,
+                  "wheelchairs": true,
+                  "automaticDoor": false
+                },
+                "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+              },
+              {
+                "id": "5c7044e8-6bb6-0369-e063-b4200a0a4532",
+                "benefit": "REZONANS MAGNETYCZNY",
+                "provider": "\"PRO-SCAN \" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ ",
+                "place": "PRACOWNIA REZONANSU MAGNETYCZNEGO",
+                "locality": "MALBORK",
+                "address": "NOWOWIEJSKIEGO 48",
+                "phone": "+48 55 647 90 52",
+                "case": "stabilny",
+                "waitingTime": {
+                  "pcus": "1 mies. 1 tydz.",
+                  "averagePeriodDays": 57,
+                  "awaiting": 0,
+                  "dateSituationAsAt": "2026-09-02",
+                  "statisticsUpdateMonth": "2026-08"
+                },
+                "coordinates": {
+                  "lat": 54.035,
+                  "lon": 19.027,
+                  "isApproximate": true
+                },
+                "distanceKm": 43.1,
+                "queueInCer": false,
+                "accessibility": {
+                  "toilet": true,
+                  "ramp": true,
+                  "carPark": true,
+                  "elevator": false,
+                  "ac": true,
+                  "wheelchairs": true,
+                  "automaticDoor": true
+                },
+                "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+              },
+              {
+                "id": "5c7044e8-6bae-0369-e063-b4200a0a4532",
+                "benefit": "REZONANS MAGNETYCZNY",
+                "provider": "NADMORSKIE CENTRUM MEDYCZNE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+                "place": "PRACOWNIA REZONANSU MAGNETYCZNEGO 3T",
+                "locality": "GDAŃSK",
+                "address": "ŚWIĘTOKRZYSKA 4",
+                "phone": "+48 58 763 98 85",
+                "case": "stabilny",
+                "waitingTime": {
+                  "pcus": "1 mies. 3 tyg.",
+                  "averagePeriodDays": 63,
+                  "awaiting": 712,
+                  "dateSituationAsAt": "2026-09-02",
+                  "statisticsUpdateMonth": "2026-08"
+                },
+                "coordinates": {
+                  "lat": 54.325971,
+                  "lon": 18.606809,
+                  "isApproximate": false
+                },
+                "distanceKm": 3.9,
+                "queueInCer": false,
+                "accessibility": {
+                  "toilet": true,
+                  "ramp": false,
+                  "carPark": true,
+                  "elevator": true,
+                  "ac": false,
+                  "wheelchairs": true,
+                  "automaticDoor": false
+                },
+                "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+              },
+              {
+                "id": "5c7044e8-6bb3-0369-e063-b4200a0a4532",
+                "benefit": "REZONANS MAGNETYCZNY",
+                "provider": "NIEPUBLICZNY ZAKŁAD OPIEKI ZDROWOTNEJ \"TK MEDICA\"",
+                "place": "PRACOWNIA REZONANSU MAGNETYCZNEGO",
+                "locality": "STAROGARD GDAŃSKI",
+                "address": "DR. JÓZEFA BALEWSKIEGO 1",
+                "phone": "+48 500 079 000",
+                "case": "stabilny",
+                "waitingTime": {
+                  "pcus": "1 mies. 2 tyg.",
+                  "averagePeriodDays": 65,
+                  "awaiting": 1480,
+                  "dateSituationAsAt": "2026-09-02",
+                  "statisticsUpdateMonth": "2026-08"
+                },
+                "coordinates": {
+                  "lat": 53.96696,
+                  "lon": 18.51018,
+                  "isApproximate": false
+                },
+                "distanceKm": 43.7,
+                "queueInCer": false,
+                "accessibility": {
+                  "toilet": true,
+                  "ramp": true,
+                  "carPark": true,
+                  "elevator": true,
+                  "ac": true,
+                  "wheelchairs": true,
+                  "automaticDoor": true
+                },
+                "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+              },
+              {
+                "id": "5c7044e8-6ba9-0369-e063-b4200a0a4532",
+                "benefit": "REZONANS MAGNETYCZNY",
+                "provider": "7 SZPITAL MARYNARKI WOJENNEJ Z PRZYCHODNIĄ SPZOZ IMIENIA KONTRADMIRAŁA PROFESORA WIESŁAWA ŁASIŃSKIEGO W GDAŃSKU                 ",
+                "place": "PRACOWNIA REZONANSU MAGNETYCZNEGO",
+                "locality": "GDAŃSK",
+                "address": "POLANKI 117",
+                "phone": "+48 58 552 63 60",
+                "case": "stabilny",
+                "waitingTime": {
+                  "pcus": "1 mies. 3 tyg.",
+                  "averagePeriodDays": 69,
+                  "awaiting": 674,
+                  "dateSituationAsAt": "2026-09-02",
+                  "statisticsUpdateMonth": "2026-08"
+                },
+                "coordinates": {
+                  "lat": 54.352,
+                  "lon": 18.646,
+                  "isApproximate": true
+                },
+                "distanceKm": 0.0,
+                "queueInCer": false,
+                "accessibility": {
+                  "toilet": true,
+                  "ramp": false,
+                  "carPark": true,
+                  "elevator": true,
+                  "ac": false,
+                  "wheelchairs": true,
+                  "automaticDoor": false
+                },
+                "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+              }
+            ],
+            "source": "Narodowy Fundusz Zdrowia (apinfz.nfz.gov.pl)"
+          }
+        }
+      ],
+      "steps": [
+        "świadczenie: „rezonans” → REZONANS MAGNETYCZNY",
+        "placówki w promieniu 50 km · przypadek stabilny · sortowanie wg czasu"
+      ],
+      "card": {
+        "title": "REZONANS MAGNETYCZNY · okolice Gdańska",
+        "badge": "stan kolejek na 2026-09-02",
+        "badgeOk": true,
+        "table": {
+          "head": [
+            "PLACÓWKA",
+            "MIASTO",
+            "PROGNOZOWANY CZAS OCZEKIWANIA",
+            "ODLEGŁOŚĆ"
+          ],
+          "rows": [
+            [
+              "SZPITALE POMORSKIE SPÓŁKA Z OGRANICZONĄ ODP…",
+              "Gdynia",
+              "19 dni",
+              "≈ 20 km*"
+            ],
+            [
+              "PRO-SCAN SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALN…",
+              "Malbork",
+              "1 mies. 1 tydz.",
+              "≈ 43 km*"
+            ],
+            [
+              "NADMORSKIE CENTRUM MEDYCZNE SPÓŁKA Z OGRANI…",
+              "Gdańsk",
+              "1 mies. 3 tyg.",
+              "3,9 km"
+            ],
+            [
+              "NIEPUBLICZNY ZAKŁAD OPIEKI ZDROWOTNEJ TK ME…",
+              "Starogard Gdański",
+              "1 mies. 2 tyg.",
+              "43,7 km"
+            ],
+            [
+              "7 SZPITAL MARYNARKI WOJENNEJ Z PRZYCHODNIĄ…",
+              "Gdańsk",
+              "1 mies. 3 tyg.",
+              "≈ 0 km*"
+            ]
+          ]
+        },
+        "notes": [
+          "PCUŚ = prognozowany czas oczekiwania (statystyka NFZ), nie termin wizyty.",
+          "* położenie przybliżone do centrum miejscowości — odległość orientacyjna."
+        ]
+      },
+      "footer": "Źródło: apinfz.nfz.gov.pl (Terminy leczenia NFZ)"
+    },
+    {
+      "id": "sejm",
+      "question": "Jak głosowano w ostatnim głosowaniu Sejmu?",
+      "skill": "sejm",
+      "source": "Kancelaria Sejmu RP",
+      "sourceShort": "Sejm RP",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/sejm/scripts/sejm.py",
+            "votings",
+            "--limit",
+            "0"
+          ],
+          "exitCode": 0,
+          "durationMs": 1800,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:26:39+00:00",
+          "output": {
+            "term": 10,
+            "sitting": 65,
+            "count": 147,
+            "source": "Kancelaria Sejmu Rzeczypospolitej Polskiej (api.sejm.gov.pl)",
+            "votings": [
+              {
+                "votingNumber": 1,
+                "date": "2026-09-15T11:10:35",
+                "title": "Głosowanie proceduralne dotyczące projektu uchwały z druku nr 3071",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 44 ust. 3 regulaminu Sejmu w sprawie sprawozdania dotyczącego projektu z druku nr 3071",
+                "yes": 256,
+                "no": 131,
+                "abstain": 16,
+                "totalVoted": 403
+              },
+              {
+                "votingNumber": 2,
+                "date": "2026-09-15T11:18:08",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "Wniosek o przerwę",
+                "yes": 178,
+                "no": 228,
+                "abstain": 8,
+                "totalVoted": 414
+              },
+              {
+                "votingNumber": 3,
+                "date": "2026-09-15T11:22:12",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "Głosowanie kworum",
+                "yes": 0,
+                "no": 0,
+                "abstain": 0,
+                "totalVoted": 402
+              },
+              {
+                "votingNumber": 4,
+                "date": "2026-09-15T11:38:28",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "wniosek o odroczenie posiedzenia",
+                "yes": 163,
+                "no": 245,
+                "abstain": 0,
+                "totalVoted": 408
+              },
+              {
+                "votingNumber": 5,
+                "date": "2026-09-16T09:08:39",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3100",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 37 ust. 4 regulaminu Sejmu w sprawie przedłożenia z druku nr 3100",
+                "yes": 261,
+                "no": 140,
+                "abstain": 0,
+                "totalVoted": 401
+              },
+              {
+                "votingNumber": 6,
+                "date": "2026-09-16T09:09:18",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3099",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 37 ust. 4 regulaminu Sejmu w sprawie przedłożenia z druku nr 3099",
+                "yes": 228,
+                "no": 160,
+                "abstain": 11,
+                "totalVoted": 399
+              },
+              {
+                "votingNumber": 7,
+                "date": "2026-09-17T16:58:13",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3109",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 44 ust. 3 regulaminu Sejmu w sprawie sprawozdania z druku nr 3109",
+                "yes": 236,
+                "no": 194,
+                "abstain": 1,
+                "totalVoted": 431
+              },
+              {
+                "votingNumber": 8,
+                "date": "2026-09-17T16:58:56",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3107",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 44 ust. 3 regulaminu Sejmu w sprawie sprawozdania z druku nr 3107",
+                "yes": 271,
+                "no": 19,
+                "abstain": 142,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 9,
+                "date": "2026-09-17T16:59:50",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3118",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 44 ust. 3 regulaminu Sejmu w sprawie sprawozdania z druku nr 3118",
+                "yes": 273,
+                "no": 161,
+                "abstain": 0,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 10,
+                "date": "2026-09-17T17:22:31",
+                "title": "Pkt. 27 Sprawozdanie Komisji o wniosku Prezydenta Rzeczypospolitej Polskiej o ponowne rozpatrzenie ustawy z dnia 29 maja 2026 r. o statusie osoby najbliższej w związku i umowie o wspólnym pożyciu (druki nr 2863 i 3110)",
+                "topic": "głosowanie nad ponownym uchwaleniem ustawy",
+                "yes": 232,
+                "no": 199,
+                "abstain": 0,
+                "totalVoted": 431
+              },
+              {
+                "votingNumber": 11,
+                "date": "2026-09-17T17:24:41",
+                "title": "Pkt. 28 Sprawozdanie Komisji o wniosku Prezydenta Rzeczypospolitej Polskiej o ponowne rozpatrzenie ustawy z dnia 29 maja 2026 r. - Przepisy wprowadzające ustawę o statusie osoby najbliższej w związku i umowie o wspólnym pożyciu (druki nr 2864 i 3111)",
+                "topic": "głosowanie nad ponownym uchwaleniem ustawy",
+                "yes": 232,
+                "no": 200,
+                "abstain": 0,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 12,
+                "date": "2026-09-17T17:27:21",
+                "title": "Pkt. 54 Sprawozdanie Komisji w sprawie wniosku Europejskiego Prokuratora Generalnego z dnia 29 lipca 2026 r. o wyrażenie zgody przez Sejm na pociągnięcie do odpowiedzialności karnej oraz zatrzymanie i tymczasowe aresztowanie posła Wojciecha Króla (druk nr 3105)",
+                "topic": "głosowanie nad przyjęciem wnioskuo wyrażenie zgody przez Sejm na zatrzymanie i tymczasowe aresztowanie posła Wojciecha Króla",
+                "yes": 422,
+                "no": 3,
+                "abstain": 5,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 13,
+                "date": "2026-09-17T17:28:28",
+                "title": "Pkt. 20 Sprawozdanie Komisji o poselskim projekcie uchwały o zmianie Regulaminu Sejmu Rzeczypospolitej Polskiej (druki nr 3071 i 3084)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 232,
+                "no": 144,
+                "abstain": 51,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 14,
+                "date": "2026-09-18T09:11:34",
+                "title": "Głosowanie proceduralne dotyczące druku nr 3101",
+                "topic": "wniosek o skrócenie terminu, o którym mowa w art. 37 ust. 4 regulaminu Sejmu w sprawie przedłożenia z druku nr 3101",
+                "yes": 274,
+                "no": 24,
+                "abstain": 142,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 15,
+                "date": "2026-09-18T09:17:52",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "Wniosek o przerwę",
+                "yes": 172,
+                "no": 242,
+                "abstain": 21,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 16,
+                "date": "2026-09-18T09:30:34",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "Głosowanie kworum",
+                "yes": 0,
+                "no": 0,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 17,
+                "date": "2026-09-18T09:35:56",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "wniosek o zamknięcie posiedzenia",
+                "yes": 140,
+                "no": 256,
+                "abstain": 44,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 18,
+                "date": "2026-09-18T09:46:44",
+                "title": "Pkt. 21 Sprawozdanie Komisji o poselskich projektach uchwał:- w sprawie upamiętnienia 50. rocznicy powstania Komitetu Obrony Robotników,- w 50. rocznicę powstania Komitetu Obrony Robotników (druki nr 2889, 3056 i 3064)",
+                "topic": "wniosek o przystąpienie do głosowania bez kierowania projektu uchwały do komisji",
+                "yes": 239,
+                "no": 202,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 19,
+                "date": "2026-09-18T09:47:38",
+                "title": "Pkt. 21 Sprawozdanie Komisji o poselskich projektach uchwał:- w sprawie upamiętnienia 50. rocznicy powstania Komitetu Obrony Robotników,- w 50. rocznicę powstania Komitetu Obrony Robotników (druki nr 2889, 3056 i 3064)",
+                "topic": "poprawki nr 1-2",
+                "yes": 215,
+                "no": 224,
+                "abstain": 0,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 20,
+                "date": "2026-09-18T09:48:09",
+                "title": "Pkt. 21 Sprawozdanie Komisji o poselskich projektach uchwał:- w sprawie upamiętnienia 50. rocznicy powstania Komitetu Obrony Robotników,- w 50. rocznicę powstania Komitetu Obrony Robotników (druki nr 2889, 3056 i 3064)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 404,
+                "no": 0,
+                "abstain": 28,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 21,
+                "date": "2026-09-18T09:49:06",
+                "title": "Pkt. 40 Zmiany w składach osobowych komisji sejmowych (druk nr 3106)",
+                "topic": "głosowanie nad przyjęciem wniosku z druku nr 3106",
+                "yes": 441,
+                "no": 2,
+                "abstain": 0,
+                "totalVoted": 443
+              },
+              {
+                "votingNumber": 22,
+                "date": "2026-09-18T10:12:38",
+                "title": "Wybór Wicemarszałka Sejmu Rzeczypospolitej Polskiej (druki nr 2875 i 3077)",
+                "topic": "Wybór Wicemarszałka Sejmu Rzeczypospolitej Polskiej",
+                "yes": 0,
+                "no": 0,
+                "abstain": 0,
+                "totalVoted": 428
+              },
+              {
+                "votingNumber": 23,
+                "date": "2026-09-18T10:21:14",
+                "title": "Pkt. 43 Powołanie Przewodniczącego Komisji Rozwoju i Bezpieczeństwa Sztucznej Inteligencji (druki nr 3078 i 3083)",
+                "topic": "głosowanie nad powołaniem Pani Pameli Krzypkowskiej na Przewodniczącego Komisji Rozwoju i Bezpieczeństwa Sztucznej Inteligencji",
+                "yes": 271,
+                "no": 24,
+                "abstain": 140,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 24,
+                "date": "2026-09-18T10:23:42",
+                "title": "Pkt. 22 Sprawozdanie Komisji w sprawie wniosku prokuratora Prokuratury Okręgowej w Przemyślu z dnia 17 czerwca 2026 r. o wyrażenie zgody przez Sejm na pociągnięcie do odpowiedzialności karnej posła Tadeusza Chrzana (druk nr 3044)",
+                "topic": "głosowanie nad przyjęciem wniosku o wyrażenie zgody na pociągnięcie do odpowiedzialności karnej posła Tadeusza Chrzana za czyn określony w pkt 1.",
+                "yes": 1,
+                "no": 440,
+                "abstain": 1,
+                "totalVoted": 442
+              },
+              {
+                "votingNumber": 25,
+                "date": "2026-09-18T10:24:44",
+                "title": "Pkt. 22 Sprawozdanie Komisji w sprawie wniosku prokuratora Prokuratury Okręgowej w Przemyślu z dnia 17 czerwca 2026 r. o wyrażenie zgody przez Sejm na pociągnięcie do odpowiedzialności karnej posła Tadeusza Chrzana (druk nr 3044)",
+                "topic": "głosowanie nad przyjęciem wniosku o wyrażenie zgody na pociągnięcie do odpowiedzialności karnej posła Tadeusza Chrzana za czyn określony w pkt 2.",
+                "yes": 1,
+                "no": 437,
+                "abstain": 1,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 26,
+                "date": "2026-09-18T10:27:11",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 1",
+                "yes": 196,
+                "no": 246,
+                "abstain": 0,
+                "totalVoted": 442
+              },
+              {
+                "votingNumber": 27,
+                "date": "2026-09-18T10:27:41",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 2",
+                "yes": 292,
+                "no": 6,
+                "abstain": 129,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 28,
+                "date": "2026-09-18T10:28:32",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wnioski mniejszości nr 1, 9 oraz 12-14",
+                "yes": 188,
+                "no": 232,
+                "abstain": 23,
+                "totalVoted": 443
+              },
+              {
+                "votingNumber": 29,
+                "date": "2026-09-18T10:29:16",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 3, 41 i 45",
+                "yes": 188,
+                "no": 230,
+                "abstain": 19,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 30,
+                "date": "2026-09-18T10:29:53",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wnioski mniejszości nr 2 i 10",
+                "yes": 187,
+                "no": 231,
+                "abstain": 17,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 31,
+                "date": "2026-09-18T10:30:23",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 4",
+                "yes": 187,
+                "no": 234,
+                "abstain": 17,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 32,
+                "date": "2026-09-18T10:31:03",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 5, 40 i 46",
+                "yes": 209,
+                "no": 228,
+                "abstain": 0,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 33,
+                "date": "2026-09-18T10:31:32",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wniosek mniejszości 3",
+                "yes": 187,
+                "no": 227,
+                "abstain": 21,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 34,
+                "date": "2026-09-18T10:31:59",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 6",
+                "yes": 185,
+                "no": 228,
+                "abstain": 20,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 35,
+                "date": "2026-09-18T10:32:26",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wniosek mniejszości 4",
+                "yes": 186,
+                "no": 229,
+                "abstain": 21,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 36,
+                "date": "2026-09-18T10:32:54",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 7",
+                "yes": 280,
+                "no": 159,
+                "abstain": 0,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 37,
+                "date": "2026-09-18T10:33:25",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 8 i 10",
+                "yes": 207,
+                "no": 232,
+                "abstain": 0,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 38,
+                "date": "2026-09-18T10:34:00",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 9, 26, 31 i 38",
+                "yes": 277,
+                "no": 137,
+                "abstain": 28,
+                "totalVoted": 442
+              },
+              {
+                "votingNumber": 39,
+                "date": "2026-09-18T10:34:29",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 11",
+                "yes": 430,
+                "no": 0,
+                "abstain": 3,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 40,
+                "date": "2026-09-18T10:35:08",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 12-13, wniosek mniejszości nr 5",
+                "yes": 187,
+                "no": 229,
+                "abstain": 24,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 41,
+                "date": "2026-09-18T10:35:36",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wniosek mniejszości 6",
+                "yes": 203,
+                "no": 215,
+                "abstain": 19,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 42,
+                "date": "2026-09-18T10:36:12",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka nr 14, wniosek mniejszości nr 7",
+                "yes": 232,
+                "no": 209,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 43,
+                "date": "2026-09-18T10:36:50",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "wnioski mniejszości nr 8 i 11",
+                "yes": 210,
+                "no": 231,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 44,
+                "date": "2026-09-18T10:37:18",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 15",
+                "yes": 206,
+                "no": 224,
+                "abstain": 0,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 45,
+                "date": "2026-09-18T10:37:41",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 16",
+                "yes": 197,
+                "no": 217,
+                "abstain": 1,
+                "totalVoted": 415
+              },
+              {
+                "votingNumber": 46,
+                "date": "2026-09-18T10:38:08",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 17",
+                "yes": 87,
+                "no": 224,
+                "abstain": 125,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 47,
+                "date": "2026-09-18T10:38:34",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 18",
+                "yes": 418,
+                "no": 2,
+                "abstain": 23,
+                "totalVoted": 443
+              },
+              {
+                "votingNumber": 48,
+                "date": "2026-09-18T10:39:02",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 19",
+                "yes": 185,
+                "no": 229,
+                "abstain": 22,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 49,
+                "date": "2026-09-18T10:39:30",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 20",
+                "yes": 418,
+                "no": 1,
+                "abstain": 23,
+                "totalVoted": 442
+              },
+              {
+                "votingNumber": 50,
+                "date": "2026-09-18T10:39:57",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 21",
+                "yes": 205,
+                "no": 227,
+                "abstain": 0,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 51,
+                "date": "2026-09-18T10:40:31",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 22-25 i 35",
+                "yes": 202,
+                "no": 236,
+                "abstain": 0,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 52,
+                "date": "2026-09-18T10:40:56",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 27",
+                "yes": 401,
+                "no": 28,
+                "abstain": 0,
+                "totalVoted": 429
+              },
+              {
+                "votingNumber": 53,
+                "date": "2026-09-18T10:41:21",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 28",
+                "yes": 438,
+                "no": 1,
+                "abstain": 0,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 54,
+                "date": "2026-09-18T10:41:47",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 29",
+                "yes": 215,
+                "no": 219,
+                "abstain": 1,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 55,
+                "date": "2026-09-18T10:42:15",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 30",
+                "yes": 418,
+                "no": 23,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 56,
+                "date": "2026-09-18T10:42:39",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 32",
+                "yes": 406,
+                "no": 30,
+                "abstain": 0,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 57,
+                "date": "2026-09-18T10:43:14",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 33 i 49",
+                "yes": 191,
+                "no": 250,
+                "abstain": 0,
+                "totalVoted": 441
+              },
+              {
+                "votingNumber": 58,
+                "date": "2026-09-18T10:43:42",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 34",
+                "yes": 195,
+                "no": 243,
+                "abstain": 0,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 59,
+                "date": "2026-09-18T10:44:09",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 36",
+                "yes": 295,
+                "no": 24,
+                "abstain": 117,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 60,
+                "date": "2026-09-18T10:44:40",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 37",
+                "yes": 201,
+                "no": 232,
+                "abstain": 0,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 61,
+                "date": "2026-09-18T10:45:06",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 39",
+                "yes": 232,
+                "no": 204,
+                "abstain": 0,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 62,
+                "date": "2026-09-18T10:45:45",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawki nr 42-43",
+                "yes": 191,
+                "no": 228,
+                "abstain": 21,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 63,
+                "date": "2026-09-18T10:46:16",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 44",
+                "yes": 225,
+                "no": 201,
+                "abstain": 5,
+                "totalVoted": 431
+              },
+              {
+                "votingNumber": 64,
+                "date": "2026-09-18T10:46:46",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 47",
+                "yes": 43,
+                "no": 251,
+                "abstain": 138,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 65,
+                "date": "2026-09-18T10:47:19",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 48",
+                "yes": 304,
+                "no": 1,
+                "abstain": 139,
+                "totalVoted": 444
+              },
+              {
+                "votingNumber": 66,
+                "date": "2026-09-18T10:47:50",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 50",
+                "yes": 189,
+                "no": 223,
+                "abstain": 23,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 67,
+                "date": "2026-09-18T10:48:21",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "poprawka 51",
+                "yes": 282,
+                "no": 1,
+                "abstain": 157,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 68,
+                "date": "2026-09-18T10:48:50",
+                "title": "Pkt. 44 Sprawozdanie Komisji o przedstawionym przez Prezydenta Rzeczypospolitej Polskiej, rządowym oraz poselskim projektach ustaw o asystencji osobistej osób z niepełnosprawnościami (druki nr 316, 1929, 1933, 2792 i 2792-A) - trzecie czytanie",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 443,
+                "no": 0,
+                "abstain": 0,
+                "totalVoted": 443
+              },
+              {
+                "votingNumber": 69,
+                "date": "2026-09-18T10:50:15",
+                "title": "Pkt. 36 Sprawozdanie Krajowej Rady Radiofonii i Telewizji z działalności w 2025 roku oraz Informacja o podstawowych problemach radiofonii i telewizji w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2725 i 2829)",
+                "topic": "wniosek o przystąpienie do drugiego czytania  bez kierowania projektu do komisji",
+                "yes": 229,
+                "no": 209,
+                "abstain": 1,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 70,
+                "date": "2026-09-18T10:55:25",
+                "title": "Pkt. 36 Sprawozdanie Krajowej Rady Radiofonii i Telewizji z działalności w 2025 roku oraz Informacja o podstawowych problemach radiofonii i telewizji w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2725 i 2829)",
+                "topic": "wniosek o przystąpienie do głosowania bez kierowania projektu uchwały do komisji",
+                "yes": 222,
+                "no": 193,
+                "abstain": 0,
+                "totalVoted": 415
+              },
+              {
+                "votingNumber": 71,
+                "date": "2026-09-18T10:56:46",
+                "title": "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)",
+                "topic": "wniosek o przystąpienie do drugiego czytania  bez kierowania projektu do komisji",
+                "yes": 226,
+                "no": 211,
+                "abstain": 1,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 72,
+                "date": "2026-09-18T10:58:08",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "ustalenie czasów debat",
+                "yes": 204,
+                "no": 206,
+                "abstain": 5,
+                "totalVoted": 415
+              },
+              {
+                "votingNumber": 73,
+                "date": "2026-09-18T10:58:55",
+                "title": "65. posiedzenie Sejmu Rzeczypospolitej Polskiej w dniach 15, 16, 17 i 18 września 2026 r.",
+                "topic": "ustalenie czasów debat",
+                "yes": 234,
+                "no": 195,
+                "abstain": 2,
+                "totalVoted": 431
+              },
+              {
+                "votingNumber": 74,
+                "date": "2026-09-18T11:07:34",
+                "title": "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)",
+                "topic": "wniosek o przystąpienie do głosowania bez kierowania projektu uchwały do komisji",
+                "yes": 208,
+                "no": 189,
+                "abstain": 1,
+                "totalVoted": 398
+              },
+              {
+                "votingNumber": 75,
+                "date": "2026-09-18T11:09:19",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 1",
+                "yes": 160,
+                "no": 224,
+                "abstain": 21,
+                "totalVoted": 405
+              },
+              {
+                "votingNumber": 76,
+                "date": "2026-09-18T11:09:45",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 2",
+                "yes": 192,
+                "no": 225,
+                "abstain": 1,
+                "totalVoted": 418
+              },
+              {
+                "votingNumber": 77,
+                "date": "2026-09-18T11:10:12",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 3",
+                "yes": 200,
+                "no": 226,
+                "abstain": 1,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 78,
+                "date": "2026-09-18T11:10:40",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 4",
+                "yes": 198,
+                "no": 225,
+                "abstain": 1,
+                "totalVoted": 424
+              },
+              {
+                "votingNumber": 79,
+                "date": "2026-09-18T11:11:14",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawki nr 5-6 i 8",
+                "yes": 199,
+                "no": 227,
+                "abstain": 1,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 80,
+                "date": "2026-09-18T11:11:44",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 7",
+                "yes": 201,
+                "no": 233,
+                "abstain": 1,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 81,
+                "date": "2026-09-18T11:12:08",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "poprawka 9",
+                "yes": 196,
+                "no": 231,
+                "abstain": 1,
+                "totalVoted": 428
+              },
+              {
+                "votingNumber": 82,
+                "date": "2026-09-18T11:12:41",
+                "title": "Pkt. 2 Sprawozdanie Komisji o rządowym projekcie ustawy o umorzeniu należności dochodzonych przez Zakład Ubezpieczeń Społecznych powstałych przed dniem 1 stycznia 1999 r. (druki nr 3010, 3055 i 3055-A)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 252,
+                "no": 148,
+                "abstain": 40,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 83,
+                "date": "2026-09-18T11:13:34",
+                "title": "Pkt. 4 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku dochodowym od osób prawnych (druki nr 2837 i 3053)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 296,
+                "no": 141,
+                "abstain": 1,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 84,
+                "date": "2026-09-18T11:14:19",
+                "title": "Pkt. 5 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o podatku od towarów i usług (druki nr 2838 i 3054)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 393,
+                "no": 2,
+                "abstain": 16,
+                "totalVoted": 411
+              },
+              {
+                "votingNumber": 85,
+                "date": "2026-09-18T11:14:58",
+                "title": "Pkt. 6 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o podatku akcyzowym (druki nr 2839 i 3065)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 242,
+                "no": 21,
+                "abstain": 165,
+                "totalVoted": 428
+              },
+              {
+                "votingNumber": 86,
+                "date": "2026-09-18T11:15:44",
+                "title": "Pkt. 10 Sprawozdanie Komisji o rządowym projekcie ustawy o szczególnych rozwiązaniach związanych z organizacją XXVI Światowego Jamboree Skautowego w Polsce w 2027 r. (druki nr 2846 i 3024)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 411,
+                "no": 23,
+                "abstain": 0,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 87,
+                "date": "2026-09-18T11:16:29",
+                "title": "Pkt. 11 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o działaniach antyterrorystycznych (druki nr 2870 i 3063)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 271,
+                "no": 2,
+                "abstain": 161,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 88,
+                "date": "2026-09-18T11:17:14",
+                "title": "Pkt. 12 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o finansowym wspieraniu produkcji audiowizualnej oraz niektórych innych ustaw (druki nr 2998 i 3047)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 277,
+                "no": 22,
+                "abstain": 139,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 89,
+                "date": "2026-09-18T11:19:23",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "wniosek mniejszości 1",
+                "yes": 7,
+                "no": 249,
+                "abstain": 181,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 90,
+                "date": "2026-09-18T11:19:54",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawka 1",
+                "yes": 49,
+                "no": 203,
+                "abstain": 162,
+                "totalVoted": 414
+              },
+              {
+                "votingNumber": 91,
+                "date": "2026-09-18T11:20:16",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "wniosek mniejszości 2",
+                "yes": 181,
+                "no": 223,
+                "abstain": 10,
+                "totalVoted": 414
+              },
+              {
+                "votingNumber": 92,
+                "date": "2026-09-18T11:20:51",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawki nr 2 i 4",
+                "yes": 255,
+                "no": 4,
+                "abstain": 180,
+                "totalVoted": 439
+              },
+              {
+                "votingNumber": 93,
+                "date": "2026-09-18T11:21:41",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawki nr 3 i 10",
+                "yes": 258,
+                "no": 1,
+                "abstain": 178,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 94,
+                "date": "2026-09-18T11:22:22",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "wniosek mniejszości 6",
+                "yes": 180,
+                "no": 230,
+                "abstain": 28,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 95,
+                "date": "2026-09-18T11:22:53",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawka 5",
+                "yes": 243,
+                "no": 26,
+                "abstain": 171,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 96,
+                "date": "2026-09-18T11:23:29",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawka 6",
+                "yes": 218,
+                "no": 213,
+                "abstain": 3,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 97,
+                "date": "2026-09-18T11:24:11",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "poprawka 9",
+                "yes": 233,
+                "no": 183,
+                "abstain": 21,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 98,
+                "date": "2026-09-18T11:24:36",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "wniosek mniejszości 7",
+                "yes": 24,
+                "no": 238,
+                "abstain": 171,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 99,
+                "date": "2026-09-18T11:25:03",
+                "title": "Pkt. 14 Sprawozdanie Komisji o poselskim projekcie ustawy o wychowaniu patriotycznym zmieniającej niektóre ustawy (druki nr 671, 2881 i 2881-A)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 223,
+                "no": 197,
+                "abstain": 7,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 100,
+                "date": "2026-09-18T11:26:52",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawka 1",
+                "yes": 179,
+                "no": 254,
+                "abstain": 2,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 101,
+                "date": "2026-09-18T11:27:18",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawka 2",
+                "yes": 54,
+                "no": 231,
+                "abstain": 143,
+                "totalVoted": 428
+              },
+              {
+                "votingNumber": 102,
+                "date": "2026-09-18T11:27:47",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawka 3",
+                "yes": 180,
+                "no": 251,
+                "abstain": 1,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 103,
+                "date": "2026-09-18T11:28:23",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawki nr 4 i 8",
+                "yes": 275,
+                "no": 19,
+                "abstain": 141,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 104,
+                "date": "2026-09-18T11:28:52",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawka 5",
+                "yes": 294,
+                "no": 3,
+                "abstain": 134,
+                "totalVoted": 431
+              },
+              {
+                "votingNumber": 105,
+                "date": "2026-09-18T11:29:39",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawki nr 7, 9, 11 i 14",
+                "yes": 186,
+                "no": 251,
+                "abstain": 0,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 106,
+                "date": "2026-09-18T11:30:04",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawka 10",
+                "yes": 83,
+                "no": 227,
+                "abstain": 113,
+                "totalVoted": 423
+              },
+              {
+                "votingNumber": 107,
+                "date": "2026-09-18T11:30:41",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "poprawki nr 12-13",
+                "yes": 277,
+                "no": 22,
+                "abstain": 139,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 108,
+                "date": "2026-09-18T11:31:12",
+                "title": "Pkt. 15 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo farmaceutyczne (druki nr 3002, 3020 i 3020-A)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 254,
+                "no": 2,
+                "abstain": 182,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 109,
+                "date": "2026-09-18T11:32:01",
+                "title": "Pkt. 17 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy o prawie autorskim i prawach pokrewnych oraz ustawy o zmianie ustawy o prawie autorskim i prawach pokrewnych oraz ustawy o grach hazardowych (druki nr 3012 i 3018)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 410,
+                "no": 23,
+                "abstain": 1,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 110,
+                "date": "2026-09-18T11:33:17",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "wniosek o przystąpienie do trzeciego czytania bez kierowania projektu do komisji",
+                "yes": 243,
+                "no": 194,
+                "abstain": 0,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 111,
+                "date": "2026-09-18T11:34:15",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "poprawka nr 1, wniosek mniejszości nr 1",
+                "yes": 195,
+                "no": 212,
+                "abstain": 23,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 112,
+                "date": "2026-09-18T11:34:44",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "poprawka 2",
+                "yes": 289,
+                "no": 24,
+                "abstain": 117,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 113,
+                "date": "2026-09-18T11:35:22",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "poprawki nr 3 i 5",
+                "yes": 201,
+                "no": 228,
+                "abstain": 7,
+                "totalVoted": 436
+              },
+              {
+                "votingNumber": 114,
+                "date": "2026-09-18T11:35:48",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "poprawka 4",
+                "yes": 260,
+                "no": 2,
+                "abstain": 172,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 115,
+                "date": "2026-09-18T11:36:17",
+                "title": "Pkt. 34 Sprawozdanie Komisji o rządowym projekcie ustawy o podatku od nadzwyczajnych zysków osiągniętych w okresie od marca do grudnia 2026 r. ze zbycia paliw ciekłych (druki nr 3100 i 3109)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 237,
+                "no": 202,
+                "abstain": 1,
+                "totalVoted": 440
+              },
+              {
+                "votingNumber": 116,
+                "date": "2026-09-18T11:37:34",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "wniosek o przystąpienie do trzeciego czytania bez kierowania projektu do komisji",
+                "yes": 250,
+                "no": 23,
+                "abstain": 151,
+                "totalVoted": 424
+              },
+              {
+                "votingNumber": 117,
+                "date": "2026-09-18T11:38:34",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawki nr 1-2",
+                "yes": 244,
+                "no": 0,
+                "abstain": 181,
+                "totalVoted": 425
+              },
+              {
+                "votingNumber": 118,
+                "date": "2026-09-18T11:39:03",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 3",
+                "yes": 231,
+                "no": 1,
+                "abstain": 187,
+                "totalVoted": 419
+              },
+              {
+                "votingNumber": 119,
+                "date": "2026-09-18T11:39:38",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 4",
+                "yes": 242,
+                "no": 0,
+                "abstain": 185,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 120,
+                "date": "2026-09-18T11:40:13",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 5",
+                "yes": 238,
+                "no": 20,
+                "abstain": 165,
+                "totalVoted": 423
+              },
+              {
+                "votingNumber": 121,
+                "date": "2026-09-18T11:40:38",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 6",
+                "yes": 236,
+                "no": 23,
+                "abstain": 171,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 122,
+                "date": "2026-09-18T11:41:14",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawki nr 7 i 10",
+                "yes": 241,
+                "no": 0,
+                "abstain": 194,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 123,
+                "date": "2026-09-18T11:41:43",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 8",
+                "yes": 240,
+                "no": 0,
+                "abstain": 193,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 124,
+                "date": "2026-09-18T11:42:08",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "poprawka 9",
+                "yes": 228,
+                "no": 1,
+                "abstain": 201,
+                "totalVoted": 430
+              },
+              {
+                "votingNumber": 125,
+                "date": "2026-09-18T11:42:35",
+                "title": "Pkt. 35 Sprawozdanie Komisji o rządowym projekcie ustawy o zmianie ustawy - Prawo energetyczne oraz niektórych innych ustaw (druki nr 3102 i 3107)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 241,
+                "no": 0,
+                "abstain": 193,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 126,
+                "date": "2026-09-18T11:44:11",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "wniosek o przystąpienie do trzeciego czytania bez kierowania projektu do komisji",
+                "yes": 270,
+                "no": 165,
+                "abstain": 2,
+                "totalVoted": 437
+              },
+              {
+                "votingNumber": 127,
+                "date": "2026-09-18T11:45:24",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "wniosek mniejszości 1",
+                "yes": 23,
+                "no": 409,
+                "abstain": 1,
+                "totalVoted": 433
+              },
+              {
+                "votingNumber": 128,
+                "date": "2026-09-18T11:45:58",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "wniosek mniejszości 2",
+                "yes": 92,
+                "no": 338,
+                "abstain": 2,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 129,
+                "date": "2026-09-18T11:46:26",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "poprawka 1",
+                "yes": 61,
+                "no": 365,
+                "abstain": 3,
+                "totalVoted": 429
+              },
+              {
+                "votingNumber": 130,
+                "date": "2026-09-18T11:46:56",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "poprawka 2",
+                "yes": 212,
+                "no": 196,
+                "abstain": 26,
+                "totalVoted": 434
+              },
+              {
+                "votingNumber": 131,
+                "date": "2026-09-18T11:47:22",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "wniosek mniejszości 3",
+                "yes": 76,
+                "no": 356,
+                "abstain": 3,
+                "totalVoted": 435
+              },
+              {
+                "votingNumber": 132,
+                "date": "2026-09-18T11:47:51",
+                "title": "Pkt. 53 Sprawozdanie Komisji Finansów Publicznych oraz Komisji Samorządu Terytorialnego i Polityki Regionalnej o rządowym oraz poselskich projektach ustaw:- o zmianie ustawy o podatkach i opłatach lokalnych, ustawy o podatku dochodowym od osób fizycznych oraz ustawy o podatku od czynności cywilnoprawnych;- o zmianie ustawy o podatkach i opłatach lokalnych oraz ustawy o dochodach jednostek samorządu terytorialnego;- o zmianie ustawy o podatkach i opłatach lokalnych oraz o zmianie niektórych innych ustaw (druki nr 3099, 2033, 2127, 2872 i 3118)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 269,
+                "no": 141,
+                "abstain": 28,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 133,
+                "date": "2026-09-18T11:48:57",
+                "title": "Pkt. 25 Sprawozdanie Komisji o przedstawionym przez Prezydium Sejmu projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Konstytucji Rzeczypospolitej Polskiej z dnia 2 kwietnia 1997 r. w 30. rocznicę jej uchwalenia (druki nr 2556 i 2758)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 373,
+                "no": 30,
+                "abstain": 35,
+                "totalVoted": 438
+              },
+              {
+                "votingNumber": 134,
+                "date": "2026-09-18T11:49:53",
+                "title": "Pkt. 26 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Tadeusza Mazowieckiego (druki nr 2510 i 2717)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 383,
+                "no": 26,
+                "abstain": 23,
+                "totalVoted": 432
+              },
+              {
+                "votingNumber": 135,
+                "date": "2026-09-18T11:50:44",
+                "title": "Pkt. 29 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem św. Andrzeja Boboli (druki nr 2419 i 2686)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 401,
+                "no": 12,
+                "abstain": 11,
+                "totalVoted": 424
+              },
+              {
+                "votingNumber": 136,
+                "date": "2026-09-18T11:53:26",
+                "title": "Pkt. 30 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Objawień Matki Bożej Gietrzwałdzkiej (druki nr 2506 i 2759)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 377,
+                "no": 25,
+                "abstain": 12,
+                "totalVoted": 414
+              },
+              {
+                "votingNumber": 137,
+                "date": "2026-09-18T11:54:23",
+                "title": "Pkt. 31 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Jerzego Żurawlewa (druki nr 2507 i 2757)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 421,
+                "no": 0,
+                "abstain": 0,
+                "totalVoted": 421
+              },
+              {
+                "votingNumber": 138,
+                "date": "2026-09-18T11:55:19",
+                "title": "Pkt. 32 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Kazimiery Bujwidowej (druki nr 2508 i 2715)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 393,
+                "no": 23,
+                "abstain": 11,
+                "totalVoted": 427
+              },
+              {
+                "votingNumber": 139,
+                "date": "2026-09-18T11:56:11",
+                "title": "Pkt. 33 Sprawozdanie Komisji o poselskim projekcie uchwały w sprawie ustanowienia roku 2027 Rokiem Nauki (druki nr 2509 i 2716)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 423,
+                "no": 1,
+                "abstain": 2,
+                "totalVoted": 426
+              },
+              {
+                "votingNumber": 140,
+                "date": "2026-09-18T11:57:18",
+                "title": "Pkt. 13 Sprawozdanie Komisji o rządowym projekcie ustawy o ratyfikacji Konwencji Rady Europy w sprawie koprodukcji utworów audiowizualnych w formie seriali, sporządzonej w Lille dnia 26 marca 2026 r. (druki nr 2841 i 2852)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 397,
+                "no": 0,
+                "abstain": 24,
+                "totalVoted": 421
+              },
+              {
+                "votingNumber": 141,
+                "date": "2026-09-18T11:58:25",
+                "title": "Pkt. 16 Sprawozdanie Komisji o rządowym projekcie ustawy o ratyfikacji Międzynarodowej konwencji z Hongkongu o bezpiecznym i ekologicznie racjonalnym recyklingu statków, sporządzonej w Hongkongu dnia 15 maja 2009 r. (druki nr 2738 i 2844)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 418,
+                "no": 0,
+                "abstain": 1,
+                "totalVoted": 419
+              },
+              {
+                "votingNumber": 142,
+                "date": "2026-09-18T11:59:36",
+                "title": "Pkt. 18 Sprawozdanie Komisji o rządowym projekcie ustawy o ratyfikacji Traktatu między Rzecząpospolitą Polską a Zjednoczonym Królestwem Wielkiej Brytanii i Irlandii Północnej o partnerstwie w dziedzinie bezpieczeństwa i obronności, podpisanego w Londynie dnia 27 maja 2026 r. (druki nr 2840 i 3050)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 392,
+                "no": 3,
+                "abstain": 20,
+                "totalVoted": 415
+              },
+              {
+                "votingNumber": 143,
+                "date": "2026-09-18T12:00:44",
+                "title": "Pkt. 19 Sprawozdanie Komisji o rządowym projekcie ustawy o ratyfikacji Umowy między Rzecząpospolitą Polską a Japonią o zabezpieczeniu społecznym, podpisanej w Tokio dnia 15 kwietnia 2026 r. (druki nr 2810 i 3062)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 389,
+                "no": 22,
+                "abstain": 1,
+                "totalVoted": 412
+              },
+              {
+                "votingNumber": 144,
+                "date": "2026-09-18T12:02:06",
+                "title": "Pkt. 36 Sprawozdanie Krajowej Rady Radiofonii i Telewizji z działalności w 2025 roku oraz Informacja o podstawowych problemach radiofonii i telewizji w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2725 i 2829)",
+                "topic": "poprawka 1",
+                "yes": 175,
+                "no": 237,
+                "abstain": 0,
+                "totalVoted": 412
+              },
+              {
+                "votingNumber": 145,
+                "date": "2026-09-18T12:02:40",
+                "title": "Pkt. 36 Sprawozdanie Krajowej Rady Radiofonii i Telewizji z działalności w 2025 roku oraz Informacja o podstawowych problemach radiofonii i telewizji w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2725 i 2829)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 227,
+                "no": 188,
+                "abstain": 0,
+                "totalVoted": 415
+              },
+              {
+                "votingNumber": 146,
+                "date": "2026-09-18T12:03:53",
+                "title": "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)",
+                "topic": "poprawka 1",
+                "yes": 176,
+                "no": 238,
+                "abstain": 0,
+                "totalVoted": 414
+              },
+              {
+                "votingNumber": 147,
+                "date": "2026-09-18T12:04:23",
+                "title": "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)",
+                "topic": "głosowanie nad całością projektu.",
+                "yes": 220,
+                "no": 189,
+                "abstain": 1,
+                "totalVoted": 410
+              }
+            ]
+          }
+        },
+        {
+          "command": [
+            "python3",
+            "skills/sejm/scripts/sejm.py",
+            "voting",
+            "65",
+            "147"
+          ],
+          "exitCode": 0,
+          "durationMs": 858,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:26:42+00:00",
+          "output": {
+            "term": 10,
+            "sitting": 65,
+            "votingNumber": 147,
+            "date": "2026-09-18T12:04:23",
+            "title": "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)",
+            "topic": "głosowanie nad całością projektu.",
+            "totalVoted": 410,
+            "majorityVotes": 190,
+            "majorityType": "SIMPLE_MAJORITY",
+            "results": {
+              "yes": 220,
+              "no": 189,
+              "abstain": 1,
+              "notParticipating": 50
+            },
+            "clubSummary": {
+              "PiS": {
+                "total": 146,
+                "yes": 0,
+                "no": 121,
+                "abstain": 0,
+                "absent": 25,
+                "other": 0
+              },
+              "KO": {
+                "total": 156,
+                "yes": 146,
+                "no": 2,
+                "abstain": 0,
+                "absent": 8,
+                "other": 0
+              },
+              "Demokracja": {
+                "total": 4,
+                "yes": 0,
+                "no": 3,
+                "abstain": 0,
+                "absent": 1,
+                "other": 0
+              },
+              "RozwojPlus": {
+                "total": 41,
+                "yes": 0,
+                "no": 38,
+                "abstain": 0,
+                "absent": 3,
+                "other": 0
+              },
+              "PSL-TD": {
+                "total": 32,
+                "yes": 29,
+                "no": 0,
+                "abstain": 0,
+                "absent": 3,
+                "other": 0
+              },
+              "Konfederacja": {
+                "total": 16,
+                "yes": 0,
+                "no": 15,
+                "abstain": 0,
+                "absent": 1,
+                "other": 0
+              },
+              "Centrum": {
+                "total": 15,
+                "yes": 13,
+                "no": 0,
+                "abstain": 0,
+                "absent": 2,
+                "other": 0
+              },
+              "Lewica": {
+                "total": 21,
+                "yes": 19,
+                "no": 1,
+                "abstain": 0,
+                "absent": 1,
+                "other": 0
+              },
+              "Polska2050": {
+                "total": 15,
+                "yes": 11,
+                "no": 0,
+                "abstain": 0,
+                "absent": 4,
+                "other": 0
+              },
+              "Konfederacja_KP": {
+                "total": 3,
+                "yes": 0,
+                "no": 3,
+                "abstain": 0,
+                "absent": 0,
+                "other": 0
+              },
+              "niez.": {
+                "total": 7,
+                "yes": 2,
+                "no": 2,
+                "abstain": 1,
+                "absent": 2,
+                "other": 0
+              },
+              "Razem": {
+                "total": 4,
+                "yes": 0,
+                "no": 4,
+                "abstain": 0,
+                "absent": 0,
+                "other": 0
+              }
+            },
+            "mpVote": null,
+            "source": "Kancelaria Sejmu Rzeczypospolitej Polskiej (api.sejm.gov.pl)"
+          }
+        }
+      ],
+      "card": {
+        "title": "Posiedzenie 65 · głosowanie nr 147",
+        "badge": "2026-09-18 12:04",
+        "badgeOk": true,
+        "rows": [
+          [
+            "Sprawa",
+            "Pkt. 37 Informacja o działalności Rady Mediów Narodowych w 2025 roku wraz z komisyjnym projektem uchwały (druki nr 2726 i 2830)"
+          ],
+          [
+            "Przedmiot",
+            "głosowanie nad całością projektu."
+          ]
+        ],
+        "votes": [
+          [
+            "za",
+            220
+          ],
+          [
+            "przeciw",
+            189
+          ],
+          [
+            "wstrzymało się",
+            1
+          ],
+          [
+            "nie głosowało",
+            50
+          ]
+        ]
+      },
+      "footer": "Źródło: api.sejm.gov.pl · kadencja 10 · dane bez komentarza"
+    },
+    {
+      "id": "inpost",
+      "question": "Gdzie odbiorę paczkę? Najbliższy Paczkomat przy dworcu Gdańsk Główny",
+      "skill": "inpost",
+      "source": "InPost ShipX",
+      "sourceShort": "InPost API",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/inpost/scripts/inpost.py",
+            "near",
+            "54.3556",
+            "18.6440",
+            "--limit",
+            "3"
+          ],
+          "exitCode": 0,
+          "durationMs": 683,
+          "attempts": 1,
+          "capturedAt": "2026-09-28T14:25:08+00:00",
+          "output": {
+            "origin": {
+              "latitude": 54.3556,
+              "longitude": 18.644
+            },
+            "count": 3,
+            "points": [
+              {
+                "name": "GDA04HO",
+                "type": "parcel_locker",
+                "typeDescription": "Paczkomat",
+                "status": "Operating",
+                "address": {
+                  "line1": "Gnilna 2",
+                  "line2": "80-847 Gdańsk",
+                  "city": "Gdańsk",
+                  "postCode": "80-847",
+                  "street": "Gnilna",
+                  "buildingNumber": "2"
+                },
+                "locationDescription": "parking dolny przy windzie do Medical Center",
+                "location": {
+                  "latitude": 54.35671,
+                  "longitude": 18.64896
+                },
+                "distanceMeters": 344,
+                "distanceFormatted": "344 m",
+                "openingHours": "PN-SB 06:30-22:30",
+                "is24_7": false,
+                "easyAccessZone": true,
+                "paymentAvailable": true,
+                "paymentDescription": "Płatność apką InPost oraz PayByLink",
+                "imageUrl": "https://static.easypack24.net/points/pl/images/GDA04HO.jpg",
+                "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=54.35671,18.64896"
+              },
+              {
+                "name": "GDA21B",
+                "type": "parcel_locker",
+                "typeDescription": "Paczkomat",
+                "status": "Operating",
+                "address": {
+                  "line1": "Gnilna 2",
+                  "line2": "80-847 Gdańsk",
+                  "city": "Gdańsk",
+                  "postCode": "80-847",
+                  "street": "Gnilna",
+                  "buildingNumber": "2"
+                },
+                "locationDescription": "Przy CH MADISON - parking zewnętrzny od ulicy Gnilnej",
+                "location": {
+                  "latitude": 54.35712,
+                  "longitude": 18.64957
+                },
+                "distanceMeters": 398,
+                "distanceFormatted": "398 m",
+                "openingHours": "24/7",
+                "is24_7": true,
+                "easyAccessZone": true,
+                "paymentAvailable": true,
+                "paymentDescription": "Płatność apką InPost oraz PayByLink",
+                "imageUrl": "https://static.easypack24.net/points/pl/images/GDA21B.jpg",
+                "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=54.35712,18.64957"
+              },
+              {
+                "name": "GDA43A",
+                "type": "parcel_locker",
+                "typeDescription": "Paczkomat",
+                "status": "Operating",
+                "address": {
+                  "line1": "Wały Piastowskie 7/9",
+                  "line2": "80-855 Gdańsk",
+                  "city": "Gdańsk",
+                  "postCode": "80-855",
+                  "street": "Wały Piastowskie",
+                  "buildingNumber": "7/9"
+                },
+                "locationDescription": "Na parkingu hostelu, przy wejściu do baru Filip",
+                "location": {
+                  "latitude": 54.35958,
+                  "longitude": 18.64752
+                },
+                "distanceMeters": 498,
+                "distanceFormatted": "498 m",
+                "openingHours": "24/7",
+                "is24_7": true,
+                "easyAccessZone": true,
+                "paymentAvailable": true,
+                "paymentDescription": "Płatność apką InPost oraz PayByLink",
+                "imageUrl": "https://static.easypack24.net/points/pl/images/GDA43A.jpg",
+                "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=54.35958,18.64752"
+              }
+            ]
+          }
+        }
+      ],
+      "card": {
+        "title": "Najbliższe Paczkomaty",
+        "badge": "3 wyniki",
+        "badgeOk": true,
+        "rows": [
+          [
+            "GDA04HO",
+            "Gnilna 2 · 344 m · PN-SB 06:30-22:30"
+          ],
+          [
+            "GDA21B",
+            "Gnilna 2 · 398 m · 24/7"
+          ],
+          [
+            "GDA43A",
+            "Wały Piastowskie 7/9 · 498 m · 24/7"
+          ]
+        ]
+      },
+      "footer": "Źródło: api-shipx-pl.easypack24.net"
+    }
+  ]
+}

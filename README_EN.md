@@ -11,6 +11,20 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 ---
 
+## Demo
+
+**See Polskie Skille in action** — one question in Polish, the agent picks a skill, the skill queries an official Polish source (Ministry of Finance, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost) and returns a human-readable result. Every value in the video comes from real runs of the skills.
+
+<p align="center">
+  <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille demo: an AI agent using Polish APIs and public data" width="960"></a>
+</p>
+
+<p align="center">
+  ▶️ <a href="docs/demo/demo.mp4"><b>Watch the full demo (MP4, 1080p, 95 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">how to regenerate the demo</a>
+</p>
+
+---
+
 ## 💡 What are Polish Skills?
 
 **ai-polish-skills** is an ecosystem of modular extensions for AI agents that provide models with direct, real-time access to Polish services. Rather than hallucinating information about VAT numbers, exchange rates, or parcel tracking, the agent executes a deterministic script and parses structured JSON output.
@@ -42,6 +56,8 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
+| [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Polish parliamentary open data: MPs, committees, roll-call and club voting results, prints, and legislative stages. | Chancellery of the Sejm (🏛 official API) |
+| [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
 
 ---
 

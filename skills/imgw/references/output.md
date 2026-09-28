@@ -1,32 +1,32 @@
-# IMGW-PIB CLI — Dokumentacja Wyjścia i Schematów Danych
+# IMGW-PIB CLI — Output and Data Schema Reference
 
-Wszystkie polecenia zwracają sformatowany JSON na standardowym wyjściu (`stdout`), a błędy na `stderr`.
-Brakujące wartości numeryczne zwracane są jako `null`, a puste listy jako `[]`.
+All commands return formatted JSON on standard output (`stdout`), and errors on `stderr`.
+Missing numeric values are returned as `null`, and empty lists as `[]`.
 
 ---
 
-## 1. `weather <stacja>`
+## 1. `weather <station>`
 
-Pobiera bieżące dane synoptyczne dla wybranej stacji meteorologicznej.
+Fetches current synoptic data for the selected meteorological station.
 
-| Pole | Typ | Opis i Jednostki |
+| Field | Type | Description and Units |
 |---|---|---|
-| `stationId` | string | 5-cyfrowy identyfikator stacji IMGW / WMO (np. `"12375"`) |
-| `stationName` | string | Oficjalna nazwa stacji (np. `"Warszawa"`, `"Zakopane"`) |
-| `measurementDate` | string | Data pomiaru w formacie `YYYY-MM-DD` |
-| `measurementHour` | int | Godzina pomiaru w czasie UTC (np. `12`) |
-| `measurementTime` | string | Pełny znacznik czasu (np. `"2026-09-28 12:00 UTC"`) |
-| `temperatureC` | float | Temperatura powietrza w stopniach Celsjusza (°C) |
-| `windSpeedMs` | float | Prędkość wiatru w metrach na sekundę (m/s) |
-| `windDirectionDeg` | int | Kierunek wiatru w stopniach (0°–360°) |
-| `relativeHumidityPercent` | float | Wilgotność względna powietrza w procentach (%) |
-| `rainfallMm` | float | Suma opadu atmosferycznego za okres pomiarowy w milimetrach (mm) |
-| `pressureHpa` | float \| null | Ciśnienie na poziomie morza w hektopaskalach (hPa). **Uwaga:** Na stacjach wysokogórskich (np. Zakopane, Kasprowy Wierch, Śnieżka) wartość ta wynosi `null` |
-| `formatted` | object | Wygodne, gotowe ciągi tekstowe z jednostkami (`temperature`, `pressure`, `wind`, `humidity`, `rainfall`) |
-| `coordinates` | object \| null | Współrzędne stacji `{lat, lon}` |
-| `source` | string | Oznaczenie źródła danych (IMGW-PIB) |
+| `stationId` | string | 5-digit IMGW / WMO station identifier (e.g. `"12375"`) |
+| `stationName` | string | Official station name (e.g. `"Warszawa"`, `"Zakopane"`) |
+| `measurementDate` | string | Measurement date in `YYYY-MM-DD` format |
+| `measurementHour` | int | Measurement hour in UTC (e.g. `12`) |
+| `measurementTime` | string | Full timestamp (e.g. `"2026-09-28 12:00 UTC"`) |
+| `temperatureC` | float | Air temperature in degrees Celsius (°C) |
+| `windSpeedMs` | float | Wind speed in meters per second (m/s) |
+| `windDirectionDeg` | int | Wind direction in degrees (0°–360°) |
+| `relativeHumidityPercent` | float | Relative air humidity in percent (%) |
+| `rainfallMm` | float | Total precipitation over the measurement period in millimeters (mm) |
+| `pressureHpa` | float \| null | Sea-level pressure in hectopascals (hPa). **Note:** At high-mountain stations (e.g. Zakopane, Kasprowy Wierch, Śnieżka) this value is `null` |
+| `formatted` | object | Convenient, ready-made text strings with units (`temperature`, `pressure`, `wind`, `humidity`, `rainfall`) |
+| `coordinates` | object \| null | Station coordinates `{lat, lon}` |
+| `source` | string | Data source attribution (IMGW-PIB) |
 
-### Przykład:
+### Example:
 ```json
 {
   "stationId": "12375",
@@ -59,88 +59,88 @@ Pobiera bieżące dane synoptyczne dla wybranej stacji meteorologicznej.
 
 ## 2. `synop [--sort ...] [--limit N]`
 
-Zwraca zestawienie obserwacji dla wszystkich 62 stacji synoptycznych w Polsce.
+Returns a summary of observations for all 62 synoptic stations in Poland.
 
-Opcje sortowania:
-- `name` (domyślnie alfabetycznie)
-- `temp` (od najzimniejszych)
-- `temp_desc` (od najcieplejszych)
-- `wind_desc` (od najbardziej wietrznych)
-- `pressure_desc` (od najwyższego ciśnienia)
-- `rain_desc` (od największych opadów)
+Sorting options:
+- `name` (default, alphabetical)
+- `temp` (coldest first)
+- `temp_desc` (warmest first)
+- `wind_desc` (windiest first)
+- `pressure_desc` (highest pressure first)
+- `rain_desc` (highest precipitation first)
 
 ---
 
 ## 3. `near <lat> <lon> [--limit N]`
 
-Wyszukuje najbliższą stację meteorologiczną do podanych współrzędnych GPS przy użyciu formuły ortodromy (Haversine) i domyślnie dołącza jej bieżący stan pogodowy.
+Finds the meteorological station nearest to the given GPS coordinates using the great-circle (Haversine) formula and by default includes its current weather.
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `queryCoordinates` | object | Zapytanie wejściowe `{lat, lon}` |
-| `closestStation` | object | Najbliższa stacja wraz z odległością w km (`distanceKm`) oraz obiektem `weather` |
-| `nearbyStations` | list | Lista N najbliższych stacji z odległościami w kilometrach |
+| `queryCoordinates` | object | Input query `{lat, lon}` |
+| `closestStation` | object | Nearest station with distance in km (`distanceKm`) and a `weather` object |
+| `nearbyStations` | list | List of the N nearest stations with distances in kilometers |
 
 ---
 
 ## 4. `warnings [--type meteo|hydro|all] [--voivodeship V]`
 
-Zwraca oficjalne ostrzeżenia IMGW-PIB.
+Returns official IMGW-PIB warnings.
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `number` | string | Numer ostrzeżenia |
-| `type` | string | Typ: `"meteo"` lub `"hydro"` |
-| `event` | string | Zjawisko (np. `"Susza hydrologiczna"`, `"Burze z gradem"`, `"Silny wiatr"`, `"Upał"`) |
-| `level` | int \| string | Stopień ostrzeżenia (1, 2, 3 lub `-1` dla suszy hydrologicznej) |
-| `published` | string | Czas publikacji ostrzeżenia |
-| `validFrom` | string | Początek obowiązywania |
-| `validTo` | string | Koniec obowiązywania |
-| `probabilityPercent` | int \| null | Prawdopodobieństwo wystąpienia zjawiska w % (np. `90`) |
-| `office` | string | Biuro prognoz IMGW wydające komunikat |
-| `course` | string | Treść przebiegu i przewidywanych skutków |
-| `comment` | string \| null | Dodatkowy komentarz synoptyka |
-| `voivodeships` | string[] | Lista województw objętych ostrzeżeniem |
+| `number` | string | Warning number |
+| `type` | string | Type: `"meteo"` or `"hydro"` |
+| `event` | string | Phenomenon (e.g. `"Susza hydrologiczna"`, `"Burze z gradem"`, `"Silny wiatr"`, `"Upał"`) |
+| `level` | int \| string | Warning level (1, 2, 3 or `-1` for hydrological drought) |
+| `published` | string | Warning publication time |
+| `validFrom` | string | Start of validity |
+| `validTo` | string | End of validity |
+| `probabilityPercent` | int \| null | Probability of the phenomenon occurring in % (e.g. `90`) |
+| `office` | string | IMGW forecast office issuing the notice |
+| `course` | string | Description of the expected course and impacts |
+| `comment` | string \| null | Additional forecaster comment |
+| `voivodeships` | string[] | List of voivodeships (województwa) covered by the warning |
 
 ---
 
 ## 5. `hydro [--river R] [--station S] [--alarm-only]`
 
-Zwraca pomiary ze stacji wodowskazowych na polskich rzekach.
+Returns measurements from water-gauge stations on Polish rivers.
 
-| Pole | Typ | Opis |
+| Field | Type | Description |
 |---|---|---|
-| `stationId` | string | Identyfikator stacji wodowskazowej |
-| `stationName` | string | Nazwa stacji (miejscowości) |
-| `river` | string | Nazwa rzeki |
-| `voivodeship` | string | Województwo |
+| `stationId` | string | Water-gauge station identifier |
+| `stationName` | string | Station name (locality) |
+| `river` | string | River name |
+| `voivodeship` | string | Voivodeship (województwo) |
 | `status` | string | Status: `"normalny"`, `"ostrzegawczy"`, `"alarmowy"` |
-| `waterLevelCm` | float \| null | Aktualny stan wody w centymetrach (cm) |
-| `warningLevelCm` | float \| null | Stan ostrzegawczy w centymetrach (cm) |
-| `alarmLevelCm` | float \| null | Stan alarmowy w centymetrach (cm) |
-| `waterTemperatureC` | float \| null | Temperatura wody w °C (jeśli stacja mierzy) |
-| `flowM3s` | float \| null | Przepływ wody w m³/s |
-| `measurementDate` | string | Czas ostatniego pomiaru |
+| `waterLevelCm` | float \| null | Current water level in centimeters (cm) |
+| `warningLevelCm` | float \| null | Warning level in centimeters (cm) |
+| `alarmLevelCm` | float \| null | Alarm level in centimeters (cm) |
+| `waterTemperatureC` | float \| null | Water temperature in °C (if measured by the station) |
+| `flowM3s` | float \| null | Water flow in m³/s |
+| `measurementDate` | string | Time of the latest measurement |
 
 ---
 
 ## 6. `stations [--search Q]`
 
-Katalog 62 głównych stacji synoptycznych IMGW w Polsce. Działa w 100% w trybie offline (brak zapytań sieciowych).
+Catalog of the 62 main IMGW synoptic stations in Poland. Works 100% offline (no network requests).
 
 ---
 
-## Kody Wyjścia
+## Exit Codes
 
-| Kod | Znaczenie | Akcja Agenta |
+| Code | Meaning | Agent Action |
 |---|---|---|
-| `0` | Sukces | Odczytaj i przetwórz obiekt JSON z `stdout` |
-| `2` | Nie znaleziono | Stacja lub rzeka nie istnieje; sprawdź podpowiedzi lub listę z `stations` |
-| `64` | Błąd walidacji / argumentów | Sprawdź poprawność argumentów lub współrzędnych GPS |
-| `69` | Błąd serwera IMGW / sieci | Chwilowy problem z serwerem IMGW; spróbuj ponownie za chwilę |
+| `0` | Success | Read and process the JSON object from `stdout` |
+| `2` | Not found | Station or river does not exist; check the suggestions or the list from `stations` |
+| `64` | Validation / argument error | Check the arguments or GPS coordinates |
+| `69` | IMGW server / network error | Temporary problem with the IMGW server; try again shortly |
 
 ---
 
-## Warunki Użytkowania Danych
+## Data Terms of Use
 
-Dane pochodzą z publicznych zasobów Instytutu Meteorologii i Gospodarki Wodnej – Państwowego Instytutu Badawczego (IMGW-PIB) dostępnych pod adresem `https://danepubliczne.imgw.pl/`. Zgodnie z regulaminem serwisu, użytkownik zobowiązany jest do każdorazowego podawania źródła pochodzenia danych (IMGW-PIB).
+The data comes from the public resources of the Instytut Meteorologii i Gospodarki Wodnej – Państwowy Instytut Badawczy (IMGW-PIB), available at `https://danepubliczne.imgw.pl/`. In accordance with the service's terms, the user is required to cite the data source (IMGW-PIB) every time.

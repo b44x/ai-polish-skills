@@ -22,6 +22,7 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://danepubliczne.imgw.pl/api/data"
+USER_AGENT = "ai-polish-skills-imgw/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 # Verified catalogue of all 62 synoptic weather stations operated by IMGW-PIB with WMO coordinates.
 SYNOP_STATIONS: Dict[str, Dict[str, Any]] = {
@@ -139,7 +140,7 @@ def fetch_api(path: str) -> Any:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-imgw/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )

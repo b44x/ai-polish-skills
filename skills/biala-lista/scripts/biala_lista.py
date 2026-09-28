@@ -19,6 +19,7 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 API_BASE_URL = "https://wl-api.mf.gov.pl/api"
+USER_AGENT = "ai-polish-skills-biala-lista/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 # Polish Bank Identifiers (digits 3..6 of NRB / digits 0..4 of BBAN)
 POLISH_BANKS: Dict[str, str] = {
@@ -162,7 +163,7 @@ def fetch_api(endpoint: str, params: Dict[str, str]) -> Dict[str, Any]:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "ai-polish-skills-biala-lista/1.0.0 (+https://github.com/b44x/ai-polish-skills)",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         },
     )

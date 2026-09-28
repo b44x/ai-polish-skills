@@ -107,7 +107,7 @@ while [[ $# -gt 0 ]]; do
       echo "  --dir, -d <katalog>  Instalacja we wskazanym katalogu docelowym"
       echo "  --help, -h           Pokaż pomoc"
       echo ""
-      echo "Dostępne skille: inpost, biala-lista, filmweb, nbp, krs, imgw (domyślnie: wszystkie)"
+      echo "Dostępne skille: inpost, biala-lista, filmweb, nbp, krs, imgw, sejm, nfz (domyślnie: wszystkie)"
       exit 0
       ;;
     *)

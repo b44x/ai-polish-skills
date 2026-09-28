@@ -22,8 +22,10 @@ API_URL = "https://www.filmweb.pl/api/v1"
 SITE_URL = "https://www.filmweb.pl"
 POSTER_URL = "https://fwcdn.pl/fpo"
 PERSON_URL = "https://fwcdn.pl/ppo"
+USER_AGENT = "ai-polish-skills-filmweb/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
+
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (filmweb-skill)",
+    "User-Agent": USER_AGENT,
     "Accept": "application/json",
     "x-locale": "pl_PL",
 }
