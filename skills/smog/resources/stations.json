@@ -1,0 +1,31 @@
+{
+  "Lista stacji pomiarowych": [
+    {
+      "Identyfikator stacji": 400,
+      "Kod stacji": "MpKrakAlKras",
+      "Nazwa stacji": "Kraków, Aleja Krasińskiego",
+      "WGS84 φ N": "50.057678",
+      "WGS84 λ E": "19.926189",
+      "Identyfikator miasta": 415,
+      "Nazwa miasta": "Kraków",
+      "Gmina": "Kraków",
+      "Powiat": "Kraków",
+      "Województwo": "MAŁOPOLSKIE",
+      "Ulica": "Al. Krasińskiego"
+    },
+    {
+      "Identyfikator stacji": 401,
+      "Kod stacji": "MpKrakBujaka",
+      "Nazwa stacji": "Kraków, ul. Bujaka",
+      "WGS84 φ N": "50.010575",
+      "WGS84 λ E": "19.949189",
+      "Identyfikator miasta": 415,
+      "Nazwa miasta": "Kraków",
+      "Gmina": "Kraków",
+      "Powiat": "Kraków",
+      "Województwo": "MAŁOPOLSKIE",
+      "Ulica": "ul. Bujaka"
+    }
+  ],
+  "totalPages": 1
+}

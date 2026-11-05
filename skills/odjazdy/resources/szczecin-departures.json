@@ -1,0 +1,149 @@
+{
+  "data": {
+    "stop": {
+      "name": "Brama Portowa",
+      "number": "10822"
+    },
+    "departures": [
+      {
+        "line": {
+          "id": 8,
+          "number": "8",
+          "type": "DAY",
+          "subtype": "NORMAL",
+          "vehicle_type": "TRAM",
+          "on_demand": false,
+          "disruption": false,
+          "disruption_url": null
+        },
+        "trip": {
+          "service": "008-01",
+          "gtfs_id": "514513_POWS",
+          "start_date": "2026-11-05",
+          "headsign": {
+            "short": "Gumieńce",
+            "long": "Gumieńce"
+          },
+          "direction_id": 1,
+          "route_variant_number": 12,
+          "accessibility": "HIGH_FLOOR",
+          "note": null
+        },
+        "departure_time": {
+          "scheduled": "2026-11-05T21:42:00.000000Z",
+          "estimated": "2026-11-05T21:41:30.000000Z",
+          "departing_now": true,
+          "real_time": true,
+          "canceled": false
+        },
+        "request_stop": false,
+        "vehicle": {
+          "id": 609,
+          "number": "143+144",
+          "model": "Tatra KT4Dt",
+          "low_floor": false,
+          "ticket_machine": {
+            "cards": true,
+            "coins": true
+          },
+          "stuck": false
+        }
+      },
+      {
+        "line": {
+          "id": 37,
+          "number": "75",
+          "type": "DAY",
+          "subtype": "NORMAL",
+          "vehicle_type": "BUS",
+          "on_demand": false,
+          "disruption": false,
+          "disruption_url": null
+        },
+        "trip": {
+          "service": "075-10",
+          "gtfs_id": "496781_POW",
+          "start_date": "2026-11-05",
+          "headsign": {
+            "short": "Osiedle Zawadzkiego",
+            "long": "Osiedle Zawadzkiego"
+          },
+          "direction_id": 1,
+          "route_variant_number": 12,
+          "accessibility": "LOW_FLOOR",
+          "note": null
+        },
+        "departure_time": {
+          "scheduled": "2026-11-05T21:43:00.000000Z",
+          "estimated": "2026-11-05T21:41:50.000000Z",
+          "departing_now": true,
+          "real_time": true,
+          "canceled": false
+        },
+        "request_stop": false,
+        "vehicle": {
+          "id": 1369,
+          "number": "1897",
+          "model": "Solaris Urbino 18H",
+          "low_floor": true,
+          "ticket_machine": {
+            "cards": true,
+            "coins": false
+          },
+          "stuck": false
+        }
+      },
+      {
+        "line": {
+          "id": 7,
+          "number": "7",
+          "type": "DAY",
+          "subtype": "NORMAL",
+          "vehicle_type": "TRAM",
+          "on_demand": false,
+          "disruption": false,
+          "disruption_url": null
+        },
+        "trip": {
+          "service": "007-01",
+          "gtfs_id": "513855_POWS",
+          "start_date": "2026-11-05",
+          "headsign": {
+            "short": "Zajezdnia Pogodno",
+            "long": "Zajezdnia Pogodno przez Mickiewicza"
+          },
+          "direction_id": 1,
+          "route_variant_number": 32,
+          "accessibility": "LOW_FLOOR",
+          "note": {
+            "pl": "Kurs tylko do przystanku „Rondo Olszewskiego” i dalej zjazd do zajezdni Pogodno przez Al. Wojska Polskiego",
+            "en": "Journey only to the ‘Rondo Olszewskiego’ stop and then to the Pogodno depot through Wojska Polskiego Avenue",
+            "de": "Fahrt nur zur Haltestelle „Rondo Olszewskiego“ und weiter zum Betriebshof Pogodno über Wojska-Polskiego-Allee",
+            "uk": "Курс тільки до зупинки «Rondo Olszewskiego», а потім заїзд у депо Pogodno через ал. Wojska Polskiego"
+          }
+        },
+        "departure_time": {
+          "scheduled": "2026-11-05T21:56:00.000000Z",
+          "estimated": "2026-11-05T21:57:04.000000Z",
+          "departing_now": false,
+          "real_time": true,
+          "canceled": false
+        },
+        "request_stop": false,
+        "vehicle": {
+          "id": 660,
+          "number": "828",
+          "model": "Pesa Swing 120NaS2",
+          "low_floor": true,
+          "ticket_machine": {
+            "cards": false,
+            "coins": true
+          },
+          "stuck": false
+        }
+      }
+    ],
+    "messages": [],
+    "updated_at": "2026-11-05T21:41:58.367131Z"
+  }
+}

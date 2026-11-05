@@ -1,0 +1,316 @@
+{
+  "success": {
+    "bollards": [
+      {
+        "directions": [
+          {
+            "returnVariant": false,
+            "lineName": "3",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "3",
+            "direction": "Unii Lubelskiej"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "4",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "9",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "10",
+            "direction": "Dębiec PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "10",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "11",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "11",
+            "direction": "Starołęka PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "11",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "11",
+            "direction": "Unii Lubelskiej"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "15",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "15",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "15",
+            "direction": "Junikowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "18",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "18",
+            "direction": "Starołęka PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "18",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "19",
+            "direction": "Głogowska/Hetmańska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "212",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "212",
+            "direction": "Kacza"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "213",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "213",
+            "direction": "Dębiec PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "214",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "214",
+            "direction": "Junikowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "215",
+            "direction": "Luboń/Kręta"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "215",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "215",
+            "direction": "Os. Dębina"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "218",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "218",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "222",
+            "direction": "Port Lotniczy Ławica"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "223",
+            "direction": "Kacza"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "224",
+            "direction": "Junikowo PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "224",
+            "direction": "Rondo Ławickich Wydm"
+          }
+        ],
+        "bollard": {
+          "symbol": "RKAP01",
+          "name": "Rondo Kaponiera",
+          "tag": "RKAP71",
+          "mainBollard": false
+        }
+      },
+      {
+        "directions": [
+          {
+            "returnVariant": false,
+            "lineName": "3",
+            "direction": "Błażeja"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "4",
+            "direction": "Połabska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "9",
+            "direction": "Dębiec PKM"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "10",
+            "direction": "Włodarska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "10",
+            "direction": "Błażeja"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "11",
+            "direction": "Piątkowska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "15",
+            "direction": "Os. Sobieskiego"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "16",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "18",
+            "direction": "Ogrody"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "19",
+            "direction": "Połabska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "212",
+            "direction": "Szwajcarska Szpital"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "212",
+            "direction": "Franowo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "213",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "213",
+            "direction": "Mogileńska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "214",
+            "direction": "Radojewo"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "214",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "215",
+            "direction": "Os. Sobieskiego"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "215",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "216",
+            "direction": "Poznań Główny"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "218",
+            "direction": "Os. Sobieskiego"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "218",
+            "direction": "Rondo Kaponiera"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "222",
+            "direction": "Mogileńska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "223",
+            "direction": "Mogileńska"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "223",
+            "direction": "Zieliniec"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "224",
+            "direction": "Boranta"
+          },
+          {
+            "returnVariant": false,
+            "lineName": "226",
+            "direction": "Poznań Główny"
+          }
+        ],
+        "bollard": {
+          "symbol": "RKAP02",
+          "name": "Rondo Kaponiera",
+          "tag": "RKAP72",
+          "mainBollard": false
+        }
+      }
+    ]
+  }
+}

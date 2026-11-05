@@ -1,0 +1,23 @@
+name: validate-skills
+
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Skills Manifest & Security
+        run: python3 scripts/validate_skills.py
+      - name: Run Test Contract Harness
+        run: python3 scripts/test_skills.py
+      - name: Verify Registry Freshness
+        run: python3 scripts/build_registry.py --check
+      - name: Verify CLI Tools
+        run: python3 scripts/cli.py list

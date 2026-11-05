@@ -1,0 +1,53 @@
+{
+  "success": {
+    "times": [
+      {
+        "lfRamp": true,
+        "line": "3",
+        "minutes": 0,
+        "leRamp": false,
+        "ticketMachine": false,
+        "airCnd": true,
+        "vehicle": "922",
+        "bike": true,
+        "realTime": true,
+        "onStopPoint": true,
+        "charger": true,
+        "lowEntranceBus": false,
+        "lowFloorBus": false,
+        "departure": "2026-11-05T22:42:00.000Z",
+        "direction": "Unii Lubelskiej"
+      },
+      {
+        "lfRamp": false,
+        "line": "15",
+        "minutes": 2,
+        "leRamp": false,
+        "airCnd": true,
+        "vehicle": "555",
+        "bike": true,
+        "realTime": true,
+        "onStopPoint": false,
+        "charger": false,
+        "lowEntranceBus": false,
+        "lowFloorBus": true,
+        "departure": "2026-11-05T22:44:00.000Z",
+        "direction": "Junikowo"
+      },
+      {
+        "realTime": false,
+        "onStopPoint": false,
+        "line": "15",
+        "minutes": 16,
+        "departure": "2026-11-05T22:58:00.000Z",
+        "direction": "Franowo"
+      }
+    ],
+    "bollard": {
+      "symbol": "RKAP71",
+      "name": "Rondo Kaponiera",
+      "tag": "RKAP01",
+      "mainBollard": false
+    }
+  }
+}

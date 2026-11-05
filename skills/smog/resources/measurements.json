@@ -1,0 +1,80 @@
+{
+  "Lista danych pomiarowych": [
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 21:00:00",
+      "Wartość": 18.3
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 20:00:00",
+      "Wartość": 16.6
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 19:00:00",
+      "Wartość": 17.6
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 18:00:00",
+      "Wartość": 20.4
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 17:00:00",
+      "Wartość": 19.7
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 16:00:00",
+      "Wartość": 22.9
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 15:00:00",
+      "Wartość": 28.8
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 14:00:00",
+      "Wartość": 19.5
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 13:00:00",
+      "Wartość": 27.0
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 12:00:00",
+      "Wartość": null
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 11:00:00",
+      "Wartość": null
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 10:00:00",
+      "Wartość": null
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 09:00:00",
+      "Wartość": null
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 08:00:00",
+      "Wartość": 14.2
+    },
+    {
+      "Kod stanowiska": "MpKrakAlKras-PM2.5-1g",
+      "Data": "2026-11-04 07:00:00",
+      "Wartość": 12.5
+    }
+  ],
+  "totalPages": 1
+}

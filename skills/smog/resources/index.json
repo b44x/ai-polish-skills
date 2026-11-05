@@ -1,0 +1,32 @@
+{
+  "AqIndex": {
+    "Identyfikator stacji pomiarowej": 400,
+    "Data wykonania obliczeń indeksu": "2026-11-04 21:25:30",
+    "Wartość indeksu": 1,
+    "Nazwa kategorii indeksu": "Dobry",
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika st": "2026-11-04 21:00:00",
+    "Data wykonania obliczeń indeksu dla wskaźnika SO2": "2026-11-04 21:25:30",
+    "Wartość indeksu dla wskaźnika SO2": null,
+    "Nazwa kategorii indeksu dla wskażnika SO2": null,
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika SO2": null,
+    "Data wykonania obliczeń indeksu dla wskaźnika NO2": "2026-11-04 21:25:30",
+    "Wartość indeksu dla wskaźnika NO2": 1,
+    "Nazwa kategorii indeksu dla wskażnika NO2": "Dobry",
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika NO2": "2026-11-04 21:00:00",
+    "Data wykonania obliczeń indeksu dla wskaźnika PM10": "2026-11-04 21:25:30",
+    "Wartość indeksu dla wskaźnika PM10": 1,
+    "Nazwa kategorii indeksu dla wskażnika PM10": "Dobry",
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika PM10": "2026-11-04 21:00:00",
+    "Data wykonania obliczeń indeksu dla wskaźnika PM2.5": "2026-11-04 21:25:30",
+    "Wartość indeksu dla wskaźnika PM2.5": 1,
+    "Nazwa kategorii indeksu dla wskażnika PM2.5": "Dobry",
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika PM2.5": "2026-11-04 21:00:00",
+    "Data wykonania obliczeń indeksu dla wskaźnika O3": null,
+    "Wartość indeksu dla wskaźnika O3": null,
+    "Nazwa kategorii indeksu dla wskażnika O3": null,
+    "Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika O3": null,
+    "Status indeksu ogólnego dla stacji pomiarowej": true,
+    "Kod zanieczyszczenia krytycznego": "PYL"
+  },
+  "totalPages": 1
+}

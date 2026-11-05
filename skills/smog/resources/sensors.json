@@ -1,0 +1,61 @@
+{
+  "Lista stanowisk pomiarowych dla podanej stacji": [
+    {
+      "Identyfikator stanowiska": 2745,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "tlenek węgla",
+      "Wskaźnik - wzór": "CO",
+      "Wskaźnik - kod": "CO",
+      "Id wskaźnika": 8
+    },
+    {
+      "Identyfikator stanowiska": 2746,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "tlenek azotu",
+      "Wskaźnik - wzór": "NO",
+      "Wskaźnik - kod": "NO",
+      "Id wskaźnika": 16
+    },
+    {
+      "Identyfikator stanowiska": 2747,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "dwutlenek azotu",
+      "Wskaźnik - wzór": "NO2",
+      "Wskaźnik - kod": "NO2",
+      "Id wskaźnika": 6
+    },
+    {
+      "Identyfikator stanowiska": 2748,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "tlenki azotu",
+      "Wskaźnik - wzór": "NOx",
+      "Wskaźnik - kod": "NOx",
+      "Id wskaźnika": 7
+    },
+    {
+      "Identyfikator stanowiska": 2750,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "pył zawieszony PM10",
+      "Wskaźnik - wzór": "PM10",
+      "Wskaźnik - kod": "PM10",
+      "Id wskaźnika": 3
+    },
+    {
+      "Identyfikator stanowiska": 2752,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "pył zawieszony PM2.5",
+      "Wskaźnik - wzór": "PM2.5",
+      "Wskaźnik - kod": "PM2.5",
+      "Id wskaźnika": 69
+    },
+    {
+      "Identyfikator stanowiska": 16500,
+      "Identyfikator stacji": 400,
+      "Wskaźnik": "benzen",
+      "Wskaźnik - wzór": "C6H6",
+      "Wskaźnik - kod": "C6H6",
+      "Id wskaźnika": 10
+    }
+  ],
+  "totalPages": 1
+}
