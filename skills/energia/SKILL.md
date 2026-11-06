@@ -29,27 +29,31 @@ tags:
 compatibility: Python 3.8+ (standard library only); internet access required.
 ---
 
-# Ceny rynkowe energii z PSE
+# PSE market electricity prices
 
-Uruchamiaj z katalogu skilla: `python3 scripts/energia.py <komenda> ...` (Windows: `py`). Bez klucza API i pakietów pip.
+## Running the script
 
-| Komenda | Wynik |
+Run `python3 scripts/energia.py <command> ...` from this skill's directory (`py` on Windows). No API key or pip packages are required.
+
+| Command | Result |
 |---|---|
-| `day 2026-11-04` | Ceny każdego przedziału, minimum, maksimum, średnia dostępnych danych i kompletność doby |
-| `cheapest 2026-11-04 --minutes 120` | Najtańsze ciągłe dwie godziny w pełnej dobie, ze startem na granicy przedziału PSE |
-| `cheapest 2026-11-04 --minutes 180 --kwh 12` | Także składnik RCE dla 12 kWh pobieranych przy stałej mocy przez trzy godziny |
-| `summary --from 2026-11-01 --to 2026-11-04` | Podsumowanie maksymalnie 31 dni, brakujące daty i kompletność poszczególnych dób |
+| `day 2026-11-04` | Interval prices, minimum, maximum, mean of available data and daily completeness |
+| `cheapest 2026-11-04 --minutes 120` | Cheapest continuous two hours in a complete day, starting at a PSE interval boundary |
+| `cheapest 2026-11-04 --minutes 180 --kwh 12` | Also compute the RCE component for 12 kWh consumed at constant power over three hours |
+| `summary --from 2026-11-01 --to 2026-11-04` | Summary of up to 31 days, missing dates and completeness of each day |
 
-`day` i `cheapest` bez daty wybierają dzisiejszą datę w Polsce. Każda komenda obsługuje `--no-cache` oraz `--cache-dir <katalog>`. Cache jest aktualny przez 5 minut; błąd odświeżenia kończy odczyt błędem.
+Without a date, `day` and `cheapest` use today's date in Poland. Every command accepts `--no-cache` and `--cache-dir <directory>`. Cache entries are valid for 5 minutes; a refresh failure ends the lookup with an error.
 
-## Interpretacja
+## Interpreting results
 
-- Podawaj źródło **PSE**, datę, cenę w PLN/MWh lub PLN/kWh oraz czas publikacji. 1000 PLN/MWh = 1 PLN/kWh. To rynkowe RCE; rachunek zależy od umowy i zawiera dodatkowe składniki. Ujemna RCE nie gwarantuje ujemnego rachunku. Nie dodawaj samodzielnie założonej stawki VAT ani nie obiecuj oszczędności na konkretnej taryfie.
-- O wyborze daty decyduje użytkownik; danych dla jutra może jeszcze nie być. Brak danych to błąd `not_found`, a nie prognoza lub cena zero.
-- `complete: false` oznacza niepełny zakres. `mean_available_pln_mwh` opisuje wyłącznie opublikowane przedziały; w podsumowaniu `mean_full_period_pln_mwh` pozostaje wtedy `null`. `cheapest` wymaga pełnej doby, aby porównać wszystkie możliwe okna.
-- Każdy przedział ma granice UTC oraz lokalne ISO z przesunięciem UTC. Używaj ich przy zmianie czasu — doba może mieć 23, 24 lub 25 godzin, a lokalna godzina może się powtarzać.
-- `--minutes` oznacza rzeczywisty czas trwania, nie różnicę między wskazaniami zegara. Ostatni przedział może zostać wykorzystany częściowo, proporcjonalnie do czasu; pozwala to wybrać np. 90 minut także dla historycznych cen godzinowych. Przy `--kwh` zakładana jest stała moc poboru. Wynik `rce_component_pln` jest wyłącznie składnikiem RCE. Skill nie steruje ładowarką ani urządzeniami.
+- Cite **PSE**, the date, prices in PLN/MWh or PLN/kWh and publication time. 1000 PLN/MWh = 1 PLN/kWh. These are market RCE prices; the bill depends on the user's contract and includes additional components. Negative RCE does not guarantee a negative bill. Do not assume a VAT rate or promise savings under a particular retail tariff.
+- Use the date requested by the user; tomorrow's data may not be published yet. Missing data produces `not_found`, not a forecast or a zero price.
+- `complete: false` means incomplete coverage. `mean_available_pln_mwh` covers only published intervals; `mean_full_period_pln_mwh` in the summary then remains `null`. `cheapest` requires a complete day to compare all candidate windows.
+- Each interval has UTC boundaries and local ISO boundaries with UTC offsets. Use these for daylight-saving transitions: a day can have 23, 24 or 25 hours, and a local hour can repeat.
+- `--minutes` specifies elapsed duration, not the difference between wall-clock readings. The final interval can be used partially, weighted by time, allowing a 90-minute window even with historical hourly prices. `--kwh` assumes constant consumption power. `rce_component_pln` is only the RCE component. The skill does not control chargers or other devices.
 
-Sukces: JSON stdout, kod `0`. Błędy JSON stderr: `2` brak danych/okna, `64` walidacja, `69` API/sieć/niepełna doba przy wyszukiwaniu okna. `--help`/`-h`: kod `0`.
+## Output and exit codes
 
-Szczegóły pól i źródła: [references/api.md](references/api.md).
+Success: JSON on stdout, exit `0`. Errors: JSON on stderr, exit `2` for missing data/window, `64` for validation or `69` for API/network failures or an incomplete day when selecting a window. `--help` and `-h` return `0`.
+
+Read [references/api.md](references/api.md) for field definitions and sources.

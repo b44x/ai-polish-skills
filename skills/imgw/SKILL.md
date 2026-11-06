@@ -48,7 +48,7 @@ Official skill integrating public data from the Instytut Meteorologii i Gospodar
 via `scripts/imgw.py`. Works without API keys, uses only the Python standard library,
 and returns structured JSON on `stdout`.
 
-## Running
+## Running the script
 
 Run from the skill directory (or from the repository root path):
 
@@ -59,7 +59,7 @@ Run from the skill directory (or from the repository root path):
 
 Zero external libraries (Python 3.8+ stdlib).
 
-## Main Use Cases
+## Workflow
 
 1. **Current weather for a specific city / station:**
    - When the user asks e.g. „Jaka jest teraz temperatura w Warszawie?”, „Pokaż pogodę z IMGW dla Zakopanego”:
@@ -108,7 +108,7 @@ Zero external libraries (Python 3.8+ stdlib).
 
 Detailed description of schemas and fields: [references/output.md](references/output.md).
 
-## Exit Codes
+## Exit codes
 
 Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": "..."}`.
 
@@ -119,7 +119,7 @@ Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": 
 | `64` | Invalid invocation / validation | Check the command parameters or coordinates |
 | `69` | IMGW server / network error | Temporary network error; try again |
 
-## Rules and Best Practices
+## Rules
 
 - Always cite the data source: **IMGW-PIB**.
 - At mountain stations (e.g. Kasprowy Wierch, Śnieżka, Zakopane) pressure is often omitted (`null`), because it is not reduced to sea level in the standard way — inform the user about this.

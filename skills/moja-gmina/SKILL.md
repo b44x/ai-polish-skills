@@ -30,26 +30,32 @@ tags:
 compatibility: Python 3.8+ (standard library only); internet access required.
 ---
 
-# Statystyki lokalne GUS BDL
+# GUS BDL local statistics
 
-Uruchamiaj z katalogu skilla: `python3 scripts/moja_gmina.py <komenda>` (Windows: `py`).
+## Running the script
 
-| Komenda | Zastosowanie |
+Run `python3 scripts/moja_gmina.py <command>` from this skill's directory (`py` on Windows).
+
+| Command | Purpose |
 |---|---|
-| `units "Piaseczno" --level 6` | Znajdź gminy; wynik zachowuje rodzaj jednostki i identyfikator rodzica |
-| `indicators "ludność" --level 6` | Wyszukaj wskaźniki i ich wymiary |
-| `indicators "bezrobotni" --level 5` | Znajdź odpowiednią serię dla powiatów |
-| `indicator ludnosc` | Pełna definicja i lata wskaźnika ludności ogółem (BDL 72305) |
-| `compare --units <ID_BDL_1> <ID_BDL_2> --indicators ludnosc --year 2024` | Porównaj jednostki znalezione przez `units`, w jednym roku |
-| `compare --units <ID_BDL_1> <ID_BDL_2> --indicators <ID_WSKAŹNIKA>` | Dobierz najnowszy rok z danymi dla obu jednostek |
+| `units "Piaseczno" --level 6` | Find municipalities, preserving unit type and parent identifier |
+| `indicators "ludność" --level 6` | Search indicators and their dimensions |
+| `indicators "bezrobotni" --level 5` | Find an appropriate county-level series |
+| `indicator ludnosc` | Full definition and available years for total population (BDL 72305) |
+| `compare --units <ID_BDL_1> <ID_BDL_2> --indicators ludnosc --year 2024` | Compare units found through `units` for a common year |
+| `compare --units <ID_BDL_1> <ID_BDL_2> --indicators <INDICATOR_ID>` | Select the latest year with data for both units |
 
-1. Ustal jednostki przez `units`; 12-cyfrowy identyfikator BDL różni się od skróconego TERYT. Przy zbieżnych nazwach sprawdź `level`, `kind` i `parentId`. Gmina miejsko-wiejska, samo miasto oraz część wiejska mogą występować osobno.
-2. Wybierz wskaźnik przez `indicators`, a jego pełny opis sprawdź przez `indicator`. Nazwy `n1`…`n5`, jednostka miary, poziom i lata są częścią definicji. Dochód ogółem i na mieszkańca to różne serie; wynagrodzenia czy stopa bezrobocia nie muszą być dostępne na poziomie gmin.
-3. `compare` przyjmuje do 10 jednostek tego samego poziomu i do 5 wskaźników. Bez `--year` wybiera najnowszy wspólny rok **osobno dla każdego wskaźnika**. `no_common_data` oznacza brak porównywalnych danych; nie podstawiaj najnowszego roku z innej jednostki.
-4. W odpowiedzi podaj źródło **GUS, Bank Danych Lokalnych**, rok, jednostkę miary i opis wskaźnika. Zachowaj atrybuty, uwagi metodologiczne i zakres terytorialny. `null`, brak obserwacji i tajemnica statystyczna nie oznaczają zera. Liczba mieszkańców nie jest oceną jakości życia ani prognozą.
+## Workflow and interpretation
 
-Cache: metadane 24 h, dane 1 h w `~/.cache/ai-polish-skills/moja-gmina`; `--no-cache` przed komendą wymusza odczyt. `requests` podaje URL, faktyczny czas pobrania i użycie cache. `fetched_at` w korzeniu to czas przygotowania odpowiedzi. Cache można przenieść przez `MOJA_GMINA_CACHE_DIR`. Nie ma fallbacku do przeterminowanych danych.
+1. Resolve units through `units`; the 12-digit BDL identifier differs from a shortened TERYT code. For matching names, inspect `level`, `kind` and `parentId`. An urban-rural municipality, its town and its rural part may be separate units.
+2. Select an indicator through `indicators`, then inspect its full definition with `indicator`. Names `n1`…`n5`, unit of measure, geographic level and available years are part of the definition. Total and per-capita income are different series; wages or unemployment rates may not be available at municipality level.
+3. `compare` accepts up to 10 units of the same level and up to 5 indicators. Without `--year`, it chooses the latest common year **separately for each indicator**. `no_common_data` means no comparable data; do not substitute another unit's latest year.
+4. Cite **GUS, Bank Danych Lokalnych**, the year, unit of measure and indicator definition. Preserve attributes, methodological notes and territorial scope. `null`, absent observations and statistical confidentiality do not mean zero. Population size is neither a quality-of-life rating nor a forecast.
 
-API działa anonimowo; opcjonalny klucz ustaw jako `BDL_API_KEY` (nagłówek `X-ClientId`). Przy 429 skill kończy się kodem 69 i przekazuje `retry_after`; respektuj ten czas przed kolejną próbą. Nie zwiększaj częstotliwości zapytań przy awarii. Podczas weryfikacji 2026-11-05 dokumentacja i schemat oficjalnego API były dostępne, ale próby odczytu danych REST kończyły się timeoutem; testy offline nie są potwierdzeniem dostępności usługi.
+## Cache, availability and exit codes
 
-Sukces: JSON stdout, kod 0. Błędy JSON stderr: 2 — brak zasobu/wyników, 64 — walidacja, 69 — sieć/API/format/limit. `--help`: kod 0. Szczegóły: [references/api.md](references/api.md).
+Metadata is cached for 24 hours and data for 1 hour in `~/.cache/ai-polish-skills/moja-gmina`. Put `--no-cache` before the command to force a fetch. `requests` contains the URL, actual retrieval time and cache status. Root-level `fetched_at` is the response preparation time. Override the cache directory with `MOJA_GMINA_CACHE_DIR`. There is no fallback to expired data.
+
+The API supports anonymous access; optionally set `BDL_API_KEY` for the `X-ClientId` header. On HTTP 429, the skill exits with 69 and reports `retry_after`; respect that delay before another attempt. Do not increase request frequency during an outage. During verification on 2026-11-05, official API documentation and the schema were available, but REST data requests timed out; offline tests do not confirm service availability.
+
+Success: JSON on stdout, exit `0`. Errors: JSON on stderr, exit `2` for a missing resource/results, `64` for validation or `69` for network/API/format/rate-limit errors. `--help` returns `0`. Read [references/api.md](references/api.md) for API details.
