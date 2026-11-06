@@ -4,11 +4,15 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 17,
+  "skills_count": 20,
   "categories": [
     {
       "name": "public_data",
-      "count": 5
+      "count": 6
+    },
+    {
+      "name": "utilities",
+      "count": 4
     },
     {
       "name": "finance",
@@ -19,15 +23,11 @@
       "count": 3
     },
     {
-      "name": "utilities",
-      "count": 3
+      "name": "health",
+      "count": 2
     },
     {
       "name": "entertainment",
-      "count": 1
-    },
-    {
-      "name": "health",
       "count": 1
     },
     {
@@ -122,6 +122,51 @@
         "resources/README.md",
         "resources/domains.txt",
         "scripts/cert_pl.py"
+      ]
+    },
+    {
+      "name": "dzialki",
+      "display_name": "Działki — lokalizacja i granice ULDK",
+      "version": "1.0.0",
+      "description": "Locate Polish cadastral parcels through the official ULDK service by full EGiB identifier, cadastral district and parcel number, or a point inside the parcel. Return administrative location and parcel footprint in WKT and WGS84 GeoJSON. Use for \"znajdź działkę\", \"granice działki\", \"identyfikator działki\", \"jaka działka w tym punkcie\". Does not retrieve ownership, land-register numbers or building permission.",
+      "category": "public_data",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Główny Urząd Geodezji i Kartografii — ULDK",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://uldk.gugik.gov.pl/",
+      "documentation": "https://uldk.gugik.gov.pl/opis.html",
+      "rate_limit": "200 requests/minute 06–18, otherwise 40/minute; 10000/day/IP; local cache 5 minutes.",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "dzialki",
+        "uldk",
+        "egib",
+        "granice-dzialek",
+        "geoportal",
+        "identyfikator-dzialki"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); internet access required.",
+      "entrypoint": "scripts/dzialki.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/dzialki/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s dzialki",
+        "cli": "python3 scripts/cli.py install dzialki",
+        "target_dir": ".agents/skills/dzialki"
+      },
+      "files": [
+        "SKILL.md",
+        "references/api.md",
+        "resources/parcel-2180.txt",
+        "resources/parcel-wgs84.txt",
+        "resources/search.txt",
+        "scripts/dzialki.py"
       ]
     },
     {
@@ -569,6 +614,51 @@
       ]
     },
     {
+      "name": "ostrzezenia-gis",
+      "display_name": "Ostrzeżenia GIS — produkty i partie",
+      "version": "1.0.0",
+      "description": "Read official GIS product warnings from Gov.pl, search product or brand words in published notice text, and inspect exact batch numbers and dates. Use for \"ostrzeżenia GIS\", \"wycofany produkt\", \"czy ta partia jest w komunikacie\", recalled food or supplements. Searches a bounded set of notices; absence is not proof of product safety.",
+      "category": "health",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Główny Inspektorat Sanitarny — Gov.pl",
+      "source_type": "scraping",
+      "official": true,
+      "homepage": "https://www.gov.pl/web/gis/ostrzezenia",
+      "documentation": "https://www.gov.pl/web/gis/ostrzezenia",
+      "rate_limit": "Local cache 5 minutes; requests spaced by 1 second per process; no published quota.",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "gis",
+        "ostrzezenia",
+        "wycofania",
+        "zywnosc",
+        "suplementy",
+        "partie-produktow"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); internet access required.",
+      "entrypoint": "scripts/ostrzezenia_gis.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/ostrzezenia-gis/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s ostrzezenia-gis",
+        "cli": "python3 scripts/cli.py install ostrzezenia-gis",
+        "target_dir": ".agents/skills/ostrzezenia-gis"
+      },
+      "files": [
+        "SKILL.md",
+        "references/output.md",
+        "resources/README.md",
+        "resources/listing.html",
+        "resources/notice.html",
+        "scripts/ostrzezenia_gis.py"
+      ]
+    },
+    {
       "name": "prawo",
       "display_name": "Prawo (ISAP / Dziennik Ustaw)",
       "version": "1.0.0",
@@ -610,6 +700,52 @@
         "SKILL.md",
         "references/output.md",
         "scripts/prawo.py"
+      ]
+    },
+    {
+      "name": "produkty",
+      "display_name": "Produkty — skład i etykiety żywności",
+      "version": "1.0.0",
+      "description": "Look up food-label data by GTIN/EAN barcode or search food names and brands in Open Food Facts, with Poland as the default declared sales-country filter. Read ingredients, reported allergen and trace tags, nutrition units and serving bases, and sourced Nutri-Score. Use for \"sprawdź skład produktu\", \"alergeny po EAN\", \"kod kreskowy\", \"wartości odżywcze\". Community data may be incomplete; does not verify allergy safety, recommend supplements, check shop stock or prices, or place orders.",
+      "category": "utilities",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Open Food Facts — społecznościowa baza etykiet żywności",
+      "source_type": "public_api",
+      "official": true,
+      "homepage": "https://world.openfoodfacts.org/",
+      "documentation": "https://openfoodfacts.github.io/openfoodfacts-server/api/",
+      "rate_limit": "15 product reads/minute/IP, 10 searches/minute/IP; product cache 24 h, search cache 15 min",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "produkty",
+        "zywnosc",
+        "sklad",
+        "alergeny",
+        "ean",
+        "gtin",
+        "open-food-facts"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); internet access required.",
+      "entrypoint": "scripts/produkty.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/produkty/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s produkty",
+        "cli": "python3 scripts/cli.py install produkty",
+        "target_dir": ".agents/skills/produkty"
+      },
+      "files": [
+        "SKILL.md",
+        "references/api.md",
+        "resources/README.md",
+        "resources/product-v3.6.json",
+        "resources/search.json",
+        "scripts/produkty.py"
       ]
     },
     {

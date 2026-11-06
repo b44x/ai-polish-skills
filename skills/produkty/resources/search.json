@@ -1,0 +1,37 @@
+{
+  "hits": [
+    {
+      "code": "5901432003117",
+      "brands": [
+        "Mleczna Dolina"
+      ],
+      "quantity": "1l",
+      "countries_tags": [
+        "en:poland"
+      ],
+      "last_modified_t": 1715505413,
+      "product_name": "Mleko"
+    },
+    {
+      "code": "5902170005456",
+      "brands": [
+        "Mleczna Dolina"
+      ],
+      "countries_tags": [
+        "en:poland"
+      ],
+      "last_modified_t": 1729187145
+    }
+  ],
+  "aggregations": null,
+  "facets": {},
+  "charts": {},
+  "page": 1,
+  "page_size": 2,
+  "page_count": 22,
+  "took": 4,
+  "timed_out": false,
+  "count": 44,
+  "is_count_exact": true,
+  "warnings": null
+}

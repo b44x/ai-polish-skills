@@ -10,10 +10,11 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 17 Polish skills: Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Prawo (ISAP / Dziennik Ustaw), Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, Terminy, dni robocze i święta.",
+      "description": "All 20 Polish skills: Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, Terminy, dni robocze i święta.",
       "skills": [
         "./skills/biala-lista",
         "./skills/cert-pl",
+        "./skills/dzialki",
         "./skills/energia",
         "./skills/filmweb",
         "./skills/imgw",
@@ -24,7 +25,9 @@
         "./skills/nfz",
         "./skills/nieruchomosci",
         "./skills/odjazdy",
+        "./skills/ostrzezenia-gis",
         "./skills/prawo",
+        "./skills/produkty",
         "./skills/przetargi",
         "./skills/sejm",
         "./skills/smog",
@@ -41,9 +44,11 @@
         "bzp",
         "cert",
         "dni-robocze",
+        "dzialki",
         "energia",
         "filmweb",
         "filmy",
+        "gis",
         "gus",
         "imgw",
         "inpost",
@@ -54,6 +59,7 @@
         "nfz",
         "nieruchomosci",
         "odjazdy",
+        "ostrzezenia",
         "paczkomaty",
         "phishing",
         "pogoda",
@@ -62,6 +68,7 @@
         "poslowie",
         "powietrze",
         "prawo",
+        "produkty",
         "przetargi",
         "public-data",
         "rce",
@@ -69,10 +76,12 @@
         "smog",
         "spolki",
         "swieta",
+        "uldk",
         "ustawy",
         "vat",
         "waluty",
-        "zdrowie"
+        "zdrowie",
+        "zywnosc"
       ]
     },
     {
@@ -111,6 +120,24 @@
         "podejrzane-linki",
         "sms",
         "bezpieczenstwo"
+      ]
+    },
+    {
+      "name": "dzialki",
+      "displayName": "Działki — lokalizacja i granice ULDK",
+      "source": "./skills/dzialki",
+      "description": "Locate Polish cadastral parcels through the official ULDK service by full EGiB identifier, cadastral district and parcel number, or a point inside the parcel.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/dzialki",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "tags": [
+        "dzialki",
+        "uldk",
+        "egib",
+        "granice-dzialek",
+        "geoportal",
+        "identyfikator-dzialki"
       ]
     },
     {
@@ -312,6 +339,24 @@
       ]
     },
     {
+      "name": "ostrzezenia-gis",
+      "displayName": "Ostrzeżenia GIS — produkty i partie",
+      "source": "./skills/ostrzezenia-gis",
+      "description": "Read official GIS product warnings from Gov.pl, search product or brand words in published notice text, and inspect exact batch numbers and dates.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/ostrzezenia-gis",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "health",
+      "tags": [
+        "gis",
+        "ostrzezenia",
+        "wycofania",
+        "zywnosc",
+        "suplementy",
+        "partie-produktow"
+      ]
+    },
+    {
       "name": "prawo",
       "displayName": "Prawo (ISAP / Dziennik Ustaw)",
       "source": "./skills/prawo",
@@ -329,6 +374,25 @@
         "tekst-jednolity",
         "przepisy",
         "eli"
+      ]
+    },
+    {
+      "name": "produkty",
+      "displayName": "Produkty — skład i etykiety żywności",
+      "source": "./skills/produkty",
+      "description": "Look up food-label data by GTIN/EAN barcode or search food names and brands in Open Food Facts, with Poland as the default declared sales-country filter.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/produkty",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "utilities",
+      "tags": [
+        "produkty",
+        "zywnosc",
+        "sklad",
+        "alergeny",
+        "ean",
+        "gtin",
+        "open-food-facts"
       ]
     },
     {
