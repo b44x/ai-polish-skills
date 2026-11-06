@@ -6,6 +6,12 @@ Rejestr `ai-polish-skills` gromadzi modularne skille dla agentów AI (Claude Cod
 
 ---
 
+## Konwencje narzędzi projektu
+
+Instalator i CLI zarządzające używają angielskich nazw komend, pomocy, komunikatów technicznych i kluczy JSON. Polskie opisy skilli, frazy wyszukiwania i treść danych źródłowych zachowują swój język. Nie tłumacz identyfikatorów ani istniejących pól JSON przy poprawkach dokumentacji.
+
+`install.sh` jest cienkim bootstrapem; logikę instalacji utrzymujemy wyłącznie w `scripts/installer.py`, a argumenty w `scripts/cli.py`. Zmiany zachowania muszą zachować opisane aliasy, czysty stdout dla `--json` oraz kody wyjścia. [Pełny kontrakt CLI](docs/cli.md) opisuje ścieżki, aktualizacje, podgląd i podmianę plików.
+
 ## 8-krokowy proces dodawania nowego skilla
 
 Każdy nowy skill dodawany jest w przewidywalnym procesie:
