@@ -28,6 +28,9 @@ Match user prompt intent to the appropriate skill:
 | **Find stops and urban departures in Gdańsk, Poznań and Szczecin** | `odjazdy` | `scripts/odjazdy.py` | `"kiedy przyjedzie tramwaj"`, `"odjazdy z przystanku"` |
 | **Read PSE market electricity prices and find the cheapest contiguous time window** | `energia` | `scripts/energia.py` | `"ceny RCE"`, `"najtańsze dwie godziny energii"` |
 | **Search GUS BDL indicators and compare municipalities using matching years and geographic levels** | `moja-gmina` | `scripts/moja_gmina.py` | `"porównaj ludność gmin"`, `"dane GUS o mojej gminie"` |
+| **Locate cadastral parcels by identifier, district/number or a point; read boundaries and administrative location** | `dzialki` | `scripts/dzialki.py` | `"znajdź działkę po numerze"`, `"jaka działka jest pod tym GPS"` |
+| **Search published GIS food/product warnings and read notices with batch details from the source** | `ostrzezenia-gis` | `scripts/ostrzezenia_gis.py` | `"ostrzeżenia GIS"`, `"czy wycofano tę partię produktu"` |
+| **Look up food labels, ingredients and nutrition by barcode, or search Open Food Facts** | `produkty` | `scripts/produkty.py` | `"sprawdź skład po kodzie kreskowym"`, `"wartości odżywcze produktu"` |
 
 ---
 
