@@ -1,0 +1,144 @@
+{
+  "checked_at": "2026-11-06T21:47:32.607526+00:00",
+  "results": [
+    {
+      "skill": "biala-lista",
+      "args": [
+        "nip",
+        "5260250274"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 3285
+    },
+    {
+      "skill": "krs",
+      "args": [
+        "info",
+        "0000006865"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 2540
+    },
+    {
+      "skill": "nbp",
+      "args": [
+        "rate",
+        "EUR"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 151
+    },
+    {
+      "skill": "inpost",
+      "args": [
+        "point",
+        "WAW01M"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 824
+    },
+    {
+      "skill": "filmweb",
+      "args": [
+        "search",
+        "Matrix"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 1456
+    },
+    {
+      "skill": "imgw",
+      "args": [
+        "weather",
+        "Warszawa"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 638
+    },
+    {
+      "skill": "sejm",
+      "args": [
+        "terms"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 2202
+    },
+    {
+      "skill": "nfz",
+      "args": [
+        "benefits",
+        "rezonans",
+        "--limit",
+        "1"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 148
+    },
+    {
+      "skill": "prawo",
+      "args": [
+        "search",
+        "Kodeks pracy",
+        "--limit",
+        "1"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 623
+    },
+    {
+      "skill": "moja-gmina",
+      "args": [
+        "--no-cache",
+        "units",
+        "Warszawa",
+        "--limit",
+        "1"
+      ],
+      "exit": 69,
+      "valid_json": false,
+      "stderr": "{\"error\": \"GUS BDL jest niedostępny: The read operation timed out\", \"type\": \"network_error\"}\n",
+      "stdout_bytes": 0
+    },
+    {
+      "skill": "smog",
+      "args": [
+        "stations",
+        "--city",
+        "Warszawa"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 1942
+    },
+    {
+      "skill": "cert-pl",
+      "args": [
+        "check",
+        "https://example.org"
+      ],
+      "exit": 0,
+      "valid_json": true,
+      "stderr": "",
+      "stdout_bytes": 316
+    }
+  ]
+}

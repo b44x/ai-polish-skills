@@ -218,14 +218,14 @@ class NetworkTests(unittest.TestCase):
     def test_listing_404_is_upstream_failure_notice_404_is_not_found(self):
         for url, expected in [(gis.LIST_URL, 69), (URL_A, 2)]:
             client = gis.Client(no_cache=True)
-            client.opener.open = Mock(side_effect=urllib.error.HTTPError(url, 404, "Not found", {}, None))
+            client.opener.open = Mock(side_effect=urllib.error.HTTPError(url, 404, "Not found", {}, io.BytesIO()))
             with self.assertRaises(gis.SkillError) as error:
                 client.fetch(url)
             self.assertEqual(error.exception.code, expected)
 
     def test_http_429_does_not_retry(self):
         client = gis.Client(no_cache=True)
-        client.opener.open = Mock(side_effect=urllib.error.HTTPError(URL_A, 429, "Rate limit", {}, None))
+        client.opener.open = Mock(side_effect=urllib.error.HTTPError(URL_A, 429, "Rate limit", {}, io.BytesIO()))
         with self.assertRaises(gis.SkillError) as error:
             client.fetch(URL_A)
         self.assertEqual(error.exception.code, 69)

@@ -31,6 +31,9 @@ Match user prompt intent to the appropriate skill:
 | **Locate cadastral parcels by identifier, district/number or a point; read boundaries and administrative location** | `dzialki` | `scripts/dzialki.py` | `"znajdź działkę po numerze"`, `"jaka działka jest pod tym GPS"` |
 | **Search published GIS food/product warnings and read notices with batch details from the source** | `ostrzezenia-gis` | `scripts/ostrzezenia_gis.py` | `"ostrzeżenia GIS"`, `"czy wycofano tę partię produktu"` |
 | **Look up food labels, ingredients and nutrition by barcode, or search Open Food Facts** | `produkty` | `scripts/produkty.py` | `"sprawdź skład po kodzie kreskowym"`, `"wartości odżywcze produktu"` |
+| **Find Polish job offers with salary ranges, remote work and SOLID.Jobs market statistics** | `praca` | `scripts/praca.py` | `"szukam pracy Python"`, `"praca zdalna"` |
+| **Geocode Polish addresses or reverse GPS through official GUGiK UUG** | `adresy` | `scripts/adresy.py` | `"współrzędne adresu"`, `"jaki adres pod GPS"` |
+| **Discover datasets, resource metadata, dates and reuse conditions on dane.gov.pl** | `otwarte-dane` | `scripts/otwarte_dane.py` | `"znajdź otwarte dane"`, `"dane do analizy"` |
 
 ---
 

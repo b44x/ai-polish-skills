@@ -4,11 +4,11 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 20,
+  "skills_count": 23,
   "categories": [
     {
       "name": "public_data",
-      "count": 6
+      "count": 8
     },
     {
       "name": "utilities",
@@ -31,11 +31,55 @@
       "count": 1
     },
     {
+      "name": "general",
+      "count": 1
+    },
+    {
       "name": "logistics",
       "count": 1
     }
   ],
   "skills": [
+    {
+      "name": "adresy",
+      "display_name": "Adresy — geokodowanie GUGiK",
+      "version": "1.0.0",
+      "description": "Geocode Polish addresses and reverse GPS using official GUGiK UUG. Znajdź polski adres, ulicę lub miejscowość i ich współrzędne GPS; odczytaj najbliższy punkt adresowy dla GPS. Użyj dla „współrzędne adresu”, „znajdź adres”, „jaki adres pod GPS”, „geocode Polish address”, „reverse geocoding Poland”. Zachowuje niejednoznaczne dopasowania; nie ustala granic działki ani właściciela.",
+      "category": "public_data",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Główny Urząd Geodezji i Kartografii — UUG",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://services.gugik.gov.pl/uug/",
+      "documentation": "https://services.gugik.gov.pl/uug/opis.html",
+      "rate_limit": "fair use; no published request quota; one request per command",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "adresy",
+        "geokodowanie",
+        "gps",
+        "gugik",
+        "prg"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/adresy.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/adresy/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s adresy",
+        "cli": "python3 scripts/cli.py install adresy",
+        "target_dir": ".agents/skills/adresy"
+      },
+      "files": [
+        "SKILL.md",
+        "scripts/adresy.py"
+      ]
+    },
     {
       "name": "biala-lista",
       "display_name": "Biała Lista Podatników VAT",
@@ -656,6 +700,87 @@
         "resources/listing.html",
         "resources/notice.html",
         "scripts/ostrzezenia_gis.py"
+      ]
+    },
+    {
+      "name": "otwarte-dane",
+      "display_name": "Otwarte dane — wyszukiwarka dane.gov.pl",
+      "version": "1.0.0",
+      "description": "Discover Polish government datasets, resource metadata and reuse conditions on dane.gov.pl. Znajdź zbiory i zasoby na dane.gov.pl, ich źródła, daty aktualizacji, formaty i warunki ponownego wykorzystania. Użyj dla „znajdź otwarte dane”, „dane do analizy”, „API polskich urzędów”, „Polish open data”, „find government datasets in Poland”. Zwraca metadane i linki; nie pobiera ani nie interpretuje plików zewnętrznych.",
+      "category": "public_data",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Ministerstwo Cyfryzacji — dane.gov.pl",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://dane.gov.pl/",
+      "documentation": "https://api.dane.gov.pl/1.4/doc",
+      "rate_limit": "fair use; page size at most 100; one request per command",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "otwarte-dane",
+        "dane-gov-pl",
+        "zbiory-danych",
+        "api",
+        "research"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/otwarte_dane.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/otwarte-dane/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s otwarte-dane",
+        "cli": "python3 scripts/cli.py install otwarte-dane",
+        "target_dir": ".agents/skills/otwarte-dane"
+      },
+      "files": [
+        "SKILL.md",
+        "scripts/otwarte_dane.py"
+      ]
+    },
+    {
+      "name": "praca",
+      "display_name": "Praca — oferty i widełki SOLID.Jobs",
+      "version": "1.0.0",
+      "description": "Find Polish job offers, salary ranges and provider statistics through official SOLID.Jobs API. Wyszukuj polskie oferty pracy według frazy, miasta i doświadczenia; filtruj pobrane strony po pracy zdalnej i miesięcznych widełkach PLN. Odczytuj statystyki ofert SOLID.Jobs. Użyj dla „szukam pracy”, „praca Python zdalnie”, „widełki B2B”, „find jobs in Poland”, „Polish job salary ranges”. Nie wysyła aplikacji ani CV.",
+      "category": "general",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "SOLID.Jobs",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://solid.jobs/",
+      "documentation": "https://github.com/solid-company/solid-jobs-client",
+      "rate_limit": "300 requests/minute/IP; provider cache up to 1 hour; at most 5 pages per invocation",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "praca",
+        "oferty-pracy",
+        "wynagrodzenia",
+        "b2b",
+        "praca-zdalna",
+        "solid-jobs"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/praca.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/praca/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s praca",
+        "cli": "python3 scripts/cli.py install praca",
+        "target_dir": ".agents/skills/praca"
+      },
+      "files": [
+        "SKILL.md",
+        "scripts/praca.py"
       ]
     },
     {
