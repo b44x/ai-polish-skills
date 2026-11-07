@@ -235,7 +235,7 @@ class ClientTests(unittest.TestCase):
             self.assertEqual(raised.exception.code, 69)
 
     def test_rate_limit_preserves_cooldown_without_retry(self):
-        error = urllib.error.HTTPError("x", 429, "Rate limit", {"Retry-After": "120"}, None)
+        error = urllib.error.HTTPError("x", 429, "Rate limit", {"Retry-After": "120"}, io.BytesIO())
         with tempfile.TemporaryDirectory() as directory, patch.object(off.Client, "pace"), patch.object(off.urllib.request, "urlopen", side_effect=error) as fetch:
             with self.assertRaises(off.SkillError) as raised:
                 off.Client(directory).fetch("https://world.openfoodfacts.org/test", "product")
@@ -252,7 +252,7 @@ class ClientTests(unittest.TestCase):
 
     def test_product_404_and_broken_search_endpoint_are_distinct(self):
         for kind, expected in (("product", 2), ("search", 69)):
-            error = urllib.error.HTTPError("x", 404, "Not found", {}, None)
+            error = urllib.error.HTTPError("x", 404, "Not found", {}, io.BytesIO())
             with self.subTest(kind=kind), tempfile.TemporaryDirectory() as directory, patch.object(off.Client, "pace"), patch.object(off.urllib.request, "urlopen", side_effect=error):
                 with self.assertRaises(off.SkillError) as raised:
                     off.Client(directory).fetch("https://world.openfoodfacts.org/test", kind)

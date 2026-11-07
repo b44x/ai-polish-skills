@@ -169,7 +169,7 @@ class TransportTests(unittest.TestCase):
                 od.request("https://www.zditm.szczecin.pl/api/v2/stops")
                 od.request("https://www.zditm.szczecin.pl/api/v2/stops")
                 self.assertEqual(fetch.call_count, 1)
-            not_modified = urllib.error.HTTPError("x", 304, "Not Modified", {}, None)
+            not_modified = urllib.error.HTTPError("x", 304, "Not Modified", {}, io.BytesIO())
             with patch.object(od.urllib.request, "urlopen", side_effect=not_modified) as fetch, patch.object(od.time, "time", return_value=1061):
                 self.assertEqual(od.request("https://www.zditm.szczecin.pl/api/v2/stops"), {"data": []})
                 self.assertEqual(fetch.call_args[0][0].get_header("If-none-match"), '"v1"')

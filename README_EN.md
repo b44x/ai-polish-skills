@@ -50,6 +50,9 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 | Skill | Name & Category | Description | Data Source |
 |---|---|---|---|
+| [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs offers and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
+| [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
+| [`otwarte-dane`](skills/otwarte-dane/SKILL.md) | **Open data discovery** `[public_data]` | Datasets, resources, update dates and reuse conditions | dane.gov.pl — official API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
@@ -74,6 +77,17 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
 The video shows 10 examples; the full catalogue contains 20 skills.
+
+
+## New workflows: jobs, addresses and data
+
+- **“Find remote Python jobs in Poland and show B2B and employment-contract pay separately.”** `solid-jobs` returns source links and the scanned page range; it never sends a CV.
+- **“Geocode Marki, Andersa 1.”** `adresy` retrieves official GUGiK coordinates for subsequent nearby-service searches and preserves ambiguous matches.
+- **“Find Polish transport datasets and check their dates and reuse conditions.”** `otwarte-dane` finds datasets and resource metadata.
+
+From a checkout containing these skills: `bash install.sh solid-jobs adresy otwarte-dane`.
+
+
 
 ---
 
@@ -259,4 +273,3 @@ Every contribution helps keep the project independent, well-tested, and actively
 Created and maintained by: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
 Repository: [github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills).  
 License: [MIT License](LICENSE).
-
