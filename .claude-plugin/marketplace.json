@@ -10,8 +10,9 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 20 Polish skills: Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, Terminy, dni robocze i święta.",
+      "description": "All 23 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
       "skills": [
+        "./skills/adresy",
         "./skills/biala-lista",
         "./skills/cert-pl",
         "./skills/dzialki",
@@ -26,11 +27,13 @@
         "./skills/nieruchomosci",
         "./skills/odjazdy",
         "./skills/ostrzezenia-gis",
+        "./skills/otwarte-dane",
         "./skills/prawo",
         "./skills/produkty",
         "./skills/przetargi",
         "./skills/sejm",
         "./skills/smog",
+        "./skills/solid-jobs",
         "./skills/terminy"
       ],
       "homepage": "https://polskieskille.pl",
@@ -38,16 +41,19 @@
       "license": "MIT",
       "category": "public_data",
       "keywords": [
+        "adresy",
         "agent-skills",
         "bdl",
         "biala-lista",
         "bzp",
         "cert",
+        "dane-gov-pl",
         "dni-robocze",
         "dzialki",
         "energia",
         "filmweb",
         "filmy",
+        "geokodowanie",
         "gis",
         "gus",
         "imgw",
@@ -59,7 +65,9 @@
         "nfz",
         "nieruchomosci",
         "odjazdy",
+        "oferty-pracy",
         "ostrzezenia",
+        "otwarte-dane",
         "paczkomaty",
         "phishing",
         "pogoda",
@@ -67,6 +75,7 @@
         "polish",
         "poslowie",
         "powietrze",
+        "praca",
         "prawo",
         "produkty",
         "przetargi",
@@ -82,6 +91,23 @@
         "waluty",
         "zdrowie",
         "zywnosc"
+      ]
+    },
+    {
+      "name": "adresy",
+      "displayName": "Adresy — geokodowanie GUGiK",
+      "source": "./skills/adresy",
+      "description": "Geocode Polish addresses and reverse GPS using official GUGiK UUG.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/adresy",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "tags": [
+        "adresy",
+        "geokodowanie",
+        "gps",
+        "gugik",
+        "prg"
       ]
     },
     {
@@ -357,6 +383,23 @@
       ]
     },
     {
+      "name": "otwarte-dane",
+      "displayName": "Otwarte dane — wyszukiwarka dane.gov.pl",
+      "source": "./skills/otwarte-dane",
+      "description": "Discover Polish government datasets, resource metadata and reuse conditions on dane.gov.pl.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/otwarte-dane",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "public_data",
+      "tags": [
+        "otwarte-dane",
+        "dane-gov-pl",
+        "zbiory-danych",
+        "api",
+        "research"
+      ]
+    },
+    {
       "name": "prawo",
       "displayName": "Prawo (ISAP / Dziennik Ustaw)",
       "source": "./skills/prawo",
@@ -450,6 +493,24 @@
         "pm25",
         "gios",
         "jakosc-powietrza"
+      ]
+    },
+    {
+      "name": "solid-jobs",
+      "displayName": "SOLID.Jobs — oferty pracy i widełki",
+      "source": "./skills/solid-jobs",
+      "description": "Search job offers and salary statistics specifically on SOLID.Jobs, including keywords, cities, experience, remote work and contract-specific salary ranges.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/solid-jobs",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "general",
+      "tags": [
+        "praca",
+        "oferty-pracy",
+        "wynagrodzenia",
+        "b2b",
+        "praca-zdalna",
+        "solid-jobs"
       ]
     },
     {

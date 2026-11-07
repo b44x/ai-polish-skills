@@ -246,7 +246,7 @@ class SearchAndContract(unittest.TestCase):
 
     def test_network_http_and_invalid_xml_errors(self):
         import urllib.error
-        for error in [urllib.error.URLError("offline"), urllib.error.HTTPError(RCN.BASE, 429, "limit", None, None)]:
+        for error in [urllib.error.URLError("offline"), urllib.error.HTTPError(RCN.BASE, 429, "limit", {}, io.BytesIO())]:
             with mock.patch.object(RCN.urllib.request, "urlopen", side_effect=error), self.assertRaises(RCN.SkillError) as exc:
                 RCN.fetch_page({})
             self.assertEqual(exc.exception.code, 69)

@@ -50,6 +50,9 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 
 | Skill | Nazwa i kategoria | Opis | Źródło danych |
 |---|---|---|---|
+| [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs — oferty i widełki** `[general]` | Oferty SOLID.Jobs, zdalność, osobne kwoty B2B/UoP i statystyki portalu | SOLID.Jobs — oficjalne API |
+| [`adresy`](skills/adresy/SKILL.md) | **Adresy i GPS** `[public_data]` | Adres na GPS i pobliski adres dla współrzędnych; zachowuje warianty dopasowania | GUGiK UUG — oficjalne API |
+| [`otwarte-dane`](skills/otwarte-dane/SKILL.md) | **Wyszukiwarka danych** `[public_data]` | Zbiory, zasoby, daty i warunki ponownego wykorzystania | dane.gov.pl — oficjalne API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Średnie kursy walut (tabela A i B), ceny złota oraz przeliczanie faktur walutowych na PLN wg art. 31a ustawy o VAT. | Narodowy Bank Polski (🏛 oficjalne API) |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Dni robocze, święta (z Wigilią), wymiar czasu pracy (art. 130 KP), terminy płatności oraz terminy ZUS, PIT, CIT, VAT i PPK przesuwane z weekendów i świąt. Działa offline. | Przepisy prawa (📚 dane statyczne, z podstawą prawną) |
@@ -72,6 +75,18 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`produkty`](skills/produkty/SKILL.md) | **Produkty — skład i wartości odżywcze** `[utilities]` | Wyszukiwanie żywności i odczyt etykiety po kodzie kreskowym: nazwa, skład, dane o alergenach i wartości odżywcze z jednostkami. Braki i jakość społecznościowej bazy są jawne. | Open Food Facts (🔗 publiczne API, dane społecznościowe) |
 
 Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje 10 przykładów; pełny katalog obejmuje 20 skilli.
+
+
+## Nowe scenariusze: praca, adresy i dane
+
+- **„Znajdź oferty Python zdalnie i pokaż osobno B2B/UoP”.** `solid-jobs` zwraca linki i zakres sprawdzonych stron; nie wysyła CV.
+- **„Znajdź GPS adresu Marki, Andersa 1”.** `adresy` odczytuje GUGiK; wynik może zasilić wyszukiwanie stacji GIOŚ lub Paczkomatu. Niejednoznaczne miejsca pozostają do wyboru.
+- **„Znajdź dane o transporcie i sprawdź daty oraz warunki użycia”.** `otwarte-dane` prowadzi od tematu do metadanych źródła.
+
+Z checkoutu zawierającego nowe skille: `bash install.sh solid-jobs adresy otwarte-dane`. Przed wydaniem na `main` korzystaj z gałęzi PR, zgodnie z [instrukcją i scenariuszami demo](docs/growth/2026-11-06-discovery.md).
+
+[Research i ranking 25 pomysłów](docs/research/2026-11-06-discovery.md) · [Audyt](docs/research/2026-11-06-audit.md). Instrukcje nowych skilli są po angielsku; manifesty zachowują polski opis i frazy wyzwalające. Katalog jest dostępny w PL i EN.
+
 
 ---
 
@@ -257,4 +272,3 @@ Każda forma wsparcia pozwala poświęcić więcej czasu na rozwój, jakość i 
 Twórca i maintainer: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
 Repozytorium: [github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills).  
 Licencja: [MIT License](LICENSE).
-

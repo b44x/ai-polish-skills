@@ -1,0 +1,172 @@
+{
+  "checked_at": "2026-11-06T21:53:40.216601+00:00",
+  "note": "Rzeczywiste wywołania CLI; metadane testów, nie fixture ani obietnica przyszłej dostępności.",
+  "checks": [
+    {
+      "skill": "adresy",
+      "args": [
+        "search",
+        "Marki, Andersa 1"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "returned": 1,
+        "ambiguous": false
+      }
+    },
+    {
+      "skill": "adresy",
+      "args": [
+        "search",
+        "Warszawa"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "returned": 10,
+        "ambiguous": true
+      }
+    },
+    {
+      "skill": "adresy",
+      "args": [
+        "reverse",
+        "52.229",
+        "21.020"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "returned": 1,
+        "ambiguous": false
+      }
+    },
+    {
+      "skill": "otwarte-dane",
+      "args": [
+        "search",
+        "transport",
+        "--limit",
+        "2"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "total": 79,
+        "next_page": 2
+      }
+    },
+    {
+      "skill": "otwarte-dane",
+      "args": [
+        "search",
+        "transport",
+        "--limit",
+        "2",
+        "--page",
+        "2"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "total": 79,
+        "next_page": 3
+      }
+    },
+    {
+      "skill": "otwarte-dane",
+      "args": [
+        "dataset",
+        "80"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {}
+    },
+    {
+      "skill": "otwarte-dane",
+      "args": [
+        "resources",
+        "80",
+        "--limit",
+        "2"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "total": 3,
+        "next_page": 2
+      }
+    },
+    {
+      "skill": "otwarte-dane",
+      "args": [
+        "resource",
+        "1800"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {}
+    },
+    {
+      "skill": "praca",
+      "args": [
+        "search",
+        "Python",
+        "--limit",
+        "2",
+        "--pages",
+        "2"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "matched_on_scanned_pages": 4,
+        "scanned_offers": 4,
+        "upstream_total": 250,
+        "next_page": 2
+      }
+    },
+    {
+      "skill": "praca",
+      "args": [
+        "search",
+        "Python",
+        "--remote",
+        "--min-pln-month",
+        "20000",
+        "--limit",
+        "10"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {
+        "matched_on_scanned_pages": 3,
+        "scanned_offers": 10,
+        "upstream_total": 250,
+        "next_page": 1
+      }
+    },
+    {
+      "skill": "praca",
+      "args": [
+        "stats"
+      ],
+      "exit": 0,
+      "json_valid": true,
+      "stderr": "",
+      "observed": {}
+    }
+  ]
+}
