@@ -1,6 +1,6 @@
 # Pakiet premierowy: praca, adresy i otwarte dane
 
-Status: materiały przygotowane do przeglądu; żadnych postów ani wiadomości nie opublikowano. Demo należy nagrać z bieżącego uruchomienia. Wyniki, liczby ofert i dostępność źródeł mogą się zmienić. Nie zastępuj awarii lub braku wyników fikcyjnym sukcesem.
+Status: materiały przygotowane do przeglądu; nazwa skilla zawężona do SOLID.Jobs 2026-11-07; żadnych postów ani wiadomości nie opublikowano. Demo należy nagrać z bieżącego uruchomienia. Wyniki, liczby ofert i dostępność źródeł mogą się zmienić. Nie zastępuj awarii lub braku wyników fikcyjnym sukcesem.
 
 ## Instalacja wspólna
 
@@ -9,16 +9,16 @@ Przed wydaniem na `main`, z checkoutu gałęzi PR:
 ```bash
 git clone --branch skill/adresy-otwarte-dane https://github.com/b44x/ai-polish-skills.git
 cd ai-polish-skills
-bash install.sh praca adresy otwarte-dane
+bash install.sh solid-jobs adresy otwarte-dane
 ```
 
-Instalator wybierze `.agents/skills` lub `.claude/skills` zgodnie ze środowiskiem. Zainstaluj pojedynczy skill przez `bash install.sh praca` (analogicznie `adresy`, `otwarte-dane`). Na Windows skopiuj wybrany folder z `skills/` do katalogu skilli agenta i uruchamiaj skrypt przez `py`. Nowe skille nie wymagają pip ani kluczy API.
+Instalator wybierze `.agents/skills` lub `.claude/skills` zgodnie ze środowiskiem. Zainstaluj pojedynczy skill przez `bash install.sh solid-jobs` (analogicznie `adresy`, `otwarte-dane`). Na Windows skopiuj wybrany folder z `skills/` do katalogu skilli agenta i uruchamiaj skrypt przez `py`. Nowe skille nie wymagają pip ani kluczy API.
 
 Po wydaniu na `main` będzie można używać standardowego instalatora z głównego README. Dopóki nie ma wydania, nie reklamować komendy pobierającej `main` jako instalacji tych nowości.
 
-## Praca
+## SOLID.Jobs
 
-**Opis marketingowy:** Zapytaj o pracę po polsku. Otrzymaj konkretne oferty SOLID.Jobs z linkami, trybem pracy i widełkami.
+**Opis marketingowy:** Przeszukaj oferty SOLID.Jobs po polsku. Otrzymaj konkretne oferty SOLID.Jobs z linkami, trybem pracy i widełkami.
 
 **Korzyść:** Mniej ręcznego porównywania ogłoszeń; widoczne różnice B2B/UoP, walut i okresów wynagrodzenia. Odczyt bez konta, bez wysyłania CV. Zakres obejmuje jeden portal, a nie całą Polskę.
 
@@ -34,9 +34,9 @@ Po wydaniu na `main` będzie można używać standardowego instalatora z główn
 
 | Scenariusz | Komenda z korzenia repo | Co pokazać |
 |---|---|---|
-| Praca zdalna w jednym pytaniu | `python3 skills/praca/scripts/praca.py search Python --remote --pages 3` | Linki i tryb pracy; `next_page`, żeby nie sugerować kompletności |
-| Uczciwe widełki | `python3 skills/praca/scripts/praca.py search Python --min-pln-month 20000 --limit 50` | Obie formy umowy; nie zamieniać B2B w kwotę „na rękę” |
-| Sygnały z rynku portalu | `python3 skills/praca/scripts/praca.py stats --division IT` | Liczba ogłoszeń, próbki płac, czas źródłowy; podpis „SOLID.Jobs” |
+| Praca zdalna w jednym pytaniu | `python3 skills/solid-jobs/scripts/solid_jobs.py search Python --remote --pages 3` | Linki i tryb pracy; `next_page`, żeby nie sugerować kompletności |
+| Uczciwe widełki | `python3 skills/solid-jobs/scripts/solid_jobs.py search Python --min-pln-month 20000 --limit 50` | Obie formy umowy; nie zamieniać B2B w kwotę „na rękę” |
+| Sygnały z rynku portalu | `python3 skills/solid-jobs/scripts/solid_jobs.py stats --division IT` | Liczba ogłoszeń, próbki płac, czas źródłowy; podpis „SOLID.Jobs” |
 
 **SEO:** praca Python zdalnie, oferty pracy AI agent, widełki B2B UoP, SOLID.Jobs API, polskie skille praca, Python bez pip.
 
@@ -44,7 +44,7 @@ Po wydaniu na `main` będzie można używać standardowego instalatora z główn
 
 **X — propozycja:**
 
-> „Znajdź pracę Python zdalnie” → oferty, linki, widełki i rodzaj umowy. Nowy skill `praca` w ai-polish-skills korzysta z oficjalnego API SOLID.Jobs. Python bez pip i kluczy. Podaje też, ile stron sprawdził. Kod i demo: https://github.com/b44x/ai-polish-skills
+> „Znajdź pracę Python zdalnie” → oferty, linki, widełki i rodzaj umowy. Nowy skill `solid-jobs` w ai-polish-skills korzysta z oficjalnego API SOLID.Jobs. Python bez pip i kluczy. Podaje też, ile stron sprawdził. Kod i demo: https://github.com/b44x/ai-polish-skills
 
 **LinkedIn — propozycja:**
 
@@ -56,7 +56,7 @@ Po wydaniu na `main` będzie można używać standardowego instalatora z główn
 >
 > Jestem współtwórcą ai-polish-skills. Dodaliśmy odczyt publicznego API ofert i statystyk SOLID.Jobs. Skrypt nie wysyła CV, pokazuje źródło, strony i osobne formy wynagrodzenia. Filtry zdalności działają na pobranych stronach, więc wynik nie udaje pełnego przeglądu rynku. Kod: https://github.com/b44x/ai-polish-skills. Chętnie sprawdzę zgłoszenia błędnych dopasowań — bez danych osobowych kandydatów.
 
-**Instalacja:** `bash install.sh praca` z checkoutu gałęzi PR.
+**Instalacja:** `bash install.sh solid-jobs` z checkoutu gałęzi PR.
 
 ## Adresy
 

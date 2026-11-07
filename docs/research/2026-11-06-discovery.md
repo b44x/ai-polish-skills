@@ -1,5 +1,7 @@
 # Discovery polskich skilli — 2026-11-06
 
+**Korekta 2026-11-07:** przed mergem skill `praca` przemianowano na `solid-jobs`, aby nazwa odpowiadała pojedynczemu źródłu. Historyczny ranking i log live zachowują pierwotny identyfikator; nie oznaczają istnienia dwóch skilli. Ocena 90/100 przeszacowała zasięg integracji pojedynczego portalu i nie stanowi podstawy do promowania jej jako uniwersalnej wyszukiwarki pracy.
+
 To jeden zamknięty cykl, nie uruchomiony monitoring. Oceny są hipotezami produktowymi, nie wynikami ankiety ani prognozą instalacji. Research obejmuje dokumentację dostawców, GitHub, katalogi API i portale open data. Nie wykonano wywiadów ani nie pozyskano statystyk użycia projektu.
 
 ## Ranking i decyzja
@@ -8,7 +10,7 @@ Punkty: **U** użyteczność /25, **G** grupa użytkowników /20, **Z** organicz
 
 | # | Skill | U | G | Z | D | Ł | W | R | Suma | Decyzja |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | `praca` | 24 | 19 | 14 | 13 | 9 | 6 | 5 | **90** | Wdrożony |
+| 1 | `solid-jobs` | 24 | 19 | 14 | 13 | 9 | 6 | 5 | **90** | Wdrożony |
 | 2 | `adresy` | 24 | 18 | 12 | 14 | 9 | 7 | 5 | **89** | Wdrożony |
 | 3 | `otwarte-dane` | 23 | 17 | 12 | 15 | 9 | 6 | 5 | **87** | Wdrożony |
 | 4 | `kolej` | 25 | 19 | 14 | 13 | 3 | 7 | 4 | **85** | Następny research |

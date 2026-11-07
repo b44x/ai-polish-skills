@@ -50,7 +50,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 
 | Skill | Nazwa i kategoria | Opis | Źródło danych |
 |---|---|---|---|
-| [`praca`](skills/praca/SKILL.md) | **Praca i widełki** `[general]` | Oferty SOLID.Jobs, zdalność, osobne kwoty B2B/UoP i statystyki portalu | SOLID.Jobs — oficjalne API |
+| [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs — oferty i widełki** `[general]` | Oferty SOLID.Jobs, zdalność, osobne kwoty B2B/UoP i statystyki portalu | SOLID.Jobs — oficjalne API |
 | [`adresy`](skills/adresy/SKILL.md) | **Adresy i GPS** `[public_data]` | Adres na GPS i pobliski adres dla współrzędnych; zachowuje warianty dopasowania | GUGiK UUG — oficjalne API |
 | [`otwarte-dane`](skills/otwarte-dane/SKILL.md) | **Wyszukiwarka danych** `[public_data]` | Zbiory, zasoby, daty i warunki ponownego wykorzystania | dane.gov.pl — oficjalne API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
@@ -79,11 +79,11 @@ Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o pa
 
 ## Nowe scenariusze: praca, adresy i dane
 
-- **„Znajdź oferty Python zdalnie i pokaż osobno B2B/UoP”.** `praca` zwraca linki i zakres sprawdzonych stron; nie wysyła CV.
+- **„Znajdź oferty Python zdalnie i pokaż osobno B2B/UoP”.** `solid-jobs` zwraca linki i zakres sprawdzonych stron; nie wysyła CV.
 - **„Znajdź GPS adresu Marki, Andersa 1”.** `adresy` odczytuje GUGiK; wynik może zasilić wyszukiwanie stacji GIOŚ lub Paczkomatu. Niejednoznaczne miejsca pozostają do wyboru.
 - **„Znajdź dane o transporcie i sprawdź daty oraz warunki użycia”.** `otwarte-dane` prowadzi od tematu do metadanych źródła.
 
-Z checkoutu zawierającego nowe skille: `bash install.sh praca adresy otwarte-dane`. Przed wydaniem na `main` korzystaj z gałęzi PR, zgodnie z [instrukcją i scenariuszami demo](docs/growth/2026-11-06-discovery.md).
+Z checkoutu zawierającego nowe skille: `bash install.sh solid-jobs adresy otwarte-dane`. Przed wydaniem na `main` korzystaj z gałęzi PR, zgodnie z [instrukcją i scenariuszami demo](docs/growth/2026-11-06-discovery.md).
 
 [Research i ranking 25 pomysłów](docs/research/2026-11-06-discovery.md) · [Audyt](docs/research/2026-11-06-audit.md). Instrukcje nowych skilli są po angielsku; manifesty zachowują polski opis i frazy wyzwalające. Katalog jest dostępny w PL i EN.
 

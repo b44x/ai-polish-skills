@@ -743,47 +743,6 @@
       ]
     },
     {
-      "name": "praca",
-      "display_name": "Praca — oferty i widełki SOLID.Jobs",
-      "version": "1.0.0",
-      "description": "Find Polish job offers, salary ranges and provider statistics through official SOLID.Jobs API. Wyszukuj polskie oferty pracy według frazy, miasta i doświadczenia; filtruj pobrane strony po pracy zdalnej i miesięcznych widełkach PLN. Odczytuj statystyki ofert SOLID.Jobs. Użyj dla „szukam pracy”, „praca Python zdalnie”, „widełki B2B”, „find jobs in Poland”, „Polish job salary ranges”. Nie wysyła aplikacji ani CV.",
-      "category": "general",
-      "language": "pl",
-      "country": "PL",
-      "license": "MIT",
-      "author": "Michell Hoduń (https://github.com/b44x)",
-      "repository": "https://github.com/b44x/ai-polish-skills",
-      "network": true,
-      "authentication": "none",
-      "source": "SOLID.Jobs",
-      "source_type": "official_api",
-      "official": true,
-      "homepage": "https://solid.jobs/",
-      "documentation": "https://github.com/solid-company/solid-jobs-client",
-      "rate_limit": "300 requests/minute/IP; provider cache up to 1 hour; at most 5 pages per invocation",
-      "last_verified": "2026-11-06",
-      "tags": [
-        "praca",
-        "oferty-pracy",
-        "wynagrodzenia",
-        "b2b",
-        "praca-zdalna",
-        "solid-jobs"
-      ],
-      "compatibility": "Python 3.8+ (standard library only).",
-      "entrypoint": "scripts/praca.py",
-      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/praca/SKILL.md",
-      "install": {
-        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s praca",
-        "cli": "python3 scripts/cli.py install praca",
-        "target_dir": ".agents/skills/praca"
-      },
-      "files": [
-        "SKILL.md",
-        "scripts/praca.py"
-      ]
-    },
-    {
       "name": "prawo",
       "display_name": "Prawo (ISAP / Dziennik Ustaw)",
       "version": "1.0.0",
@@ -1008,6 +967,47 @@
         "resources/sensors.json",
         "resources/stations.json",
         "scripts/smog.py"
+      ]
+    },
+    {
+      "name": "solid-jobs",
+      "display_name": "SOLID.Jobs — oferty pracy i widełki",
+      "version": "1.0.0",
+      "description": "Search job offers and salary statistics specifically on SOLID.Jobs, including keywords, cities, experience, remote work and contract-specific salary ranges. Use for \"oferty SOLID.Jobs\", \"Python na SOLID.Jobs\", \"widełki SOLID.Jobs\". This is a single-provider integration with an IT default, not a general Polish job-market search. For broad job-search requests explain the limited source coverage before using it. Does not submit applications or CVs.",
+      "category": "general",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "SOLID.Jobs",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://solid.jobs/",
+      "documentation": "https://github.com/solid-company/solid-jobs-client",
+      "rate_limit": "300 requests/minute/IP; provider cache up to 1 hour; at most 5 pages per invocation",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "praca",
+        "oferty-pracy",
+        "wynagrodzenia",
+        "b2b",
+        "praca-zdalna",
+        "solid-jobs"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/solid_jobs.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/solid-jobs/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s solid-jobs",
+        "cli": "python3 scripts/cli.py install solid-jobs",
+        "target_dir": ".agents/skills/solid-jobs"
+      },
+      "files": [
+        "SKILL.md",
+        "scripts/solid_jobs.py"
       ]
     },
     {

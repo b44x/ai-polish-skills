@@ -10,7 +10,7 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 23 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Praca — oferty i widełki SOLID.Jobs, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, Terminy, dni robocze i święta.",
+      "description": "All 23 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
       "skills": [
         "./skills/adresy",
         "./skills/biala-lista",
@@ -28,12 +28,12 @@
         "./skills/odjazdy",
         "./skills/ostrzezenia-gis",
         "./skills/otwarte-dane",
-        "./skills/praca",
         "./skills/prawo",
         "./skills/produkty",
         "./skills/przetargi",
         "./skills/sejm",
         "./skills/smog",
+        "./skills/solid-jobs",
         "./skills/terminy"
       ],
       "homepage": "https://polskieskille.pl",
@@ -400,24 +400,6 @@
       ]
     },
     {
-      "name": "praca",
-      "displayName": "Praca — oferty i widełki SOLID.Jobs",
-      "source": "./skills/praca",
-      "description": "Find Polish job offers, salary ranges and provider statistics through official SOLID.Jobs API.",
-      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/praca",
-      "repository": "https://github.com/b44x/ai-polish-skills",
-      "license": "MIT",
-      "category": "general",
-      "tags": [
-        "praca",
-        "oferty-pracy",
-        "wynagrodzenia",
-        "b2b",
-        "praca-zdalna",
-        "solid-jobs"
-      ]
-    },
-    {
       "name": "prawo",
       "displayName": "Prawo (ISAP / Dziennik Ustaw)",
       "source": "./skills/prawo",
@@ -511,6 +493,24 @@
         "pm25",
         "gios",
         "jakosc-powietrza"
+      ]
+    },
+    {
+      "name": "solid-jobs",
+      "displayName": "SOLID.Jobs — oferty pracy i widełki",
+      "source": "./skills/solid-jobs",
+      "description": "Search job offers and salary statistics specifically on SOLID.Jobs, including keywords, cities, experience, remote work and contract-specific salary ranges.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/solid-jobs",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "general",
+      "tags": [
+        "praca",
+        "oferty-pracy",
+        "wynagrodzenia",
+        "b2b",
+        "praca-zdalna",
+        "solid-jobs"
       ]
     },
     {

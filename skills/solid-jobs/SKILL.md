@@ -1,9 +1,14 @@
 ---
-name: praca
-display_name: Praca — oferty i widełki SOLID.Jobs
+name: solid-jobs
+display_name: SOLID.Jobs — oferty pracy i widełki
 version: 1.0.0
 description: >-
-  Find Polish job offers, salary ranges and provider statistics through official SOLID.Jobs API. Wyszukuj polskie oferty pracy według frazy, miasta i doświadczenia; filtruj pobrane strony po pracy zdalnej i miesięcznych widełkach PLN. Odczytuj statystyki ofert SOLID.Jobs. Użyj dla „szukam pracy”, „praca Python zdalnie”, „widełki B2B”, „find jobs in Poland”, „Polish job salary ranges”. Nie wysyła aplikacji ani CV.
+  Search job offers and salary statistics specifically on SOLID.Jobs, including
+  keywords, cities, experience, remote work and contract-specific salary ranges.
+  Use for "oferty SOLID.Jobs", "Python na SOLID.Jobs", "widełki SOLID.Jobs".
+  This is a single-provider integration with an IT default, not a general Polish
+  job-market search. For broad job-search requests explain the limited source
+  coverage before using it. Does not submit applications or CVs.
 category: general
 language: pl
 country: PL
@@ -35,8 +40,8 @@ Find concrete job offers, source links and salary ranges without an account or s
 
 | OS | Command from the skill directory |
 |---|---|
-| Linux / macOS | `python3 scripts/praca.py <command> ...` |
-| Windows | `py scripts/praca.py <command> ...` |
+| Linux / macOS | `python3 scripts/solid_jobs.py <command> ...` |
+| Windows | `py scripts/solid_jobs.py <command> ...` |
 
 | Command | Purpose |
 |---|---|
@@ -56,4 +61,4 @@ Official [API overview](https://solid.jobs/api-ofert-pracy) and [client document
 
 Success: JSON stdout, exit 0. Errors: JSON stderr, 2 no matches in the scanned range, 64 invalid arguments, 69 network/API/schema. `--help`/`-h`: 0.
 
-Polish prompts: „szukam pracy Python zdalnie”, „widełki B2B i UoP”, „praca marketing Warszawa”. Verified live on 2026-11-06: Python search, two pages, local filtering and IT statistics.
+Polish prompts: „oferty Python zdalnie na SOLID.Jobs”, „widełki B2B i UoP na SOLID.Jobs”, „SOLID.Jobs marketing Warszawa”. Verified live on 2026-11-06: Python search, two pages, local filtering and IT statistics.

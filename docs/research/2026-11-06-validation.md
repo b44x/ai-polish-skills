@@ -1,5 +1,7 @@
 # Walidacja i pliki cyklu discovery
 
+**Korekta 2026-11-07:** przed mergem skill `praca` przemianowano na `solid-jobs`, aby nazwa odpowiadała pojedynczemu źródłu. Historyczny ranking i log live zachowują pierwotny identyfikator; nie oznaczają istnienia dwóch skilli. Ocena 90/100 przeszacowała zasięg integracji pojedynczego portalu i nie stanowi podstawy do promowania jej jako uniwersalnej wyszukiwarki pracy.
+
 Research i smoke testy: 2026-11-06 UTC. Finalizacja: 2026-11-07 (Europe/Warsaw). Gałąź `skill/adresy-otwarte-dane`, baza `origin/dev` — `b10cab1` (zawiera PR #1 i #2). Osobny worktree: `../ai-polish-skills-discovery`.
 
 ## Wymagane kontrole
@@ -19,7 +21,7 @@ Dwa błędy starych fixture HTTP ujawniono przed rebase, kolejne po włączeniu 
 
 - 11/11 wywołań nowych CLI do rzeczywistych API: kod 0, poprawny JSON, pusty stderr. [Dokładne komendy i obserwacje](2026-11-06-live.json).
 - 12 prób istniejących klientów: 11 poprawnych odpowiedzi, jeden kontrolowany timeout BDL. [Wyniki](2026-11-06-existing-live.json). Dostępność BDL pozostaje ograniczeniem upstreamu, nie sukcesem testu live.
-- Instalacja `bash install.sh install praca adresy otwarte-dane --dir <katalog-tymczasowy> --json`: poprawny JSON, trzy foldery; wszystkie trzy zainstalowane entrypointy uruchomione z katalogu poza repo i poprawne `--help`.
+- Instalacja `bash install.sh install solid-jobs adresy otwarte-dane --dir <katalog-tymczasowy> --json`: poprawny JSON, trzy foldery; wszystkie trzy zainstalowane entrypointy uruchomione z katalogu poza repo i poprawne `--help`.
 - Składnia nowych skryptów sprawdzona przez `ast.parse(feature_version=(3,8))`. Nie wykonano runtime testu na Pythonie 3.8 ani na Windows; nie utożsamiać kontroli gramatyki z takim testem.
 - Wszystkie 25 sum punktów przeliczone automatycznie; oba pliki rejestru dają ten sam JSON; 23 wpisy po integracji.
 - `git diff --check`: brak błędów whitespace. Lista zmienionych plików sprawdzona względem aktualnego dev.
@@ -66,8 +68,8 @@ Dwa błędy starych fixture HTTP ujawniono przed rebase, kolejne po włączeniu 
 | M | [`skills/ostrzezenia-gis/SKILL.md`](../../skills/ostrzezenia-gis/SKILL.md) |
 | A | [`skills/otwarte-dane/SKILL.md`](../../skills/otwarte-dane/SKILL.md) |
 | A | [`skills/otwarte-dane/scripts/otwarte_dane.py`](../../skills/otwarte-dane/scripts/otwarte_dane.py) |
-| A | [`skills/praca/SKILL.md`](../../skills/praca/SKILL.md) |
-| A | [`skills/praca/scripts/praca.py`](../../skills/praca/scripts/praca.py) |
+| A | [`skills/solid-jobs/SKILL.md`](../../skills/solid-jobs/SKILL.md) |
+| A | [`skills/solid-jobs/scripts/solid_jobs.py`](../../skills/solid-jobs/scripts/solid_jobs.py) |
 | M | [`skills/produkty/SKILL.md`](../../skills/produkty/SKILL.md) |
 | M | [`skills/przetargi/SKILL.md`](../../skills/przetargi/SKILL.md) |
 | M | [`skills/sejm/SKILL.md`](../../skills/sejm/SKILL.md) |

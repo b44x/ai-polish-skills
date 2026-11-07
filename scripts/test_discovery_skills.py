@@ -24,7 +24,7 @@ def module(name):
     return result
 
 
-ADDRESS, JOBS, DATA = [module(n) for n in ('adresy', 'praca', 'otwarte-dane')]
+ADDRESS, JOBS, DATA = [module(n) for n in ('adresy', 'solid-jobs', 'otwarte-dane')]
 
 
 def invoke(mod, args):
@@ -121,7 +121,7 @@ class NetworkContracts(unittest.TestCase):
             self.assertEqual(json.loads(err)['type'], 'network_error')
 
     def test_subprocess_help_and_invalid_command(self):
-        for name in ('adresy', 'praca', 'otwarte-dane'):
+        for name in ('adresy', 'solid-jobs', 'otwarte-dane'):
             script = ROOT / 'skills' / name / 'scripts' / (name.replace('-', '_') + '.py')
             for flag in ('--help', '-h'):
                 res = subprocess.run([sys.executable, str(script), flag], capture_output=True, text=True)

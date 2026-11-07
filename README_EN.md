@@ -50,7 +50,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 | Skill | Name & Category | Description | Data Source |
 |---|---|---|---|
-| [`praca`](skills/praca/SKILL.md) | **Jobs and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
+| [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs offers and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
 | [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
 | [`otwarte-dane`](skills/otwarte-dane/SKILL.md) | **Open data discovery** `[public_data]` | Datasets, resources, update dates and reuse conditions | dane.gov.pl — official API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
@@ -81,11 +81,11 @@ The video shows 10 examples; the full catalogue contains 20 skills.
 
 ## New workflows: jobs, addresses and data
 
-- **“Find remote Python jobs in Poland and show B2B and employment-contract pay separately.”** `praca` returns source links and the scanned page range; it never sends a CV.
+- **“Find remote Python jobs in Poland and show B2B and employment-contract pay separately.”** `solid-jobs` returns source links and the scanned page range; it never sends a CV.
 - **“Geocode Marki, Andersa 1.”** `adresy` retrieves official GUGiK coordinates for subsequent nearby-service searches and preserves ambiguous matches.
 - **“Find Polish transport datasets and check their dates and reuse conditions.”** `otwarte-dane` finds datasets and resource metadata.
 
-From a checkout containing these skills: `bash install.sh praca adresy otwarte-dane`. Before a release to `main`, use the PR branch as described in the [installation and demo pack](docs/growth/2026-11-06-discovery.md) (Polish).
+From a checkout containing these skills: `bash install.sh solid-jobs adresy otwarte-dane`. Before a release to `main`, use the PR branch as described in the [installation and demo pack](docs/growth/2026-11-06-discovery.md) (Polish).
 
 [25-idea research and ranking](docs/research/2026-11-06-discovery.md) · [Audit](docs/research/2026-11-06-audit.md). New skill instructions use English; manifests retain Polish use-case descriptions and trigger phrases. The catalog is available in Polish and English.
 
