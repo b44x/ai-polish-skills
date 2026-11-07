@@ -191,10 +191,13 @@ def main() -> int:
         if current_content != generated_pretty:
             print(f"FAIL: {target_json} is out of date. Run 'python3 scripts/build_registry.py' and commit.", file=sys.stderr)
             return 1
+        if not target_min.is_file() or target_min.read_text(encoding="utf-8") != generated_min:
+            print(f"FAIL: {target_min} is out of date. Run scripts/build_registry.py and commit.", file=sys.stderr)
+            return 1
         if not target_marketplace.is_file() or target_marketplace.read_text(encoding="utf-8") != generated_marketplace:
             print(f"FAIL: {target_marketplace} is out of date. Run 'python3 scripts/build_registry.py' and commit.", file=sys.stderr)
             return 1
-        print("OK: registry.json and .claude-plugin/marketplace.json are up to date.")
+        print("OK: registry.json, registry.min.json and .claude-plugin/marketplace.json are up to date.")
         return 0
 
     target_json.write_text(generated_pretty, encoding="utf-8")

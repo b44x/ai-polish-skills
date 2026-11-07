@@ -50,30 +50,44 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 | Skill | Name & Category | Description | Data Source |
 |---|---|---|---|
+| [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
-| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
-| [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
-| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
-| [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
+| [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — suspicious links** `[utilities]` | Check domains and SMS links against the official warning list, including subdomains and IDN. Does not visit submitted URLs; absence is not proof of safety. | CERT Polska (🏛 official feed) |
+| [`dzialki`](skills/dzialki/SKILL.md) | **Cadastral Parcels** `[public_data]` | Locate a parcel by identifier, district and number, or a GPS point. Read boundaries and administrative location with explicit coordinate reference systems. | GUGiK ULDK (🏛 official service) |
+| [`energia`](skills/energia/SKILL.md) | **PSE Market Energy Prices** `[finance]` | Quarter-hour RCE prices, summaries and cheapest contiguous windows. Checks completeness and daylight-saving changes; RCE excludes the full retail bill cost. | Polish Power System Operator (🏛 official API) |
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
-| [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Polish parliamentary open data: MPs, committees, roll-call and club voting results, prints, and legislative stages. | Chancellery of the Sejm (🏛 official API) |
+| [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
+| [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
+| [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
+| [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
-| [`prawo`](skills/prawo/SKILL.md) | **Prawo (ISAP / Dziennik Ustaw)** `[legal]` | Wording of articles of Polish codes and statutes with the source date and a warning about later amendments, act status, consolidated texts and upcoming changes. | Chancellery of the Sejm — ISAP/ELI (🏛 official API) |
-| [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — suspicious links** `[utilities]` | Check domains and SMS links against the official warning list, including subdomains and IDN. Does not visit submitted URLs; absence is not proof of safety. | CERT Polska (🏛 official feed) |
-| [`smog`](skills/smog/SKILL.md) | **GIOŚ Air Quality** `[public_data]` | Stations by city or GPS, the Polish air quality index and latest available pollutant measurements with units and timestamps. | GIOŚ (🏛 official API) |
-| [`przetargi`](skills/przetargi/SKILL.md) | **BZP Procurement Notices** `[public_data]` | Search contract notices by subject, CPV, buyer province and publication dates; read notice details with source links. | Public Procurement Office (🏛 official API) |
 | [`nieruchomosci`](skills/nieruchomosci/SKILL.md) | **Property Transaction Prices** `[public_data]` | Recorded RCN sales around a location, with property types, prices, areas and ownership shares. Comparisons expose data limitations. | GUGiK / Geoportal RCN (🏛 official WFS) |
 | [`odjazdy`](skills/odjazdy/SKILL.md) | **Urban Departures** `[utilities]` | Stops and departures in Gdańsk, Poznań and Szczecin. Distinguishes real-time estimates from schedules; available features depend on the city. | ZTM Gdańsk, ZTM Poznań / PEKA, ZDiTM Szczecin (🏛 operator sources) |
-| [`energia`](skills/energia/SKILL.md) | **PSE Market Energy Prices** `[finance]` | Quarter-hour RCE prices, summaries and cheapest contiguous windows. Checks completeness and daylight-saving changes; RCE excludes the full retail bill cost. | Polish Power System Operator (🏛 official API) |
-| [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
-| [`dzialki`](skills/dzialki/SKILL.md) | **Cadastral Parcels** `[public_data]` | Locate a parcel by identifier, district and number, or a GPS point. Read boundaries and administrative location with explicit coordinate reference systems. | GUGiK ULDK (🏛 official service) |
 | [`ostrzezenia-gis`](skills/ostrzezenia-gis/SKILL.md) | **GIS Product Warnings** `[health]` | Browse and search published warnings and read notice text with batch details. Reports search coverage; no match is not evidence that a product is safe. | Chief Sanitary Inspectorate / gov.pl (🏛 official HTML notices) |
+| [`otwarte-dane`](skills/otwarte-dane/SKILL.md) | **Open data discovery** `[public_data]` | Datasets, resources, update dates and reuse conditions | dane.gov.pl — official API |
+| [`prawo`](skills/prawo/SKILL.md) | **Prawo (ISAP / Dziennik Ustaw)** `[legal]` | Wording of articles of Polish codes and statutes with the source date and a warning about later amendments, act status, consolidated texts and upcoming changes. | Chancellery of the Sejm — ISAP/ELI (🏛 official API) |
 | [`produkty`](skills/produkty/SKILL.md) | **Food Labels and Nutrition** `[utilities]` | Search foods and look up labels by barcode: product names, ingredients, allergen data and nutrients with units. Makes gaps in the community-maintained database explicit. | Open Food Facts (🔗 public API, community data) |
+| [`przetargi`](skills/przetargi/SKILL.md) | **BZP Procurement Notices** `[public_data]` | Search contract notices by subject, CPV, buyer province and publication dates; read notice details with source links. | Public Procurement Office (🏛 official API) |
+| [`sejm`](skills/sejm/SKILL.md) | **Sejm RP** `[legal]` | Polish parliamentary open data: MPs, committees, roll-call and club voting results, prints, and legislative stages. | Chancellery of the Sejm (🏛 official API) |
+| [`smog`](skills/smog/SKILL.md) | **GIOŚ Air Quality** `[public_data]` | Stations by city or GPS, the Polish air quality index and latest available pollutant measurements with units and timestamps. | GIOŚ (🏛 official API) |
+| [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs offers and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
+| [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
 The video shows 10 examples; the full catalogue contains 20 skills.
+
+
+## New workflows: jobs, addresses and data
+
+- **“Find remote Python jobs in Poland and show B2B and employment-contract pay separately.”** `solid-jobs` returns source links and the scanned page range; it never sends a CV.
+- **“Geocode Marki, Andersa 1.”** `adresy` retrieves official GUGiK coordinates for subsequent nearby-service searches and preserves ambiguous matches.
+- **“Find Polish transport datasets and check their dates and reuse conditions.”** `otwarte-dane` finds datasets and resource metadata.
+
+From a checkout containing these skills: `bash install.sh solid-jobs adresy otwarte-dane`.
+
+
 
 ---
 
@@ -259,4 +273,3 @@ Every contribution helps keep the project independent, well-tested, and actively
 Created and maintained by: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
 Repository: [github.com/b44x/ai-polish-skills](https://github.com/b44x/ai-polish-skills).  
 License: [MIT License](LICENSE).
-

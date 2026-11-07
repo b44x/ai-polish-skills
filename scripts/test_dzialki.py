@@ -217,7 +217,7 @@ class CacheAndContractTests(unittest.TestCase):
             self.assertIn("error", json.loads(err))
 
     def test_http_and_network_errors(self):
-        errors = [urllib.error.URLError("offline"), urllib.error.HTTPError(D.BASE, 429, "limit", None, None)]
+        errors = [urllib.error.URLError("offline"), urllib.error.HTTPError(D.BASE, 429, "limit", {}, io.BytesIO())]
         for error in errors:
             with patch.object(D.urllib.request, "urlopen", side_effect=error), self.assertRaises(D.SkillError) as exc:
                 D.fetch(D.BASE)
