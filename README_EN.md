@@ -67,10 +67,13 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`odjazdy`](skills/odjazdy/SKILL.md) | **Urban Departures** `[utilities]` | Stops and departures in Gdańsk, Poznań and Szczecin. Distinguishes real-time estimates from schedules; available features depend on the city. | ZTM Gdańsk, ZTM Poznań / PEKA, ZDiTM Szczecin (🏛 operator sources) |
 | [`energia`](skills/energia/SKILL.md) | **PSE Market Energy Prices** `[finance]` | Quarter-hour RCE prices, summaries and cheapest contiguous windows. Checks completeness and daylight-saving changes; RCE excludes the full retail bill cost. | Polish Power System Operator (🏛 official API) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
+| [`dzialki`](skills/dzialki/SKILL.md) | **Cadastral Parcels** `[public_data]` | Locate a parcel by identifier, district and number, or a GPS point. Read boundaries and administrative location with explicit coordinate reference systems. | GUGiK ULDK (🏛 official service) |
+| [`ostrzezenia-gis`](skills/ostrzezenia-gis/SKILL.md) | **GIS Product Warnings** `[health]` | Browse and search published warnings and read notice text with batch details. Reports search coverage; no match is not evidence that a product is safe. | Chief Sanitary Inspectorate / gov.pl (🏛 official HTML notices) |
+| [`produkty`](skills/produkty/SKILL.md) | **Food Labels and Nutrition** `[utilities]` | Search foods and look up labels by barcode: product names, ingredients, allergen data and nutrients with units. Makes gaps in the community-maintained database explicit. | Open Food Facts (🔗 public API, community data) |
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows 10 examples; the full catalogue contains 17 skills.
+The video shows 10 examples; the full catalogue contains 20 skills.
 
 ---
 
@@ -112,7 +115,17 @@ curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.
 curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s -- --global
 ```
 
-The installer **automatically detects** your environment (Claude Code, Antigravity, Cursor, Windsurf) and places files in the right path.
+Requirements: Bash, Python 3.8+ and curl (for remote downloads). The default target is `.claude/skills` when `.claude` exists in the current project, otherwise `.agents/skills`. Select `--claude`, `--agents` or `--dir <path>` explicitly if needed. Legacy `--global` still targets `~/.gemini/config/skills`.
+
+```bash
+# Preview without writing files
+./install.sh nbp --agents --dry-run --json
+
+# Machine-readable output through the same entry point
+./install.sh list --json
+```
+
+Management help, diagnostics and agent-facing `SKILL.md` instructions use English. Polish catalogue copy, user examples and source data retain their original language. `update` replaces only known installed skills from the current checkout; it does not run `git pull`. Installation replaces local edits inside selected skills. [Installer and CLI contract](docs/cli.md).
 
 ### 2. Install by Prompting your AI Agent
 

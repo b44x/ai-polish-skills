@@ -67,8 +67,11 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`odjazdy`](skills/odjazdy/SKILL.md) | **Odjazdy komunikacji miejskiej** `[utilities]` | Przystanki i odjazdy w Gdańsku, Poznaniu i Szczecinie. Rozróżnia prognozy na żywo od rozkładu; zakres danych zależy od miasta. | ZTM Gdańsk, ZTM Poznań / PEKA, ZDiTM Szczecin (🏛 źródła operatorów) |
 | [`energia`](skills/energia/SKILL.md) | **Energia — ceny rynkowe PSE** `[finance]` | Kwadransowe ceny RCE, podsumowania i najtańsze ciągłe okno. Uwzględnia kompletność danych i zmianę czasu; cena RCE nie obejmuje pełnego kosztu na rachunku. | Polskie Sieci Elektroenergetyczne (🏛 oficjalne API) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **Moja gmina — dane GUS BDL** `[public_data]` | Wyszukiwanie jednostek i wskaźników, porównania na wspólny rok i poziom terytorialny. Zachowuje jednostki miary i oznaczenia braków danych. | Główny Urząd Statystyczny (🏛 oficjalne API BDL) |
+| [`dzialki`](skills/dzialki/SKILL.md) | **Działki — lokalizacja i granice** `[public_data]` | Działka po identyfikatorze, nazwie obrębu i numerze albo punkcie GPS; geometria i położenie administracyjne z jawnym układem współrzędnych. | GUGiK ULDK (🏛 oficjalna usługa) |
+| [`ostrzezenia-gis`](skills/ostrzezenia-gis/SKILL.md) | **Ostrzeżenia GIS** `[health]` | Przeglądanie i wyszukiwanie opublikowanych ostrzeżeń oraz odczyt treści z danymi partii. Wynik podaje zakres przeszukanych komunikatów; brak trafienia nie potwierdza bezpieczeństwa produktu. | GIS / gov.pl (🏛 oficjalne komunikaty HTML) |
+| [`produkty`](skills/produkty/SKILL.md) | **Produkty — skład i wartości odżywcze** `[utilities]` | Wyszukiwanie żywności i odczyt etykiety po kodzie kreskowym: nazwa, skład, dane o alergenach i wartości odżywcze z jednostkami. Braki i jakość społecznościowej bazy są jawne. | Open Food Facts (🔗 publiczne API, dane społecznościowe) |
 
-Nowe zastosowania: „za ile sprzedano mieszkania w okolicy”, „kiedy przyjedzie tramwaj”, „pokaż ceny rynkowe energii” i „porównaj dane o gminach”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje 10 przykładów; pełny katalog obejmuje 17 skilli.
+Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje 10 przykładów; pełny katalog obejmuje 20 skilli.
 
 ---
 
@@ -110,7 +113,17 @@ curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.
 curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s -- --global
 ```
 
-Instalator **automatycznie wykrywa** Twoje środowisko (Claude Code, Antigravity, Cursor, Windsurf) i instaluje skille we właściwej ścieżce.
+Wymagania: Bash, Python 3.8+ i curl (przy pobieraniu z sieci). Domyślny katalog to `.claude/skills`, gdy w bieżącym projekcie istnieje `.claude`; w przeciwnym razie `.agents/skills`. Możesz wybrać `--claude`, `--agents` albo `--dir <ścieżka>`. Historyczne `--global` nadal wskazuje `~/.gemini/config/skills`.
+
+```bash
+# Podgląd instalacji bez zapisu plików
+./install.sh nbp --agents --dry-run --json
+
+# Czysty JSON także przez instalator
+./install.sh list --json
+```
+
+Pomoc, komunikaty narzędzia zarządzającego oraz instrukcje `SKILL.md` są po angielsku. Nazwy i opisy w polskim katalogu, przykłady pytań oraz dane źródłowe zachowują język polski. `update` zastępuje tylko rozpoznane skille w wybranym katalogu, używając bieżącego checkoutu; nie wykonuje `git pull`. Instalacja zastępuje lokalne zmiany wewnątrz wybranych skilli. [Kontrakt instalatora i CLI](docs/cli.md).
 
 ### 2. Instalacja jednym promptem (dla Twojego Agenta AI)
 

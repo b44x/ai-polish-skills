@@ -47,7 +47,7 @@ Official skill integrating the open Sejm RP API via `scripts/sejm.py`.
 Gives AI agents neutral access to official data on MPs, votings,
 druki sejmowe (Sejm prints), the legislative process and interpelacje (interpellations). Returns clean JSON on `stdout`.
 
-## Running
+## Running the script
 
 Run from the skill directory (or from the repository root path):
 
@@ -58,7 +58,7 @@ Run from the skill directory (or from the repository root path):
 
 Zero external libraries (Python 3.8+ standard library).
 
-## Main Use Cases
+## Workflow
 
 1. **MPs and committees database:**
    - Searching for MPs from a given electoral district or by surname:
@@ -105,7 +105,7 @@ Zero external libraries (Python 3.8+ standard library).
 
 Detailed description of JSON schemas: [references/output.md](references/output.md).
 
-## Neutrality Rules
+## Neutrality rules
 
 - This tool provides objective parliamentary data, not political opinions.
 - Do not make evaluations, moral rankings or political interpretations of MPs' behavior.
@@ -115,7 +115,7 @@ Detailed description of JSON schemas: [references/output.md](references/output.m
   * Sitting (posiedzenie) number and voting or print number,
   * Date of the event.
 
-## Exit Codes
+## Exit codes
 
 Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": "..."}`.
 

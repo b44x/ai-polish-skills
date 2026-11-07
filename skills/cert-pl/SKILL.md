@@ -29,28 +29,30 @@ tags:
 compatibility: Python 3.8+ (standard library only); internet access required.
 ---
 
-# Sprawdzanie linków w CERT Polska
+# CERT Polska domain checks
 
-## Uruchomienie
+## Running the script
 
-| System | Komenda z katalogu skilla |
+Run from this skill's directory:
+
+| OS | Command |
 |---|---|
-| Linux / macOS | `python3 scripts/cert_pl.py check <domena-lub-url>` |
-| Windows | `py scripts/cert_pl.py check <domena-lub-url>` |
+| Linux / macOS | `python3 scripts/cert_pl.py check <domain-or-url>` |
+| Windows | `py scripts/cert_pl.py check <domain-or-url>` |
 
-Przykład: `python3 scripts/cert_pl.py check https://cert.pl/`.
+Example: `python3 scripts/cert_pl.py check https://cert.pl/`.
 
-## Interpretacja
+## Interpreting results
 
-- Przekaż domenę albo pełny adres HTTP(S). Skrypt lokalnie wyodrębnia nazwę hosta, normalizuje IDN i sprawdza listę CERT. Nie otwiera badanego adresu, nie sprawdza przekierowań i nie rozwija skróconych linków.
-- `listed: true` oznacza wpis domeny lub jej domeny nadrzędnej na aktywnej liście. Cytuj `matched_domain` i `list_fetched_at`.
-- `listed: false` oznacza wyłącznie brak wpisu. Zawsze powiedz, że nie potwierdza to bezpieczeństwa strony. Lista nie jest kompletnym wykazem zagrożeń.
-- Nie przyjmuj adresów IP, danych logowania w URL ani innych protokołów. Nie przesyłaj treści SMS do zewnętrznych usług.
-- Cache znajduje się w `$XDG_CACHE_HOME/ai-polish-skills/cert-pl/` albo `~/.cache/ai-polish-skills/cert-pl/`. Lista jest ważna do 5 minut. Przy nieudanym odświeżeniu zwracany jest błąd, bez użycia starej listy. Brak możliwości zapisu cache nie blokuje sprawdzenia online.
+- Accept a domain or a full HTTP(S) URL. The script extracts the hostname locally, normalizes IDNs and checks the CERT list. It does not visit the submitted URL, follow its redirects or expand shortened links.
+- `listed: true` means the domain or a parent domain appears on the active list. Cite `matched_domain` and `list_fetched_at`.
+- `listed: false` means only that no entry was found. State that this does not establish the site's safety: the list is not a complete inventory of threats.
+- Do not accept IP addresses, URL credentials or other protocols. Do not send SMS contents to external services.
+- The cache is in `$XDG_CACHE_HOME/ai-polish-skills/cert-pl/` or `~/.cache/ai-polish-skills/cert-pl/`. Entries are valid for up to 5 minutes. A failed refresh returns an error rather than an old list. Failure to write the cache does not prevent an online lookup.
 
-## Kontrakt
+## Output and exit codes
 
-Sukces (również brak wpisu): JSON na stdout, kod `0`. Błędy: JSON na stderr z `error` i `type`, kod `64` (dane wejściowe) lub `69` (źródło/sieć). `--help` i `-h`: kod `0`.
+Success, including an unlisted domain: JSON on stdout, exit `0`. Errors: JSON on stderr with `error` and `type`, exit `64` for input errors or `69` for source/network errors. `--help` and `-h` return `0`.
 
-Pola i przykład: [references/output.md](references/output.md).
-Źródło i warunki ponownego użycia: [CERT Polska](https://cert.pl/lista-ostrzezen/).
+Read [references/output.md](references/output.md) for fields and an example.
+Source and reuse terms: [CERT Polska](https://cert.pl/lista-ostrzezen/).

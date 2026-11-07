@@ -17,14 +17,10 @@ import argparse
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
-import tarfile
-import tempfile
-import urllib.request
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
@@ -32,9 +28,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from manifest import load_skill_manifest
-
-REPO_URL = "https://github.com/b44x/ai-polish-skills"
-TARBALL_URL = "https://github.com/b44x/ai-polish-skills/archive/refs/heads/main.tar.gz"
+from installer import InstallError, install, target_directory
 
 # ANSI colors
 BLUE = "\033[94m"
@@ -67,23 +61,6 @@ def get_all_skills() -> Dict[str, Dict[str, Any]]:
     return result
 
 
-def determine_target_dir(args: argparse.Namespace) -> Path:
-    """Determine installation target directory based on flags and environment."""
-    if getattr(args, "dir", None):
-        return Path(args.dir).expanduser().resolve()
-    if getattr(args, "global_install", False):
-        return Path.home() / ".gemini" / "config" / "skills"
-    if getattr(args, "claude", False):
-        return Path.cwd() / ".claude" / "skills"
-    if getattr(args, "antigravity", False):
-        return Path.cwd() / ".agents" / "skills"
-
-    # Auto-detection
-    if (Path.cwd() / ".claude").is_dir():
-        return Path.cwd() / ".claude" / "skills"
-    return Path.cwd() / ".agents" / "skills"
-
-
 def cmd_list(args: argparse.Namespace) -> int:
     skills = get_all_skills()
 
@@ -100,7 +77,7 @@ def cmd_list(args: argparse.Namespace) -> int:
         return 0
 
     print(f"\n{BOLD}{BLUE}ai-polish-skills • polskieskille.pl{RESET}")
-    print(f"{DIM}Dostępne polskie skille AI ({len(skills)} w rejestrze):{RESET}\n")
+    print(f"{DIM}Available Polish AI skills ({len(skills)} in registry):{RESET}\n")
 
     for name, s in skills.items():
         if getattr(args, "category", None) and s.get("category") != args.category:
@@ -111,11 +88,11 @@ def cmd_list(args: argparse.Namespace) -> int:
         category = f"[{s.get('category', 'general')}]"
         version = f"v{s.get('version', '1.0.0')}"
         display = s.get("display_name", name)
-        network = "🌐 sieć" if s.get("network") else "⚡ offline"
-        official = "🏛 oficjalne API" if s.get("official") else f"🔗 {s.get('source_type', 'api')}"
+        network = "network" if s.get("network") else "offline"
+        official = "official source" if s.get("official") else f"🔗 {s.get('source_type', 'api')}"
 
         print(f"  {BOLD}{name:<14}{RESET} {GREEN}{version:<8}{RESET} {CYAN}{category:<15}{RESET} {display}")
-        print(f"    {DIM}Źródło: {s.get('source')} ({official}) • {network} • auth: {s.get('authentication')}{RESET}")
+        print(f"    {DIM}Source: {s.get('source')} ({official}) • {network} • auth: {s.get('authentication')}{RESET}")
         desc = s.get("description", "")
         short_desc = desc[:110] + ("..." if len(desc) > 110 else "")
         print(f"    {desc_line(short_desc)}\n")
@@ -217,11 +194,11 @@ def cmd_search(args: argparse.Namespace) -> int:
         return 0
 
     if not sorted_matches:
-        print(f"\nNie znaleziono skilli pasujących do zapytania: {BOLD}'{query}'{RESET}")
-        print("Wpisz 'python3 scripts/cli.py list' aby zobaczyć wszystkie dostępne skille.\n")
+        print(f"\nNo skills match: {BOLD}'{query}'{RESET}")
+        print("Run 'python3 scripts/cli.py list' to see available skills.\n")
         return 0
 
-    print(f"\nZnaleziono {len(sorted_matches)} skill(ów) dla zapytania {BOLD}'{query}'{RESET}:\n")
+    print(f"\nFound {len(sorted_matches)} skill(s) matching {BOLD}'{query}'{RESET}:\n")
     for name, (_, s) in sorted_matches:
         category = f"[{s.get('category', 'general')}]"
         version = f"v{s.get('version', '1.0.0')}"
@@ -238,9 +215,7 @@ def cmd_info(args: argparse.Namespace) -> int:
     skills = get_all_skills()
 
     if skill_name not in skills:
-        print(f"ERROR: Skill '{skill_name}' nie został znaleziony w rejestrze.", file=sys.stderr)
-        print(f"Dostępne: {', '.join(skills.keys())}", file=sys.stderr)
-        return 1
+        raise InstallError(f"Skill '{skill_name}' was not found in the registry.", 2)
 
     s = skills[skill_name]
 
@@ -253,92 +228,45 @@ def cmd_info(args: argparse.Namespace) -> int:
     print(f" {BOLD}{s.get('display_name', skill_name)} ({skill_name}){RESET}")
     print(f"{BOLD}═══════════════════════════════════════════════════════════════{RESET}\n")
 
-    print(f"  {BOLD}Wersja:{RESET}         {s.get('version')}")
-    print(f"  {BOLD}Kategoria:{RESET}      {s.get('category')}")
-    print(f"  {BOLD}Licencja:{RESET}       {s.get('license')}")
-    print(f"  {BOLD}Autor:{RESET}          {s.get('author', 'Michell Hoduń')}")
-    print(f"  {BOLD}Wymaga sieci:{RESET}   {'Tak (dostęp do Internetu)' if s.get('network') else 'Nie (działa w pełni offline)'}")
-    print(f"  {BOLD}Uwierzytelnienie:{RESET} {s.get('authentication')}")
-    print(f"  {BOLD}Źródło danych:{RESET}  {s.get('source')} ({s.get('source_type')})")
-    print(f"  {BOLD}Oficjalne API:{RESET}  {'Tak' if s.get('official') else 'Nie'}")
-    print(f"  {BOLD}Strona www:{RESET}     {s.get('homepage')}")
-    print(f"  {BOLD}Dokumentacja:{RESET}   {s.get('documentation')}")
-    print(f"  {BOLD}Limit zapytań:{RESET}  {s.get('rate_limit', 'fair use')}")
-    print(f"  {BOLD}Weryfikacja:{RESET}    {s.get('last_verified', 'nieznana')}")
-    print(f"  {BOLD}Tagi:{RESET}           {', '.join(s.get('tags', []))}")
-    print(f"  {BOLD}Kompatybilność:{RESET} {s.get('compatibility', 'Python 3.8+')}")
+    print(f"  {BOLD}Version:{RESET}         {s.get('version')}")
+    print(f"  {BOLD}Category:{RESET}      {s.get('category')}")
+    print(f"  {BOLD}License:{RESET}       {s.get('license')}")
+    print(f"  {BOLD}Author:{RESET}          {s.get('author', 'Michell Hoduń')}")
+    print(f"  {BOLD}Network:{RESET}   {'Yes (Internet access)' if s.get('network') else 'No (offline)'}")
+    print(f"  {BOLD}Authentication:{RESET} {s.get('authentication')}")
+    print(f"  {BOLD}Data source:{RESET}  {s.get('source')} ({s.get('source_type')})")
+    print(f"  {BOLD}Official source:{RESET}  {'Yes' if s.get('official') else 'No'}")
+    print(f"  {BOLD}Homepage:{RESET}     {s.get('homepage')}")
+    print(f"  {BOLD}Documentation:{RESET}   {s.get('documentation')}")
+    print(f"  {BOLD}Rate limit:{RESET}  {s.get('rate_limit', 'fair use')}")
+    print(f"  {BOLD}Last verified:{RESET}    {s.get('last_verified', 'unknown')}")
+    print(f"  {BOLD}Tags:{RESET}           {', '.join(s.get('tags', []))}")
+    print(f"  {BOLD}Compatibility:{RESET} {s.get('compatibility', 'Python 3.8+')}")
 
-    print(f"\n{BOLD}Opis:{RESET}")
+    print(f"\n{BOLD}Description:{RESET}")
     print(f"  {s.get('description')}\n")
 
     skill_path = Path(s["_dir"])
     skill_md = skill_path / "SKILL.md"
     if skill_md.is_file():
-        print(f"{BOLD}Instrukcja SKILL.md:{RESET}")
+        print(f"{BOLD}SKILL.md instructions:{RESET}")
         print(f"  ➔ {skill_md.resolve()}\n")
 
     return 0
 
 
 def cmd_install(args: argparse.Namespace) -> int:
-    target_dir = determine_target_dir(args)
-    selected_skills = args.skills
-
-    target_dir.mkdir(parents=True, exist_ok=True)
-    all_skills = get_all_skills()
-
-    if not selected_skills:
-        to_install = list(all_skills.keys())
+    result = install(get_all_skills(), getattr(args, "skills", []),
+                     target_directory(args), args.dry_run,
+                     update=args.subcommand == "update")
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False))
     else:
-        to_install = []
-        for name in selected_skills:
-            if name in all_skills:
-                to_install.append(name)
-            else:
-                print(f"WARN: Skill '{name}' nie istnieje. Dostępne: {', '.join(all_skills.keys())}")
-
-    if not to_install:
-        print("ERROR: Brak skilli do zainstalowania.", file=sys.stderr)
-        return 1
-
-    print(f"\n{BOLD}Instalacja skilli do:{RESET} {GREEN}{target_dir}{RESET}")
-    for name in to_install:
-        src = Path(all_skills[name]["_dir"])
-        dest = target_dir / name
-        if dest.exists():
-            shutil.rmtree(dest)
-        shutil.copytree(src, dest)
-
-        # Make scripts executable
-        scripts_dir = dest / "scripts"
-        if scripts_dir.is_dir():
-            for script in scripts_dir.glob("*.py"):
-                script.chmod(script.stat().st_mode | 0o111)
-
-        print(f"  ✓ Zainstalowano: {GREEN}{name}{RESET} (v{all_skills[name].get('version')}) ➔ {dest}")
-
-    print(f"\n{BOLD}{GREEN}✔ Pomyślnie zainstalowano {len(to_install)} skill(ów).{RESET}\n")
+        verb = "Would install" if args.dry_run else "Installed"
+        print(f"{verb} {len(result['skills'])} skill(s) in {result['target']}")
+        for name in result["skills"]:
+            print(f"  {name}")
     return 0
-
-
-def cmd_update(args: argparse.Namespace) -> int:
-    target_dir = determine_target_dir(args)
-    if not target_dir.is_dir():
-        print(f"Katalog {target_dir} nie istnieje. Uruchom 'install' aby zainstalować skille.", file=sys.stderr)
-        return 1
-
-    installed = [
-        d.name for d in target_dir.iterdir()
-        if d.is_dir() and not d.name.startswith((".", "_"))
-    ]
-
-    if not installed:
-        print(f"Brak zainstalowanych skilli w {target_dir}.")
-        return 0
-
-    print(f"\nAktualizacja skilli w: {GREEN}{target_dir}{RESET}")
-    args.skills = installed
-    return cmd_install(args)
 
 
 def cmd_validate(args: argparse.Namespace) -> int:
@@ -353,64 +281,80 @@ def cmd_test(args: argparse.Namespace) -> int:
     return res.returncode
 
 
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        raise InstallError(message, 64)
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
+    parser = Parser(
         prog="ai-polish-skills",
-        description="ai-polish-skills • Oficjalne narzędzie CLI polskiego rejestru skilli AI (polskieskille.pl)",
+        description="Manage Polish AI skills from polskieskille.pl (Python 3.8+).",
     )
     subparsers = parser.add_subparsers(dest="subcommand", required=True)
 
     # list
-    p_list = subparsers.add_parser("list", help="Lista wszystkich dostępnych skilli")
-    p_list.add_argument("--category", help="Filtruj po kategorii")
-    p_list.add_argument("--tag", help="Filtruj po tagu")
-    p_list.add_argument("--json", action="store_true", help="Format JSON")
+    p_list = subparsers.add_parser("list", aliases=["ls"], help="List available skills")
+    p_list.add_argument("--category", help="Filter by category")
+    p_list.add_argument("--tag", help="Filter by tag")
+    p_list.add_argument("--json", action="store_true", help="Output JSON")
     p_list.set_defaults(func=cmd_list)
 
     # search
-    p_search = subparsers.add_parser("search", help="Wyszukaj skille po nazwie, opisie lub tagach")
-    p_search.add_argument("query", help="Szukana fraza (np. faktury, nbp, paczkomat)")
-    p_search.add_argument("--json", action="store_true", help="Format JSON")
+    p_search = subparsers.add_parser("search", aliases=["find"], help="Search names, descriptions and tags")
+    p_search.add_argument("query", help="Search query (e.g. faktury, nbp, paczkomat)")
+    p_search.add_argument("--json", action="store_true", help="Output JSON")
     p_search.set_defaults(func=cmd_search)
 
     # info
-    p_info = subparsers.add_parser("info", help="Szczegółowe metadane i kontrakt skilla")
-    p_info.add_argument("skill", help="Nazwa skilla (np. biala-lista, inpost, nbp)")
-    p_info.add_argument("--json", action="store_true", help="Format JSON")
+    p_info = subparsers.add_parser("info", aliases=["show"], help="Show skill metadata and contract")
+    p_info.add_argument("skill", help="Skill name (e.g. biala-lista, inpost, nbp)")
+    p_info.add_argument("--json", action="store_true", help="Output JSON")
     p_info.set_defaults(func=cmd_info)
 
-    # install
-    p_install = subparsers.add_parser("install", help="Zainstaluj skille w środowisku agenta AI")
-    p_install.add_argument("skills", nargs="*", help="Nazwy skilli (domyślnie: wszystkie)")
-    p_install.add_argument("--dir", "-d", help="Katalog docelowy")
-    p_install.add_argument("--global", "-g", dest="global_install", action="store_true", help="Instalacja globalna (~/.gemini/config/skills)")
-    p_install.add_argument("--claude", "-c", action="store_true", help="Instalacja dla Claude Code (.claude/skills)")
-    p_install.add_argument("--antigravity", "-a", action="store_true", help="Instalacja dla Antigravity/Cursor (.agents/skills)")
-    p_install.set_defaults(func=cmd_install)
-
-    # update
-    p_update = subparsers.add_parser("update", help="Zaktualizuj zainstalowane skille")
-    p_update.add_argument("--dir", "-d", help="Katalog docelowy")
-    p_update.add_argument("--global", "-g", dest="global_install", action="store_true", help="Instalacja globalna")
-    p_update.add_argument("--claude", "-c", action="store_true", help="Instalacja dla Claude Code")
-    p_update.add_argument("--antigravity", "-a", action="store_true", help="Instalacja dla Antigravity/Cursor")
-    p_update.set_defaults(func=cmd_update)
+    for command, help_text in (("install", "Install skills from this checkout"),
+                               ("update", "Replace known installed skills from this checkout")):
+        sub = subparsers.add_parser(command, help=help_text)
+        if command == "install":
+            sub.add_argument("skills", nargs="*", help="Skill names (default: all)")
+        targets = sub.add_mutually_exclusive_group()
+        targets.add_argument("--dir", "-d", help="Custom destination directory")
+        targets.add_argument("--global", "-g", dest="global_install", action="store_true",
+                             help="Legacy global target: ~/.gemini/config/skills")
+        targets.add_argument("--claude", "-c", action="store_true",
+                             help="Project target: .claude/skills")
+        targets.add_argument("--agents", "--antigravity", "-a", dest="agents", action="store_true",
+                             help="Project target: .agents/skills")
+        sub.add_argument("--dry-run", action="store_true", help="Show changes without writing files")
+        sub.add_argument("--json", action="store_true", help="Output one JSON result")
+        sub.set_defaults(func=cmd_install)
 
     # validate
-    p_val = subparsers.add_parser("validate", help="Uruchom walidator rejestru")
+    p_val = subparsers.add_parser("validate", help="Validate the skill registry")
     p_val.set_defaults(func=cmd_validate)
 
     # test
-    p_test = subparsers.add_parser("test", help="Uruchom test harness kontraktu")
+    p_test = subparsers.add_parser("test", help="Run the contract test suite")
     p_test.set_defaults(func=cmd_test)
 
     return parser
 
 
 def main() -> int:
-    parser = build_parser()
-    args = parser.parse_args()
-    return args.func(args)
+    # ANSI escapes are for interactive terminals only; honor NO_COLOR.
+    if not sys.stdout.isatty() or "NO_COLOR" in os.environ:
+        for name in ("BLUE", "GREEN", "YELLOW", "CYAN", "BOLD", "DIM", "RESET"):
+            globals()[name] = ""
+    try:
+        args = build_parser().parse_args()
+        return args.func(args)
+    except InstallError as exc:
+        print(json.dumps({"error": str(exc), "type": {2: "not_found", 64: "usage", 73: "filesystem"}.get(exc.code, "installation")}), file=sys.stderr)
+        return exc.code
+    except OSError as exc:
+        print(json.dumps({"error": str(exc), "type": "filesystem"}), file=sys.stderr)
+        return 73
+
 
 
 if __name__ == "__main__":

@@ -29,34 +29,36 @@ tags:
 compatibility: Python 3.8+ (standard library only); internet access required.
 ---
 
-# Jakość powietrza z GIOŚ
+# GIOŚ air quality
 
-## Uruchomienie
+## Running the script
 
-| System | Komenda z katalogu skilla |
+Run from this skill's directory:
+
+| OS | Command |
 |---|---|
-| Linux / macOS | `python3 scripts/smog.py <komenda> ...` |
-| Windows | `py scripts/smog.py <komenda> ...` |
+| Linux / macOS | `python3 scripts/smog.py <command> ...` |
+| Windows | `py scripts/smog.py <command> ...` |
 
-| Komenda | Działanie |
+| Command | Purpose |
 |---|---|
-| `stations --city Kraków` | Wszystkie stacje w mieście; działa też zapis `Krakow` |
-| `stations` | Katalog stacji GIOŚ |
-| `near 50.06 19.94` | Najbliższa stacja, odległość w linii prostej, indeks i pomiary |
-| `station 400` | Indeks i ostatnie dostępne pomiary wskazanej stacji |
+| `stations --city Kraków` | All stations in the city; `Krakow` also works |
+| `stations` | GIOŚ station catalogue |
+| `near 50.06 19.94` | Nearest station, straight-line distance, index and measurements |
+| `station 400` | Index and latest available measurements for a station |
 
-## Dobór stacji i odpowiedź
+## Choosing a station and reporting results
 
-1. Dla miasta najpierw wywołaj `stations --city`. Przy wielu stacjach przedstaw wybór; nie przedstawiaj jednej stacji jako średniej dla całego miasta. Dla podanych współrzędnych użyj `near`.
-2. Podaj nazwę stacji, źródło **GIOŚ**, wartość, jednostkę i czas pomiaru dla każdego zanieczyszczenia. Wszystkie stężenia z tego API, także CO, są w µg/m³. Czasy pomiarów i indeksu to lokalny czas Europe/Warsaw; `fetched_at` jest UTC.
-3. `latest_slot_missing` oznacza, że ostatni przedział nie ma pomiaru, a wynik pochodzi z wcześniejszego przedziału. `no_current_data` i `null` to brak danych, nigdy zero. Pomiary różnych czujników mogą pochodzić z różnych godzin.
-4. Pokazuj kategorię indeksu podaną przez GIOŚ; nie obliczaj własnego indeksu ani nie podmieniaj go na amerykański AQI. Uwzględnij brak lub niepełny status indeksu. Dane są wstępne i mogą być później korygowane.
-5. Skill nie obejmuje prognoz, porad zdrowotnych ani uruchamiania stałego monitoringu. Najbliższa stacja nie musi odzwierciedlać warunków pod dokładnym adresem użytkownika.
+1. For a city, call `stations --city` first. If several stations match, present the options; do not describe one station as the city-wide average. Use `near` for supplied coordinates.
+2. Report the station name, **GIOŚ** attribution, value, unit and measurement time for each pollutant. All concentrations from this API, including CO, are in µg/m³. Measurement and index times are local Europe/Warsaw times; `fetched_at` is UTC.
+3. `latest_slot_missing` means the latest time slot has no measurement and the result comes from an earlier slot. `no_current_data` and `null` mean missing data, never zero. Different sensors may report measurements from different hours.
+4. Show the index category supplied by GIOŚ; do not calculate a separate index or substitute US AQI. Report missing or incomplete index status. The data is provisional and may be corrected later.
+5. This skill does not provide forecasts, health advice or continuous monitoring. The nearest station may not reflect conditions at the user's exact address.
 
-## Kontrakt i API
+## API and exit codes
 
-Aktualne API: `https://api.gios.gov.pl/pjp-api/v1/rest/`. Obsługiwane jest stronicowanie JSON-LD, bez zależności pip i kluczy API. Nie używaj wycofanego `/pjp-api/rest/`.
+Use `https://api.gios.gov.pl/pjp-api/v1/rest/`. The script supports JSON-LD pagination without pip dependencies or API keys. Do not use the retired `/pjp-api/rest/` endpoint.
 
-Sukces: JSON na stdout, kod `0`. Błędy JSON na stderr: `2` — brak stacji, `64` — walidacja, `69` — API/sieć. Brak pomiarów istniejącej stacji to poprawny wynik z polami `null`. Błąd sieci przy pobieraniu czujnika przerywa odczyt, nie udaje braku pomiaru. `--help` i `-h`: kod `0`.
+Success: JSON on stdout, exit `0`. Errors: JSON on stderr, exit `2` for a missing station, `64` for validation or `69` for API/network failures. Missing measurements at an existing station are a valid result with `null` fields. A sensor-fetch network failure stops the lookup instead of masquerading as a missing measurement. `--help` and `-h` return `0`.
 
-Szczegóły: [references/output.md](references/output.md). [Dokumentacja GIOŚ](https://powietrze.gios.gov.pl/pjp/content/api).
+Read [references/output.md](references/output.md) for field details. Source: [GIOŚ API documentation](https://powietrze.gios.gov.pl/pjp/content/api).

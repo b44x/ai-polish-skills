@@ -39,7 +39,7 @@ tags:
 compatibility: Python 3.8+ (standard library only); works fully offline.
 ---
 
-# Terminy, dni robocze i święta
+# Polish working days, holidays and deadlines
 
 Computes Polish working days, holidays, working-time norms and tax/ZUS deadlines with
 `scripts/terminy.py`. Fully offline and deterministic. Always outputs structured JSON with the
@@ -83,8 +83,8 @@ Zero external dependencies required (standard library only).
 
 | Command | Description | Returns |
 |---|---|---|
-| `month <RRRR-MM>` | Working days and working-time norm (full-time, 1-month period) | `workingDays`, `workingTimeNormHours`, `holidays`, `saturdayHolidays`, `calculation` |
-| `deadlines <RRRR-MM> [--only ID…]` | ZUS, PIT, CIT, VAT (JPK_V7M), PPK deadlines for a settlement month | `deadlines[]` with `deadline`, `nominalDate`, `shifted`, `legalBasis` |
+| `month <YYYY-MM>` | Working days and working-time norm (full-time, 1-month period) | `workingDays`, `workingTimeNormHours`, `holidays`, `saturdayHolidays`, `calculation` |
+| `deadlines <YYYY-MM> [--only ID…]` | ZUS, PIT, CIT, VAT (JPK_V7M), PPK deadlines for a settlement month | `deadlines[]` with `deadline`, `nominalDate`, `shifted`, `legalBasis` |
 | `add <date> <N> [--workdays]` | Date + N calendar days (moved to the next working day) or + N working days | `deadline` / `result`, `shifted`, `rule` |
 | `workdays <from> <to>` | Working days between two dates, inclusive | `workingDays`, `calendarDays`, `holidays` |
 | `holidays [--year Y]` | Statutory holidays of a year | `holidays[]` with `date`, `weekday`, `name` |
@@ -100,7 +100,7 @@ JSON goes to stdout; errors go to stderr as `{"error": "...", "type": "..."}`.
 |---|---|---|
 | `0` | Success | Use the JSON output |
 | `2` | Not found | No deadline matches the `--only` filter |
-| `64` | Bad usage / validation | Invalid date (expected RRRR-MM-DD) or month (RRRR-MM), year outside 1990–2100 |
+| `64` | Bad usage / validation | Invalid date (expected YYYY-MM-DD) or month (YYYY-MM), year outside 1990–2100 |
 
 ## Rules
 
