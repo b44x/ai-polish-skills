@@ -5,8 +5,8 @@
 ## Language and output
 
 - Management command names, flags, help, diagnostics and JSON keys use English.
-- Skill names are stable identifiers. Polish descriptions, search terms, source quotations and domain data retain their original language.
-- Individual skills keep their documented language and JSON contracts; this refactor does not change their public commands.
+- Skill names are stable identifiers. Catalogue copy, Polish search terms, source quotations and domain data retain their original language.
+- Skill `description` fields and agent-facing `SKILL.md` guidance use English, with Polish trigger examples and original source names. `language: pl` denotes the target locale. Individual script output languages and JSON contracts remain unchanged. See [CONTRIBUTING.md](../CONTRIBUTING.md) for the authoring convention.
 - `list`, `search`, `info`, `install` and `update` support `--json`: one JSON value on stdout, no banner or ANSI escapes. Empty searches return `[]` and exit 0.
 - Human-readable management output uses colors only on a terminal, unless `NO_COLOR` is set. Errors go to stderr.
 - `validate` and `test` delegate to the existing development tools, which retain their own reporting and exit statuses.

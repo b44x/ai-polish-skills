@@ -30,35 +30,39 @@ tags:
 compatibility: Python 3.8+ (standard library only); internet access required except cities.
 ---
 
-# Odjazdy komunikacji miejskiej
+# Public transport departures
 
-Uruchamiaj `python3 scripts/odjazdy.py <komenda>` z katalogu skilla (`py` na Windows).
+## Running the script
 
-| Komenda | Działanie |
+Run `python3 scripts/odjazdy.py <command>` from this skill's directory (`py` on Windows).
+
+| Command | Purpose |
 |---|---|
-| `cities` | Lista obsługiwanych sieci, źródeł i funkcji; działa offline |
-| `stops Gdańsk --query "Dworzec Główny"` | Wyszukaj słupki przystankowe po nazwie |
-| `stops Szczecin --lat 53.4285 --lon 14.5528 --limit 5` | Najbliższe przystanki według odległości w linii prostej |
-| `stops Poznań --query "Rondo Kaponiera"` | Słupki PEKA i kierunki; GPS w Poznaniu nie jest obsługiwany |
-| `departures gdansk 2001 --limit 5` | Tablica odjazdów według identyfikatora zwróconego przez `stops` |
-| `departures poznan RKAP71 --line 3` | Odjazdy jednej linii; używaj pola `id`, nie `public_code` |
-| `departures szczecin 10822` | Odjazdy i komunikaty ZDiTM |
+| `cities` | Supported networks, sources and capabilities; works offline |
+| `stops Gdańsk --query "Dworzec Główny"` | Find individual stop poles/platforms by name |
+| `stops Szczecin --lat 53.4285 --lon 14.5528 --limit 5` | Nearest stops by straight-line distance |
+| `stops Poznań --query "Rondo Kaponiera"` | PEKA stops and directions; GPS lookup is not supported in Poznań |
+| `departures gdansk 2001 --limit 5` | Departure board for an identifier returned by `stops` |
+| `departures poznan RKAP71 --line 3` | One line's departures; use `id`, not `public_code` |
+| `departures szczecin 10822` | ZDiTM departures and messages |
 
-## Dobór przystanku i interpretacja
+## Choosing a stop and interpreting results
 
-1. Ustal miasto, nazwę przystanku i kierunek. Najpierw `stops`, potem `departures` z polem `id`. Kilka wyników zwykle oznacza różne słupki lub kierunki — nie wybieraj arbitralnie przeciwnej strony ulicy. Nazwy miast przyjmują polskie znaki lub zapis ASCII. PEKA korzysta z podpowiedzi dostawcy i może wymagać polskich znaków w nazwie przystanku.
-2. Pokazuj linię, kierunek, czas oraz status każdego kursu. `realtime` oznacza prognozę dostawcy, `scheduled` — rozkład, `canceled` — kurs odwołany. Nie obiecuj gwarantowanego czasu przyjazdu. Uwzględnij `messages` i `warnings`.
-3. Czasy ISO z Gdańska/Szczecina są UTC i mają `Z`; przedstawiaj je użytkownikowi w Europe/Warsaw z uwzględnieniem daty i zmiany czasu. `fetched_at` jest czasem pobrania, a `source_updated_at` czasem źródła. Przy `freshness: stale` albo `measurement_stale: true` wyraźnie zaznacz nieaktualność. Brak czasu źródła daje `freshness: unknown`.
-4. **PEKA ma specyficzny format:** `scheduled_local` zawiera lokalny czas Europe/Warsaw. Dostawca dopisuje `Z` do lokalnej godziny, dlatego `provider_departure_raw` nie wolno interpretować jako prawidłowego UTC. Dla kursu na żywo używaj przede wszystkim `minutes`; `estimated_at` to przybliżenie z tych minut i zegara serwera. PEKA nie publikuje czasu ostatniego pomiaru — świeżość jest nieznana, mimo flagi `realtime`.
-5. `usable_realtime` jest prawdziwe tylko przy potwierdzonym aktualnym czasie tablicy, nieodwołanym kursie i braku wykrytej starej pozycji. Wartość false sama w sobie nie zmienia rozkładu w odwołany kurs.
-6. Pusta tablica (`no_departures`) dotyczy zakresu czasu i filtrów dostawcy. Nie oznacza braku połączeń przez cały dzień. Najbliższy przystanek nie oznacza najlepszej trasy; skill nie planuje przesiadek ani nie kupuje biletów.
+1. Resolve city, stop name and direction. Call `stops` first, then `departures` with `id`. Several matches usually mean different poles/platforms or directions; do not arbitrarily choose the other side of the street. City names accept Polish diacritics or ASCII spelling. PEKA uses provider suggestions and may require diacritics in stop names.
+2. Show the line, direction, time and status of each service. `realtime` means a provider prediction, `scheduled` means a timetable entry and `canceled` means a canceled service. Do not guarantee arrival times. Include `messages` and `warnings`.
+3. ISO timestamps from Gdańsk/Szczecin are UTC with `Z`; display them in Europe/Warsaw, accounting for date and daylight-saving changes. `fetched_at` is retrieval time; `source_updated_at` is source time. Explicitly flag `freshness: stale` or `measurement_stale: true`. An absent source timestamp means `freshness: unknown`.
+4. **PEKA uses a distinct time format:** `scheduled_local` contains Europe/Warsaw local time. The provider appends `Z` to a local clock reading, so do not interpret `provider_departure_raw` as valid UTC. For realtime services, prefer `minutes`; `estimated_at` is an approximation derived from those minutes and the server clock. PEKA does not publish the last measurement time: freshness remains unknown even with `realtime`.
+5. `usable_realtime` is true only for a board with confirmed fresh time, a non-canceled service and no detected stale position. False alone does not turn a scheduled service into a cancellation.
+6. An empty board (`no_departures`) reflects the provider's time window and filters. It does not mean no service exists for the whole day. The nearest stop is not necessarily the best route; the skill does not plan transfers or buy tickets.
 
-## Źródła i ograniczenia
+## Sources and limits
 
-Obsługiwane są **trzy sieci: Gdańsk, Poznań i Szczecin** wraz z przystankami podmiejskimi obecnymi u dostawców. Nie deklaruj dostępności w całej Polsce. Gdański katalog może zawierać przystanki innych organizatorów, dla których tablica ZTM jest pusta. Kraków i inne miasta nie mają w tej wersji adapterów.
+Coverage is limited to **three networks: Gdańsk, Poznań and Szczecin**, including suburban stops present in their data. Do not claim nationwide coverage. The Gdańsk catalogue may contain other operators' stops with empty ZTM boards. Kraków and other cities have no adapters in this version.
 
-Podawaj źródło i czas danych; wynik jest przetworzony (normalizacja pól, filtrowanie i ewentualne przeliczenie odległości/minut). Gdańsk: CC BY; Szczecin: CC0 1.0; Poznań: zasady ponownego wykorzystania wymagają informacji o źródle, aktualizacji i przetworzeniu. Szczegóły i odnośniki: [references/providers.md](references/providers.md).
+Cite the source and data time, and identify the transformation (field normalization, filtering and any distance/minute calculations). Gdańsk: CC BY; Szczecin: CC0 1.0; Poznań: reuse terms require source, update and transformation information. Read [references/providers.md](references/providers.md) for provider details and links.
 
-Skrypt respektuje HTTP `Cache-Control` i `ETag`. Gdański katalog bez zaleceń HTTP jest buforowany godzinę; tablice bez zaleceń HTTP nie są buforowane. `ODJAZDY_CACHE_DIR` zmienia katalog cache. Błąd sieci nie zwraca starej tablicy jako aktualnej. Nie uruchamiaj częstego odpytywania w tle w ramach zwykłej prośby o odjazdy.
+The script honors HTTP `Cache-Control` and `ETag`. Without HTTP guidance, the Gdańsk catalogue is cached for an hour and departure boards are not cached. `ODJAZDY_CACHE_DIR` overrides the cache directory. A network failure does not return an old board as current. Do not start frequent background polling for an ordinary departure request.
 
-Sukces: JSON na stdout i kod `0`. Błędy JSON na stderr: `2` — brak przystanku/zasobu, `64` — nieprawidłowe argumenty lub nieobsługiwane miasto, `69` — błąd API/sieci/formatu. `--help` i `-h`: kod `0`.
+## Output and exit codes
+
+Success: JSON on stdout, exit `0`. Errors: JSON on stderr, exit `2` for a missing stop/resource, `64` for invalid arguments or an unsupported city, or `69` for API/network/format errors. `--help` and `-h` return `0`.

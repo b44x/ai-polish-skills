@@ -52,7 +52,7 @@ library, and returns structured JSON on `stdout`.
 > **Important:** PCUŚ (*Prognozowany Czas Oczekiwania na Świadczenie*, estimated waiting time for a service)
 > is a statistical estimate calculated by NFZ — it is **not** the date of the first free appointment.
 
-## Running
+## Running the script
 
 Run from the skill directory (or from the repository root path):
 
@@ -63,7 +63,7 @@ Run from the skill directory (or from the repository root path):
 
 Zero external libraries (Python 3.8+ stdlib).
 
-## Main Use Cases
+## Workflow
 
 1. **Looking up the official service name:**
    - When the user asks generally about a test or specialty (e.g. „rezonans”, „kardiolog”, „kolonoskopia”):
@@ -106,7 +106,7 @@ Zero external libraries (Python 3.8+ stdlib).
 
 Detailed description of JSON schemas: [references/output.md](references/output.md).
 
-## Exit Codes
+## Exit codes
 
 Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": "..."}`.
 
@@ -117,7 +117,7 @@ Clean JSON goes to `stdout`; errors go to `stderr` as `{"error": "...", "type": 
 | `64` | Invalid invocation / validation | Check the parameters (min. 3-character phrase, valid voivodeship code) |
 | `69` | NFZ server / network error | `apinfz.nfz.gov.pl` API error or network problem |
 
-## Rules and Best Practices
+## Rules
 
 - **Always cite the data source:** Narodowy Fundusz Zdrowia (NFZ / Terminy Leczenia).
 - **Distinguish PCUŚ from an appointment date:** NFZ data presents the *Prognozowany Czas Oczekiwania na Świadczenie* (a statistical time calculated by NFZ based on recent months), not a guaranteed first free appointment. Explain this to the user.

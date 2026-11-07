@@ -57,11 +57,14 @@ cp -r templates/skill skills/<nazwa-skilla>
 Nazwa skilla **musi** być w formacie `kebab-case` (np. `ceidg`, `pogoda-imgw`, `otodom`).
 
 ### Krok 4: Instrukcje w SKILL.md
-W pliku `SKILL.md` opisz precyzyjnie dla agenta:
-- Kiedy używać danego skilla (słowa kluczowe, intencje użytkownika po polsku).
-- Kiedy **nie** używać (granice kompetencji).
-- Przykładowe wywołania i oczekiwany format JSON.
-- Tabela komend dla Linux/macOS i Windows.
+`description` i instrukcje dla agenta pisz **po angielsku**. To konwencja tego projektu, a nie wymóg językowy formatu `SKILL.md`. Zachowaj po polsku przykładowe pytania użytkownika, nazwy instytucji, cytaty oraz parametry wyszukiwania wymagane przez źródło. Odpowiedź dla użytkownika dopasuj do języka jego pytania.
+
+- `description` krótko opisuje możliwości i moment użycia; dodaj reprezentatywne polskie frazy, które pomagają wybrać skill.
+- W treści podaj sposób uruchomienia z katalogu skilla, komendy, interpretację wyniku oraz istotne ograniczenia. Nagłówki i objaśnienia pisz po angielsku; oficjalne nazwy mogą pozostać w oryginale.
+- Zachowaj identyfikatory skilli, nazwy flag, wartości enum i klucze JSON. Tłumaczenie dokumentacji nie zmienia interfejsu skryptu ani danych źródła.
+- Dłuższe schematy i szczegóły umieszczaj w `references/`; linkuj je z informacją, kiedy należy je przeczytać. Nie wymuszamy identycznego zestawu sekcji w każdym skillu.
+- `display_name` i treści katalogu dla użytkowników są po polsku. Pole `language: pl` określa docelowy język/locale skilla, nie język instrukcji dla agenta.
+- Przy przeglądzie sprawdź sens instrukcji: zakres danych, daty, jednostki, brakujące wartości i atrybucja muszą pozostać poprawne. Sam test obecności angielskich nagłówków nie weryfikuje jakości skilla.
 
 ### Krok 5: Manifest metadanych (YAML frontmatter)
 Frontmatter w `SKILL.md` jest **jedynym źródłem prawdy** dla metadanych skilla. Wypełnij wszystkie wymagane pola:
@@ -72,8 +75,8 @@ name: moja-usluga
 display_name: Czytelna Nazwa Usługi
 version: 1.0.0
 description: >-
-  Szczegółowy opis: CO robi ten skill i KIEDY agent powinien go wywołać.
-  Wymień polskie frazy kluczowe (np. "sprawdź firmę", "kurs walut").
+  Describe what the skill does and when to use it in English.
+  Include representative Polish trigger phrases, such as "sprawdź firmę" or "kurs walut".
 category: finance # finance | logistics | legal | entertainment | public_data | utilities | e-commerce | health | general
 language: pl
 country: PL
@@ -138,7 +141,7 @@ gh pr create --base dev --fill
 | `version` | string | Tak | Semantyczna wersja `X.Y.Z` |
 | `description` | string | Tak | Opis funkcji i fraz wyzwalających (max 1024 znaki) |
 | `category` | string | Tak | Jedna z: `finance`, `logistics`, `legal`, `entertainment`, `public_data`, `utilities`, `e-commerce`, `health`, `general` |
-| `language` | string | Tak | Kod języka (zwykle `pl`) |
+| `language` | string | Tak | Docelowy język/locale skilla (zwykle `pl`), nie język instrukcji |
 | `country` | string | Tak | Kod kraju (zwykle `PL`) |
 | `license` | string | Tak | Identyfikator licencji SPDX (np. `MIT`, `Apache-2.0`) |
 | `network` | bool | Tak | `true` jeśli skrypt łączy się z Internetem, `false` jeśli działa offline |
@@ -160,6 +163,7 @@ gh pr create --base dev --fill
 Przed scaleniem upewnij się, że:
 - [ ] Folder w `skills/<name>` ma poprawną nazwę `kebab-case`.
 - [ ] `SKILL.md` zawiera poprawny nagłówek YAML ze wszystkimi wymaganymi polami.
+- [ ] `description` i instrukcje są po angielsku; polskie przykłady, nazwy oraz niezmienione identyfikatory zachowują sens i kontrakt skilla.
 - [ ] Skrypt w `scripts/` korzysta wyłącznie z biblioteki standardowej Pythona 3.8+ (brak zależności w `pip`).
 - [ ] Skrypt obsługuje `--help` i zwraca kod `0`.
 - [ ] Skrypt wypisuje wyłącznie poprawny JSON na `stdout`.

@@ -123,7 +123,7 @@ Wymagania: Bash, Python 3.8+ i curl (przy pobieraniu z sieci). Domyślny katalog
 ./install.sh list --json
 ```
 
-Pomoc i komunikaty narzędzia zarządzającego są po angielsku; opisy skilli i polskie frazy wyszukiwania pozostają po polsku. `update` zastępuje tylko rozpoznane skille w wybranym katalogu, używając bieżącego checkoutu; nie wykonuje `git pull`. Instalacja zastępuje lokalne zmiany wewnątrz wybranych skilli. [Kontrakt instalatora i CLI](docs/cli.md).
+Pomoc, komunikaty narzędzia zarządzającego oraz instrukcje `SKILL.md` są po angielsku. Nazwy i opisy w polskim katalogu, przykłady pytań oraz dane źródłowe zachowują język polski. `update` zastępuje tylko rozpoznane skille w wybranym katalogu, używając bieżącego checkoutu; nie wykonuje `git pull`. Instalacja zastępuje lokalne zmiany wewnątrz wybranych skilli. [Kontrakt instalatora i CLI](docs/cli.md).
 
 ### 2. Instalacja jednym promptem (dla Twojego Agenta AI)
 

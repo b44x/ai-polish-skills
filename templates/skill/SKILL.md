@@ -3,10 +3,11 @@ name: _template
 display_name: Example Polish Skill Name
 version: 1.0.0
 description: >-
-  One or two sentences: WHAT the skill does and WHEN to use it. List keywords
-  and typical user phrases that should trigger it.
+  Describe WHAT the skill does and WHEN to use it in concise English.
+  Include representative Polish trigger phrases, e.g. "sprawdź ...".
+  Add a scope boundary only when it prevents likely misuse.
 category: utilities # Allowed: finance, logistics, legal, entertainment, public_data, utilities, e-commerce, health
-language: pl
+language: pl # Target locale, not the language of agent instructions
 country: PL
 license: MIT
 author: Your Name (https://github.com/your-username)
@@ -28,7 +29,9 @@ compatibility: Python 3.8+ (standard library only).
 
 # Skill name
 
-Briefly: what problem this skill solves.
+Briefly explain what this skill does. Write agent-facing guidance and headings in English.
+Keep Polish user examples, official names and source text in their original language.
+Answer users in the language of their request; preserve CLI identifiers and JSON keys.
 
 ## When to use
 
@@ -39,7 +42,12 @@ Briefly: what problem this skill solves.
 
 - a situation that looks similar but needs something else
 
-## Instructions
+## Running the script
+
+Run from this skill's directory with `python3 scripts/<script>.py <command>`
+(`py` on Windows). Replace placeholders with actual supported commands.
+
+## Workflow
 
 1. First step.
 2. Second step.
@@ -47,7 +55,9 @@ Briefly: what problem this skill solves.
 
 ## Output format
 
-Describe or show an example of the expected output.
+Describe the important output fields, units, timestamps and missing-data semantics.
+State source attribution, coverage limits and applicable exit codes. Do not duplicate
+large schemas here; link to the maintained reference when needed.
 
 ## Examples
 

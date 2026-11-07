@@ -125,7 +125,7 @@ Requirements: Bash, Python 3.8+ and curl (for remote downloads). The default tar
 ./install.sh list --json
 ```
 
-Management help and diagnostics are in English; skill descriptions and Polish search phrases retain their original language. `update` replaces only known installed skills from the current checkout; it does not run `git pull`. Installation replaces local edits inside selected skills. [Installer and CLI contract](docs/cli.md).
+Management help, diagnostics and agent-facing `SKILL.md` instructions use English. Polish catalogue copy, user examples and source data retain their original language. `update` replaces only known installed skills from the current checkout; it does not run `git pull`. Installation replaces local edits inside selected skills. [Installer and CLI contract](docs/cli.md).
 
 ### 2. Install by Prompting your AI Agent
 
