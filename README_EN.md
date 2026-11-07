@@ -245,29 +245,6 @@ The repository generates deterministic, static registry files:
 
 The **polskieskille.pl** platform directly consumes this registry to serve an interactive web catalog and discovery layer.
 
-## Support the project
-
-Polskie Skille is an open-source initiative providing AI agents with reliable tools and real-time data from Polish services, registers, and APIs. Your sponsorship directly supports:
-
-- Building new Polish integrations (CEIDG, GUS/BIR, IMGW weather alerts, KSeF e-invoicing).
-- Refining the `SKILL.md` standard, test harness, validator, and static registry.
-- Ensuring ongoing compatibility with emerging AI agents (Claude Code, Cursor, Windsurf, Antigravity).
-- API maintenance, uptime checks, and security audits.
-
-Support the project via **[GitHub Sponsors (github.com/sponsors/b44x)](https://github.com/sponsors/b44x)** (monthly or one-time):
-
-| Tier | Amount | Type | Focus |
-|---|---|---|---|
-| **Supporter** | **$3** / mo | Monthly | General open-source maintenance & community support |
-| **AI Builder** | **$10** / mo | Monthly | Accelerating development of new Polish skills & APIs |
-| **Polish AI** | **$25** / mo | Monthly | Sustaining test infrastructure, registry updates & agent benchmarks |
-| **Company** | **$100** / mo | Monthly | Organization sponsorship for building on the Polish AI ecosystem |
-| **Coffee** | **$10** | One-time | One-time coffee contribution supporting the maintainer |
-
-Every contribution helps keep the project independent, well-tested, and actively maintained.
-
----
-
 ## Author & License
 
 Created and maintained by: **Michell Hoduń** ([@b44x](https://github.com/b44x)).  
