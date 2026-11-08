@@ -52,6 +52,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 |---|---|---|---|
 | [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
+| [`ceny-deweloperow`](skills/ceny-deweloperow/SKILL.md) | **Developer price history** `[public_data]` | Observed asking-price changes for one unit; source dates, gaps and limited supported file schemas | dane.gov.pl / developer-published files |
 | [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — suspicious links** `[utilities]` | Check domains and SMS links against the official warning list, including subdomains and IDN. Does not visit submitted URLs; absence is not proof of safety. | CERT Polska (🏛 official feed) |
 | [`dzialki`](skills/dzialki/SKILL.md) | **Cadastral Parcels** `[public_data]` | Locate a parcel by identifier, district and number, or a GPS point. Read boundaries and administrative location with explicit coordinate reference systems. | GUGiK ULDK (🏛 official service) |
 | [`energia`](skills/energia/SKILL.md) | **PSE Market Energy Prices** `[finance]` | Quarter-hour RCE prices, summaries and cheapest contiguous windows. Checks completeness and daylight-saving changes; RCE excludes the full retail bill cost. | Polish Power System Operator (🏛 official API) |
@@ -76,7 +77,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows 10 examples; the full catalogue contains 20 skills.
+The video shows 10 examples; the full catalogue contains 24 skills.
 
 
 ## New workflows: jobs, addresses and data
@@ -90,6 +91,21 @@ From a checkout containing these skills: `bash install.sh solid-jobs adresy otwa
 
 
 ---
+
+## Developer asking-price history
+
+**“How has the asking price of the apartment I want to buy changed?”** The `ceny-deweloperow` skill helps buyers prepare for a conversation with a developer: it shows published unit prices, changes in PLN and percent, source dates and missing observations. It reads publisher price files on dane.gov.pl. For completed transaction prices, use [`nieruchomosci`](skills/nieruchomosci/SKILL.md).
+
+From a checkout containing the skill, install it with `bash install.sh ceny-deweloperow`. Give your agent the investment or developer name and the unit and building identifiers. Or follow this terminal example from investment discovery to one apartment's history:
+
+```bash
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py search "Pogonowskiego" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py resources 4863 --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py units 67625 --query "POGO2/A" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py history 67625 "POGO2/A/2C"
+```
+
+For your investment, use IDs returned by each command. **Coverage is partial:** only recognized file schemas are supported, and a price file may contain just one date. That cannot establish whether the price changed; you can compare up to three explicitly selected files. A quoted price does not establish present-day availability or the total including additional charges. [Instructions and data coverage](skills/ceny-deweloperow/SKILL.md) explain dates, formats and comparisons. Example resources may change.
 
 ## 🔍 How to Find Skills?
 

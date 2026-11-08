@@ -4,11 +4,11 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 23,
+  "skills_count": 24,
   "categories": [
     {
       "name": "public_data",
-      "count": 8
+      "count": 9
     },
     {
       "name": "utilities",
@@ -122,6 +122,48 @@
         "SKILL.md",
         "references/output.md",
         "scripts/biala_lista.py"
+      ]
+    },
+    {
+      "name": "ceny-deweloperow",
+      "display_name": "Ceny deweloperów — historia ceny mieszkania",
+      "version": "1.0.0",
+      "description": "Read developer asking-price files hosted by dane.gov.pl and reconstruct observed price changes for one apartment or house. Use for „historia ceny mieszkania”, „czy deweloper podniósł cenę przed promocją”, „porównaj opublikowane cenniki”. Reports dates, absolute and percentage changes, and missing observations. Supports recognized JSON, CSV, XLSX and SpreadsheetML XML schemas; coverage depends on available files. For completed sale prices use nieruchomosci.",
+      "category": "public_data",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "dane.gov.pl — cenniki opublikowane przez deweloperów",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://dane.gov.pl/",
+      "documentation": "https://api.dane.gov.pl/1.4/doc",
+      "rate_limit": "fair use; up to 100 catalog records per page; at most three explicitly selected files",
+      "last_verified": "2026-11-08",
+      "tags": [
+        "ceny-mieszkan",
+        "deweloperzy",
+        "historia-cen",
+        "rynek-pierwotny",
+        "dane-gov-pl"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/ceny_deweloperow.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/ceny-deweloperow/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s ceny-deweloperow",
+        "cli": "python3 scripts/cli.py install ceny-deweloperow",
+        "target_dir": ".agents/skills/ceny-deweloperow"
+      },
+      "files": [
+        "SKILL.md",
+        "references/formats.md",
+        "scripts/ceny_deweloperow.py",
+        "scripts/housing_xlsx.py"
       ]
     },
     {
