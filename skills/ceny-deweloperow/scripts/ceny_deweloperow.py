@@ -8,6 +8,7 @@ import hashlib
 import http.client
 import io
 import json
+from pathlib import Path
 import re
 import sys
 import unicodedata
@@ -21,6 +22,8 @@ MAX_METADATA = 2 * 1024 * 1024
 MAX_FILE = 16 * 1024 * 1024
 MAX_OBSERVATIONS = 200000
 SS = "{urn:schemas-microsoft-com:office:spreadsheet}"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from housing_xlsx import read_table, XlsxError
 
 
 class SkillError(Exception):
@@ -155,17 +158,43 @@ def related_id(record, relation):
     return value["id"]
 
 
+def downloadable(attributes):
+    if str(attributes.get('format')).lower() not in ('json', 'csv', 'xml', 'xlsx'):
+        return None, 'unsupported_format'
+    for key in ('file_url', 'link'):
+        url = attributes.get(key)
+        if not isinstance(url, str) or not url:
+            continue
+        try:
+            trusted_url(url)
+            if urllib.parse.urlsplit(url).path.startswith('/media/resources/'):
+                return url, None
+        except SkillError:
+            pass
+    return None, 'external_or_missing_copy'
+
+
 def brief(record):
-    a = record["attributes"]
-    return dict(id=record["id"], title=a["title"], format=a.get("format"),
-                catalog_data_date=a.get("data_date"), file_url=a.get("file_url"),
-                publisher_url=a.get("link"), modified=a.get("modified"))
+    a = record['attributes']
+    result = dict(id=record['id'], title=a['title'], format=a.get('format'),
+                  catalog_data_date=a.get('data_date'), file_url=a.get('file_url'),
+                  publisher_url=a.get('link'), modified=a.get('modified'))
+    relationships = record.get('relationships', {})
+    if isinstance(relationships, dict):
+        relation = relationships.get('institution', {})
+        publisher = relation.get('data', {}) if isinstance(relation, dict) else {}
+        result['institution_id'] = publisher.get('id') if isinstance(publisher, dict) else None
+    if record['type'] == 'resource':
+        url, blocker = downloadable(a)
+        result.update(download_url=url, download_eligible=url is not None, download_blocker=blocker,
+                      schema_support='unverified_until_read')
+    return result
 
 
 def catalogue(command, args):
     path = "datasets" if command == "search" else "datasets/%s/resources" % args.id
     params = {"page": args.page, "per_page": args.limit}
-    params.update({"q": args.query} if command == "search" else {"sort": "-data_date"})
+    params.update({"title[phrase]": args.query, "sort": "-modified"} if command == "search" else {"sort": "-data_date"})
     url = BASE + path + "?" + urllib.parse.urlencode(params)
     body = fetch_json(url)
     if not isinstance(body, dict):
@@ -301,35 +330,97 @@ def parse_csv(raw, metadata):
                                             row.get('status_norm') or row.get('status_name'),
                                             kind=text(row['typ_obiektu'])))
         return "snapshot-csv", observations, dates
+    return disclosure_rows(headers, rows, metadata)
+
+
+def empty_marker(value):
+    return value.strip().casefold() in ('', 'x', '-', 'null', 'brak')
+
+
+def effective_time(value):
+    if empty_marker(value):
+        return None, None
+    for pattern in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%d-%m-%Y %H:%M:%S', '%d-%m-%Y %H:%M'):
+        try:
+            parsed = datetime.strptime(value.strip().replace('T', ' '), pattern)
+            return parsed.date().isoformat(), parsed.isoformat()
+        except ValueError:
+            pass
+    return day(value), None
+
+
+def disclosure_rows(headers, rows, metadata, profile='disclosure-csv'):
     prefixes = {
-        "unit": "Nr lokalu lub domu jednorodzinnego nadany przez dewelopera",
-        "locality": "Miejscowość lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego",
-        "street": "Ulica lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego",
-        "building": "Nr nieruchomości lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego",
-        "kind": "Rodzaj nieruchomości:", "sqm": "Cena m 2 powierzchni użytkowej",
-        "total": "Cena lokalu mieszkalnego lub domu jednorodzinnego będących",
-        "effective": "Data od której cena obowiązuje cena lokalu mieszkalnego lub",
+        'unit': ('Nr lokalu lub domu jednorodzinnego nadany przez dewelopera',),
+        'locality': ('Miejscowość lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',),
+        'street': ('Ulica lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',),
+        'building': ('Nr nieruchomości lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',),
+        'kind': ('Rodzaj nieruchomości:',), 'sqm': ('Cena m 2 powierzchni użytkowej', 'Cena m2 powierzchni użytkowej'),
+        'total': ('Cena lokalu mieszkalnego lub domu jednorodzinnego będących',),
+        'effective': ('Data od której cena obowiązuje cena lokalu mieszkalnego lub',
+                      'Data od której obowiązuje cena lokalu miesz. lub domu jedn. będących'),
     }
     columns = {}
-    for key, prefix in prefixes.items():
-        matches = [h for h in headers if normalize_header(h).startswith(normalize_header(prefix))]
+    for key, alternatives in prefixes.items():
+        matches = [h for h in headers if any(normalize_header(h).startswith(normalize_header(prefix)) for prefix in alternatives)]
         if len(matches) != 1:
-            malformed("Nieobsługiwany schemat kolumn CSV.")
+            malformed('Nieobsługiwany lub niejednoznaczny schemat kolumn cennika.')
         columns[key] = matches[0]
     observed = day(metadata['catalog_data_date'])
-    dates.add(observed)
+    observations = []
+    coded = profile.startswith('disclosure-xlsx') and {'kod_produktu', 'Budynek', 'Rodzaj'} <= set(headers)
+    if coded:
+        profile = 'disclosure-xlsx-coded'
+        metadata['unit_identity'] = 'publisher_product_code'
     metadata['excluded_rows_without_residential_identifier'] = 0
     for row in rows:
-        if not row[columns['unit']].strip() and normalize_header(row[columns['kind']]) in ('x', ''):
+        if empty_marker(row[columns['unit']]) and empty_marker(row[columns['kind']]):
             metadata['excluded_rows_without_residential_identifier'] += 1
             continue
-        unit = compound(row[columns['locality']], row[columns['street']] or '(bez ulicy)',
-                        row[columns['building']], row[columns['unit']])
-        effective = row[columns['effective']].strip()
-        observations.append(observation(unit, observed, 'catalog_data_date', row[columns['total']],
-                                        row[columns['sqm']], kind=text(row[columns['kind']]),
-                                        price_effective_from=day(effective) if effective else None))
-    return "disclosure-csv", observations, dates
+        if empty_marker(row[columns['unit']]):
+            malformed('Brak identyfikatora lokalu w wierszu mieszkalnym.')
+        if coded:
+            unit = text(row['kod_produktu'])
+            if unit != text(row[columns['unit']]):
+                malformed('Kod produktu nie odpowiada oznaczeniu lokalu.')
+        else:
+            unit = compound(row[columns['locality']], row[columns['street']] or '(bez ulicy)',
+                            row[columns['building']], row[columns['unit']])
+        effective, timestamp = effective_time(row[columns['effective']])
+        total, sqm = row[columns['total']], row[columns['sqm']]
+        item = observation(unit, observed, 'catalog_data_date', None if empty_marker(total) else total,
+                           None if empty_marker(sqm) else sqm, kind=text(row[columns['kind']]),
+                           price_effective_from=effective)
+        if timestamp:
+            item['price_effective_at'] = timestamp
+        if coded:
+            item['location_incomplete'] = any(empty_marker(row[columns[key]]) for key in ('locality', 'street', 'building'))
+        observations.append(item)
+    if profile.startswith('disclosure-xlsx') and len({row['unit_id'] for row in observations}) < len(observations):
+        # Repeated units with explicit effective dates form publisher-declared history.
+        if any(row['price_effective_from'] is None for row in observations):
+            malformed('Powtórzone oznaczenia XLSX bez pełnych dat obowiązywania cen.')
+        profile += '-history'
+        metadata['declared_price_history'] = True
+        for item in observations:
+            item['observed_on'] = item['price_effective_from']
+            item['date_basis'] = 'file_price_effective_date'
+    dates = {row['observed_on'] for row in observations} or {observed}
+    return profile, observations, dates
+
+
+def parse_xlsx(raw, metadata):
+    try:
+        headers, rows = read_table(raw, MAX_OBSERVATIONS)
+    except XlsxError as exc:
+        raise SkillError(str(exc), exc.kind, 69)
+    return disclosure_rows(headers, rows, metadata, 'disclosure-xlsx')
+
+
+def event_key(row):
+    if row['date_basis'] == 'file_price_effective_date':
+        return row.get('price_effective_at') or row['observed_on']
+    return row['observed_on']
 
 
 def spreadsheet_xml(raw, metadata):
@@ -387,16 +478,13 @@ def load_resource(identifier):
                 source_url=BASE + 'resources/' + str(identifier),
                 reuse_conditions={key: value for key, value in dataset['attributes'].items()
                                   if key.startswith('license') or key == 'terms'})
-    url = meta['file_url']
-    if not isinstance(url, str) or not url:
-        raise SkillError('Brak kopii pliku na api.dane.gov.pl; zewnętrznych stron nie pobieramy.',
-                         'unsupported_source', 69)
-    trusted_url(url)
-    if not urllib.parse.urlsplit(url).path.startswith('/media/resources/'):
-        raise SkillError('Zasób nie wskazuje kopii pliku w katalogu.', 'unsupported_source', 69)
-    parser = {'json': dated_json, 'csv': parse_csv, 'xml': spreadsheet_xml}.get(str(meta['format']).lower())
+    url = meta['download_url']
+    if not url:
+        raise SkillError('Brak obsługiwanej kopii JSON/CSV/XML/XLSX na api.dane.gov.pl.',
+                         'unsupported_format' if meta['download_blocker'] == 'unsupported_format' else 'unsupported_source', 69)
+    parser = {'json': dated_json, 'csv': parse_csv, 'xml': spreadsheet_xml, 'xlsx': parse_xlsx}.get(str(meta['format']).lower())
     if parser is None:
-        raise SkillError('Obsługiwane pliki: rozpoznane schematy JSON, CSV i SpreadsheetML XML.',
+        raise SkillError('Obsługiwane pliki: rozpoznane schematy JSON, CSV, XLSX i SpreadsheetML XML.',
                          'unsupported_format', 69)
     raw = fetch_bytes(url, MAX_FILE)
     profile, rows, dates = parser(raw, meta)
@@ -404,18 +492,27 @@ def load_resource(identifier):
         raise SkillError('Cennik nie zawiera obserwacji.', 'not_found', 2)
     seen = set()
     for row in rows:
-        identity = (row['unit_id'], row['observed_on'])
+        identity = (row['unit_id'], event_key(row))
         if identity in seen:
-            malformed('Powtórzone oznaczenie lokalu w tym samym dniu.')
+            malformed('Powtórzona obserwacja tego samego lokalu i daty/czasu.')
         seen.add(identity)
     meta.update(profile=profile, sha256=hashlib.sha256(raw).hexdigest(),
                 first_snapshot=min(dates), last_snapshot=max(dates), snapshot_count=len(dates),
                 observation_count=len(rows))
+    if meta.get('declared_price_history'):
+        meta.update(first_price_effective_date=min(dates), last_price_effective_date=max(dates),
+                    first_snapshot=meta['catalog_data_date'], last_snapshot=meta['catalog_data_date'], snapshot_count=1)
     return meta, rows, dates
 
 
 def units(meta, rows, args):
-    selected = [row for row in rows if row['observed_on'] == meta['last_snapshot']]
+    if meta.get('declared_price_history'):
+        latest = {}
+        for row in sorted(rows, key=event_key):
+            latest[row['unit_id']] = row
+        selected = list(latest.values())
+    else:
+        selected = [row for row in rows if row['observed_on'] == meta['last_snapshot']]
     if args.query:
         selected = [row for row in selected if args.query.casefold() in row['unit_id'].casefold()]
     selected.sort(key=lambda row: row['unit_id'])
@@ -425,7 +522,9 @@ def units(meta, rows, args):
         raise SkillError('Brak lokali na tej stronie ostatniego snapshotu.', 'not_found', 2)
     more = start + len(page) < len(selected)
     return dict(items=page, total=len(selected), page=args.page, per_page=args.limit,
-                has_more=more, next_page=args.page + 1 if more else None, observed_on=meta['last_snapshot'])
+                has_more=more, next_page=args.page + 1 if more else None, observed_on=meta['last_snapshot'],
+                date_basis='catalog_data_date' if meta.get('declared_price_history') else selected[0]['date_basis'],
+                selection='latest_declared_price_per_unit' if meta.get('declared_price_history') else 'latest_snapshot')
 
 
 def delta(old, new):
@@ -440,12 +539,16 @@ def history(loaded, unit):
     if len({(m['dataset_id'], m['institution_id'], m['profile']) for m in metas}) != 1:
         raise SkillError('Łącz tylko zasoby tego samego zbioru, wydawcy i schematu.', 'incomparable_sources', 64)
     by_date, all_dates = {}, set()
+    declared = any(meta.get('declared_price_history') for meta in metas)
+    frames = []
     for meta, rows, dates in loaded:
         all_dates.update(dates)
+        frames.append((meta['last_snapshot'], any(row['unit_id'] == unit and
+                      (meta.get('declared_price_history') or row['observed_on'] == meta['last_snapshot']) for row in rows)))
         for row in rows:
             if row['unit_id'] != unit:
                 continue
-            observed = row['observed_on']
+            observed = event_key(row)
             if observed in by_date and by_date[observed]['value'] != row:
                 malformed('Sprzeczne obserwacje tego lokalu z tego samego dnia.')
             entry = by_date.setdefault(observed, {'value': row, 'resource_ids': []})
@@ -453,6 +556,16 @@ def history(loaded, unit):
     if not by_date:
         raise SkillError('Nie znaleziono dokładnego oznaczenia lokalu; użyj units.', 'not_found', 2)
     ordered = [by_date[key] for key in sorted(by_date)]
+    if declared:
+        per_day = {}
+        for entry in ordered:
+            row = entry['value']
+            per_day.setdefault(row['observed_on'], []).append(row)
+        if any(len(group) > 1 and any(not row.get('price_effective_at') for row in group) for group in per_day.values()):
+            malformed('Nieznana kolejność kilku cen z tego samego dnia.')
+    newest_frame = max(frame[0] for frame in frames)
+    presence = {present for frame, present in frames if frame == newest_frame}
+
     areas = {entry['value']['area_m2'] for entry in ordered if entry['value']['area_m2'] is not None}
     consistent_area = len(areas) <= 1
     area_known = all(entry['value']['area_m2'] is not None for entry in ordered)
@@ -460,13 +573,13 @@ def history(loaded, unit):
     comparable = consistent_area and same_kind
     points, gaps = [], []
     previous, signature = None, None
-    fields = ['price_total_pln', 'price_sqm_pln', 'area_m2', 'status', 'kind', 'zero_price_reported', 'date_basis', 'price_effective_from']
+    fields = ['price_total_pln', 'price_sqm_pln', 'area_m2', 'status', 'kind', 'zero_price_reported', 'date_basis', 'price_effective_from', 'price_effective_at', 'location_incomplete']
     for entry in ordered:
         row = entry['value']
         current = tuple(row.get(key) for key in fields)
         observed = row['observed_on']
         gap = (date.fromisoformat(observed) - date.fromisoformat(previous['observed_on'])).days if previous else 0
-        if gap > 1:
+        if gap > 1 and not declared:
             gaps.append(dict(after=previous['observed_on'], before=observed, unobserved_days=gap - 1))
         if current != signature:
             point = {key: row[key] for key in fields if key in row}
@@ -485,8 +598,10 @@ def history(loaded, unit):
     prices = [entry['value']['price_total_pln'] for entry in ordered if entry['value']['price_total_pln'] is not None]
     return dict(unit_id=unit, currency='PLN', observations=len(ordered), price_points=points,
                 first_observed=first['observed_on'], last_observed=last['observed_on'],
-                present_in_latest_snapshot=last['observed_on'] == max(all_dates),
-                absent_on_snapshot_dates=len(all_dates - set(by_date)), calendar_gaps=gaps,
+                timeline_type='published_price_effective_dates' if declared else 'snapshots',
+                present_in_latest_snapshot=next(iter(presence)) if len(presence) == 1 else None,
+                absent_on_snapshot_dates=None if declared else len(all_dates - set(by_date)),
+                calendar_gaps=None if declared else gaps,
                 last_date_basis=last['date_basis'],
                 age_of_reported_date_days=(datetime.now(timezone.utc).date() - date.fromisoformat(last['observed_on'])).days,
                 area_consistent=False if not consistent_area else True if area_known else None,
@@ -511,7 +626,7 @@ def main(argv=None):
         search.add_argument('query', type=phrase)
         resources = sub.add_parser('resources', help='Wyświetl jedną stronę zasobów zbioru.')
         resources.add_argument('id', type=integer(1, 2147483647))
-        items = sub.add_parser('units', help='Oznaczenia i ceny lokali w ostatnim snapshotcie pliku.')
+        items = sub.add_parser('units', help='Lokale z ostatniego snapshotu lub ostatnie deklaracje cen w pliku.')
         items.add_argument('id', type=integer(1, 2147483647))
         items.add_argument('--query', type=phrase)
         for command in (search, resources, items):

@@ -128,7 +128,7 @@
       "name": "ceny-deweloperow",
       "display_name": "Ceny deweloperów — historia ceny mieszkania",
       "version": "1.0.0",
-      "description": "Read developer asking-price files hosted by dane.gov.pl and reconstruct observed price changes for one apartment or house. Use for „historia ceny mieszkania”, „czy deweloper podniósł cenę przed promocją”, „porównaj opublikowane cenniki”. Pokazuje daty, zmiany kwotowe i procentowe oraz braki obserwacji. Obsługuje rozpoznane schematy JSON, CSV i SpreadsheetML XML; pokrycie zależy od dostępnych plików. For completed sale prices use nieruchomosci.",
+      "description": "Read developer asking-price files hosted by dane.gov.pl and reconstruct observed price changes for one apartment or house. Use for „historia ceny mieszkania”, „czy deweloper podniósł cenę przed promocją”, „porównaj opublikowane cenniki”. Pokazuje daty, zmiany kwotowe i procentowe oraz braki obserwacji. Obsługuje rozpoznane schematy JSON, CSV, XLSX i SpreadsheetML XML; pokrycie zależy od dostępnych plików. For completed sale prices use nieruchomosci.",
       "category": "public_data",
       "language": "pl",
       "country": "PL",
@@ -143,7 +143,7 @@
       "homepage": "https://dane.gov.pl/",
       "documentation": "https://api.dane.gov.pl/1.4/doc",
       "rate_limit": "fair use; up to 100 catalog records per page; at most three explicitly selected files",
-      "last_verified": "2026-11-07",
+      "last_verified": "2026-11-08",
       "tags": [
         "ceny-mieszkan",
         "deweloperzy",
@@ -162,7 +162,8 @@
       "files": [
         "SKILL.md",
         "references/formats.md",
-        "scripts/ceny_deweloperow.py"
+        "scripts/ceny_deweloperow.py",
+        "scripts/housing_xlsx.py"
       ]
     },
     {

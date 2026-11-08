@@ -396,6 +396,230 @@ class CLIContracts(unittest.TestCase):
             code, out, _ = invoke(['units', '1', '--page', '2'])
         self.assertEqual((code, out), (2, ''))
 
+# Additional synthetic OOXML exports model the verified table schemas, not live prices.
+DISCLOSURE_HEADERS = [
+    'Nr lokalu lub domu jednorodzinnego nadany przez dewelopera',
+    'Miejscowość lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',
+    'Ulica lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',
+    'Nr nieruchomości lokalizacji przedsięwzięcia deweloperskiego lub zadania inwestycyjnego',
+    'Rodzaj nieruchomości: lokal mieszkalny, dom jednorodzinny',
+    'Cena m2 powierzchni użytkowej lokalu mieszkalnego / domu jednorodzinnego zł',
+    'Cena lokalu mieszkalnego lub domu jednorodzinnego będących przedmiotem umowy',
+    'Data od której obowiązuje cena lokalu miesz. lub domu jedn. będących przedmiotem umowy',
+]
+
+
+def xlsx(rows, *, headers=None, shared=False, formula=False, external=False):
+    import zipfile
+    from xml.sax.saxutils import escape
+    headers = headers or DISCLOSURE_HEADERS
+    output = io.BytesIO()
+    main = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
+    strings, xml_rows = [], []
+    def column(index):
+        result = ''
+        while index:
+            index, char = divmod(index - 1, 26)
+            result = chr(65 + char) + result
+        return result
+    for number, values in enumerate([headers] + rows, 1):
+        cells = []
+        for index, value in enumerate(values, 1):
+            if value is None:
+                continue
+            address = column(index) + str(number)
+            if shared:
+                strings.append(str(value))
+                data = '<v>%s</v>' % (len(strings) - 1)
+                kind = 's'
+            else:
+                data = '<is><t>%s</t></is>' % escape(str(value))
+                kind = 'inlineStr'
+            if formula and number == 2 and index == 7:
+                data = '<f>1+1</f><v>2</v>'
+                kind = 'n'
+            cells.append('<c r="%s" t="%s">%s</c>' % (address, kind, data))
+        xml_rows.append('<row r="%s">%s</row>' % (number, ''.join(cells)))
+    with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr('xl/workbook.xml', '<workbook xmlns="%s" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Dane" sheetId="2" r:id="rId2"/></sheets></workbook>' % main)
+        mode = ' TargetMode="External"' if external else ''
+        target = 'https://localhost/private' if external else 'worksheets/sheet1.xml'
+        archive.writestr('xl/_rels/workbook.xml.rels', '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId2" Target="%s"%s/></Relationships>' % (target, mode))
+        archive.writestr('xl/worksheets/sheet1.xml', '<worksheet xmlns="%s"><sheetData>%s</sheetData></worksheet>' % (main, ''.join(xml_rows)))
+        if shared:
+            archive.writestr('xl/sharedStrings.xml', '<sst xmlns="%s">%s</sst>' % (main, ''.join('<si><r><t>%s</t></r></si>' % escape(value) for value in strings)))
+    return output.getvalue()
+
+
+def disclosure_value(unit='0001', total='100000.01', effective='2020-01-01 10:00:00'):
+    return [unit, 'Test', 'Testowa', '1', 'Lokal mieszkalny', '2500', total, effective]
+
+
+class ExpandedSourceContracts(unittest.TestCase):
+    def test_search_uses_exact_title_phrase_instead_of_fuzzy_full_text(self):
+        from urllib.parse import parse_qs, urlsplit
+        with patch.object(M, 'fetch_json', return_value={'data': [record('dataset')], 'meta': {'count': 1}}) as fetch:
+            code, out, err = invoke(['search', 'Dom Development'])
+        self.assertEqual((code, err), (0, ''))
+        params = parse_qs(urlsplit(fetch.call_args.args[0]).query)
+        self.assertEqual(params['title[phrase]'], ['Dom Development'])
+        self.assertNotIn('q', params)
+        self.assertEqual(params['sort'], ['-modified'])
+        self.assertEqual(json.loads(out)['result']['total'], 1)
+
+    def test_resource_listing_distinguishes_download_eligibility_from_schema_support(self):
+        mirrored, external, unsupported = record(), record(identifier='2'), record(identifier='3')
+        external['attributes']['file_url'] = 'https://example.invalid/file.csv'
+        unsupported['attributes']['format'] = 'pdf'
+        payload = dict(data=[mirrored, external, unsupported], meta=dict(count=3))
+        with patch.object(M, 'fetch_json', return_value=payload):
+            code, out, err = invoke(['resources', '10'])
+        self.assertEqual((code, err), (0, ''))
+        items = json.loads(out)['result']['items']
+        self.assertTrue(items[0]['download_eligible'])
+        self.assertEqual(items[0]['schema_support'], 'unverified_until_read')
+        self.assertFalse(items[1]['download_eligible'])
+        self.assertEqual(items[2]['download_blocker'], 'unsupported_format')
+
+    def test_catalog_hosted_link_is_usable_when_file_url_is_missing(self):
+        item = record()
+        item['attributes']['file_url'] = ''
+        item['attributes']['link'] = 'https://api.dane.gov.pl/media/resources/copy.json'
+        with patch.object(M, 'get_record', side_effect=[item, record('dataset', '10')]), patch.object(M, 'fetch_bytes', return_value=dated()) as fetch:
+            meta, _, _ = M.load_resource(1)
+        self.assertEqual(fetch.call_args.args[0], item['attributes']['link'])
+        self.assertEqual(meta['download_url'], item['attributes']['link'])
+
+    def test_effective_timestamps_preserve_time_and_unknown_markers(self):
+        self.assertEqual(M.effective_time('2026-05-07 13:41:17'), ('2026-05-07', '2026-05-07T13:41:17'))
+        self.assertEqual(M.effective_time('29-09-2025 12:10'), ('2025-09-29', '2025-09-29T12:10:00'))
+        self.assertEqual(M.effective_time('X'), (None, None))
+        for value in ['2025-02-30 12:00', 'not a date']:
+            with self.subTest(value=value), self.assertRaises(M.SkillError):
+                M.effective_time(value)
+
+    def test_xlsx_reads_shared_and_inline_strings_without_losing_leading_zeros(self):
+        for shared in [False, True]:
+            with self.subTest(shared=shared):
+                meta = {'catalog_data_date': '2026-01-01'}
+                profile, rows, dates = M.parse_xlsx(xlsx([disclosure_value()], shared=shared), meta)
+                self.assertEqual(profile, 'disclosure-xlsx')
+                self.assertEqual(rows[0]['unit_id'], 'Test::Testowa::1::0001')
+                self.assertEqual(rows[0]['price_total_pln'], Decimal('100000.01'))
+                self.assertEqual(dates, {'2026-01-01'})
+                self.assertEqual(rows[0]['price_effective_at'], '2020-01-01T10:00:00')
+
+    def test_sparse_xlsx_preserves_empty_cells_and_excludes_components(self):
+        component = [None, 'Test', 'Testowa', '1', None, None, None, None]
+        meta = {'catalog_data_date': '2026-01-01'}
+        _, rows, _ = M.parse_xlsx(xlsx([component, disclosure_value()]), meta)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['price_total_pln'], Decimal('100000.01'))
+        self.assertEqual(meta['excluded_rows_without_residential_identifier'], 1)
+
+    def test_xlsx_declared_history_preserves_intraday_changes_and_presence(self):
+        meta = {'id': '1', 'dataset_id': '10', 'institution_id': '20', 'catalog_data_date': '2026-01-01', 'last_snapshot': '2026-01-01'}
+        values = [disclosure_value(), disclosure_value(total='110000.01', effective='2020-01-01 11:00:00'),
+                  disclosure_value(unit='0002', effective='2025-12-31 12:00:00')]
+        profile, rows, dates = M.parse_xlsx(xlsx(values), meta)
+        self.assertEqual(profile, 'disclosure-xlsx-history')
+        meta['profile'] = profile
+        result = M.history([(meta, rows, dates)], 'Test::Testowa::1::0001')
+        self.assertEqual(result['observations'], 2)
+        self.assertEqual(result['first_to_last_change']['pln'], Decimal('10000.00'))
+        self.assertEqual(result['price_points'][1]['price_effective_at'], '2020-01-01T11:00:00')
+        self.assertEqual(result['timeline_type'], 'published_price_effective_dates')
+        self.assertIsNone(result['calendar_gaps'])
+        self.assertIsNone(result['absent_on_snapshot_dates'])
+        self.assertTrue(result['present_in_latest_snapshot'])
+
+    def test_xlsx_units_select_last_declared_price_for_each_unit(self):
+        values = [disclosure_value(), disclosure_value(total='110000.01', effective='2020-01-02 10:00:00')]
+        meta = {'catalog_data_date': '2026-01-01', 'last_snapshot': '2026-01-01'}
+        _, rows, _ = M.parse_xlsx(xlsx(values), meta)
+        args = type('Args', (), dict(query=None, page=1, limit=10))()
+        result = M.units(meta, rows, args)
+        self.assertEqual(result['total'], 1)
+        self.assertEqual(result['items'][0]['price_total_pln'], Decimal('110000.01'))
+        self.assertEqual(result['observed_on'], '2026-01-01')
+        self.assertEqual(result['items'][0]['date_basis'], 'file_price_effective_date')
+
+    def test_repeated_xlsx_units_without_effective_dates_fail(self):
+        values = [disclosure_value(), disclosure_value(effective='X')]
+        with self.assertRaises(M.SkillError):
+            M.parse_xlsx(xlsx(values), {'catalog_data_date': '2026-01-01'})
+
+    def test_declared_history_rejects_unknown_intraday_order(self):
+        values = [disclosure_value(effective='2020-01-01'), disclosure_value(total='110000', effective='2020-01-01 10:00:00')]
+        meta = {'id': '1', 'dataset_id': '10', 'institution_id': '20', 'catalog_data_date': '2026-01-01', 'last_snapshot': '2026-01-01'}
+        profile, rows, dates = M.parse_xlsx(xlsx(values), meta)
+        meta['profile'] = profile
+        with self.assertRaises(M.SkillError):
+            M.history([(meta, rows, dates)], rows[0]['unit_id'])
+
+    def test_xlsx_formulas_external_relationships_and_broken_archives_fail(self):
+        for raw in [xlsx([disclosure_value()], formula=True), xlsx([disclosure_value()], external=True), b'not zip']:
+            with self.subTest(length=len(raw)), self.assertRaises(M.SkillError):
+                M.parse_xlsx(raw, {'catalog_data_date': '2026-01-01'})
+
+    def test_xlsx_uncompressed_size_limits_are_enforced(self):
+        helper = sys.modules['housing_xlsx']
+        raw = xlsx([disclosure_value()])
+        for bound in ['MAX_PART', 'MAX_TOTAL']:
+            with self.subTest(bound=bound), patch.object(helper, bound, 64), self.assertRaises(M.SkillError) as raised:
+                M.parse_xlsx(raw, {'catalog_data_date': '2026-01-01'})
+            self.assertEqual(raised.exception.kind, 'response_too_large')
+
+
+    def test_publisher_product_code_stays_stable_when_location_is_completed(self):
+        headers = DISCLOSURE_HEADERS + ['kod_produktu', 'Budynek', 'Rodzaj']
+        raw_code = 'PROJECT_A_MK_0001'
+        missing = disclosure_value(unit=raw_code) + [raw_code, 'PROJECT_A', 'Mieszkanie']
+        missing[1:4] = ['', '', '']
+        complete = disclosure_value(unit=raw_code) + [raw_code, 'PROJECT_A', 'Mieszkanie']
+        ids = []
+        for values, expected_missing in [(missing, True), (complete, False)]:
+            meta = {'catalog_data_date': '2026-01-01'}
+            profile, rows, _ = M.parse_xlsx(xlsx([values], headers=headers), meta)
+            self.assertEqual(profile, 'disclosure-xlsx-coded')
+            self.assertEqual(meta['unit_identity'], 'publisher_product_code')
+            self.assertEqual(rows[0]['location_incomplete'], expected_missing)
+            ids.append(rows[0]['unit_id'])
+        self.assertEqual(ids, [raw_code, raw_code])
+
+    def test_mismatched_publisher_product_code_is_rejected(self):
+        headers = DISCLOSURE_HEADERS + ['kod_produktu', 'Budynek', 'Rodzaj']
+        values = disclosure_value() + ['different', 'A', 'Mieszkanie']
+        with self.assertRaises(M.SkillError):
+            M.parse_xlsx(xlsx([values], headers=headers), {'catalog_data_date': '2026-01-01'})
+
+    def test_xlsx_unknown_prices_are_preserved_as_unknown(self):
+        values = disclosure_value(total='X', effective='X')
+        values[5] = 'brak'
+        _, rows, _ = M.parse_xlsx(xlsx([values]), {'catalog_data_date': '2026-01-01'})
+        self.assertIsNone(rows[0]['price_total_pln'])
+        self.assertIsNone(rows[0]['price_sqm_pln'])
+        self.assertIsNone(rows[0]['price_effective_from'])
+
+    def test_xlsx_duplicate_members_and_dtd_are_rejected(self):
+        import zipfile
+        import warnings
+        raw = xlsx([disclosure_value()])
+        for change in ['duplicate', 'dtd']:
+            output = io.BytesIO()
+            with zipfile.ZipFile(io.BytesIO(raw)) as source, zipfile.ZipFile(output, 'w') as target:
+                for name in source.namelist():
+                    data = source.read(name)
+                    if change == 'dtd' and name == 'xl/workbook.xml':
+                        data = b'<!DOCTYPE workbook [<!ENTITY x "test">]>' + data
+                    target.writestr(name, data)
+                if change == 'duplicate':
+                    with warnings.catch_warnings():
+                        warnings.simplefilter('ignore', UserWarning)
+                        target.writestr('xl/workbook.xml', source.read('xl/workbook.xml'))
+            with self.subTest(change=change), self.assertRaises(M.SkillError):
+                M.parse_xlsx(output.getvalue(), {'catalog_data_date': '2026-01-01'})
+
 
 if __name__ == '__main__':
     unittest.main()
