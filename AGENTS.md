@@ -20,10 +20,12 @@ Match user prompt intent to the appropriate skill:
 | **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
 | **Sejm RP parliamentary data: MPs, roll-call votings, legislative bills, prints** | `sejm` | `scripts/sejm.py` | `"jak głosowano w Sejmie"`, `"jak głosował poseł"`, `"proces ustawy"` |
 | **NFZ healthcare queues, estimated waiting times (PCUŚ), clinics, benefit search** | `nfz` | `scripts/nfz.py` | `"czas oczekiwania NFZ"`, `"gdzie na rezonans"`, `"kolejki NFZ"` |
+| **Look up medicines, active substances, package GTINs and official leaflet/SmPC links in RPL** | `leki` | `scripts/leki.py` | `"znajdź ulotkę leku"`, `"substancja czynna"`, `"sprawdź lek po kodzie kreskowym"` |
 | **Polish law: article wording, act status, consolidated texts (ISAP / Dziennik Ustaw)** | `prawo` | `scripts/prawo.py` | `"co mówi art. 30 Kodeksu pracy"`, `"czy ustawa obowiązuje"` |
 | **Check a suspicious domain or SMS link against the CERT Polska warning list** | `cert-pl` | `scripts/cert_pl.py` | `"sprawdź link w CERT"`, `"podejrzany SMS o dopłacie"` |
 | **GIOŚ air quality, smog, PM10/PM2.5, nearest measuring station** | `smog` | `scripts/smog.py` | `"jakość powietrza w Krakowie"`, `"najbliższa stacja GIOŚ"` |
 | **Search BZP contract notices by subject, CPV, buyer province and publication dates** | `przetargi` | `scripts/przetargi.py` | `"przetargi na strony internetowe"`, `"ogłoszenia BZP"` |
+| **Read developer asking-price history for a unit from supported dane.gov.pl files; compare published snapshots with dates and gaps** | `ceny-deweloperow` | `scripts/ceny_deweloperow.py` | `"historia ceny mieszkania"`, `"czy deweloper podniósł cenę przed obniżką"` |
 | **Find recorded property transactions near coordinates and compare eligible residential sales** | `nieruchomosci` | `scripts/nieruchomosci.py` | `"za ile sprzedano mieszkania w okolicy"`, `"ceny transakcyjne RCN"` |
 | **Find stops and urban departures in Gdańsk, Poznań and Szczecin** | `odjazdy` | `scripts/odjazdy.py` | `"kiedy przyjedzie tramwaj"`, `"odjazdy z przystanku"` |
 | **Read PSE market electricity prices and find the cheapest contiguous time window** | `energia` | `scripts/energia.py` | `"ceny RCE"`, `"najtańsze dwie godziny energii"` |

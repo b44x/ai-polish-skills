@@ -52,6 +52,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 |---|---|---|---|
 | [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
+| [`ceny-deweloperow`](skills/ceny-deweloperow/SKILL.md) | **Developer price history** `[public_data]` | Observed asking-price changes for one unit; source dates, gaps and limited supported file schemas | dane.gov.pl / developer-published files |
 | [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — suspicious links** `[utilities]` | Check domains and SMS links against the official warning list, including subdomains and IDN. Does not visit submitted URLs; absence is not proof of safety. | CERT Polska (🏛 official feed) |
 | [`dzialki`](skills/dzialki/SKILL.md) | **Cadastral Parcels** `[public_data]` | Locate a parcel by identifier, district and number, or a GPS point. Read boundaries and administrative location with explicit coordinate reference systems. | GUGiK ULDK (🏛 official service) |
 | [`energia`](skills/energia/SKILL.md) | **PSE Market Energy Prices** `[finance]` | Quarter-hour RCE prices, summaries and cheapest contiguous windows. Checks completeness and daylight-saving changes; RCE excludes the full retail bill cost. | Polish Power System Operator (🏛 official API) |
@@ -59,6 +60,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
+| [`leki`](skills/leki/SKILL.md) | **Medicines and official leaflets** `[health]` | Names, active substances, package GTINs and official leaflet/SmPC links, with the registry date | RPL — URPL / Centrum e-Zdrowia (official XML export) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
@@ -76,7 +78,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows 10 examples; the full catalogue contains 20 skills.
+The video shows 10 examples; the full catalogue contains 25 skills.
 
 
 ## New workflows: jobs, addresses and data
@@ -90,6 +92,35 @@ From a checkout containing these skills: `bash install.sh solid-jobs adresy otwa
 
 
 ---
+
+## Developer asking-price history
+
+**“How has the asking price of the apartment I want to buy changed?”** The `ceny-deweloperow` skill helps buyers prepare for a conversation with a developer: it shows published unit prices, changes in PLN and percent, source dates and missing observations. It reads publisher price files on dane.gov.pl. For completed transaction prices, use [`nieruchomosci`](skills/nieruchomosci/SKILL.md).
+
+From a checkout containing the skill, install it with `bash install.sh ceny-deweloperow`. Give your agent the investment or developer name and the unit and building identifiers. Or follow this terminal example from investment discovery to one apartment's history:
+
+```bash
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py search "Pogonowskiego" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py resources 4863 --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py units 67625 --query "POGO2/A" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py history 67625 "POGO2/A/2C"
+```
+
+For your investment, use IDs returned by each command. **Coverage is partial:** only recognized file schemas are supported, and a price file may contain just one date. That cannot establish whether the price changed; you can compare up to three explicitly selected files. A quoted price does not establish present-day availability or the total including additional charges. [Instructions and data coverage](skills/ceny-deweloperow/SKILL.md) explain dates, formats and comparisons. Example resources may change.
+
+## Find the leaflet for the right medicine
+
+**“Find my medicine's leaflet — match the name, strength and package.”** The `leki` skill searches Poland's official Rejestr Produktów Leczniczych. It keeps product variants separate and returns active substances and official document links; a barcode identifies matching package records.
+
+From a checkout containing the skill: `bash install.sh leki`. Terminal examples:
+
+```bash
+python3 skills/leki/scripts/leki.py search "Apap" --exact
+python3 skills/leki/scripts/leki.py product 100006494
+python3 skills/leki/scripts/leki.py barcode 5909990296026
+```
+
+The first lookup downloads the full registry (about 74 MB); subsequent queries reuse a local index for 24 hours. Results expose the source date, distinguish strengths and forms, and preserve missing leaflets and deleted-package flags. The registry does not establish pharmacy stock or which treatment to use. [Instructions, offline mode and data coverage](skills/leki/SKILL.md).
 
 ## 🔍 How to Find Skills?
 
