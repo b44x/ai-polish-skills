@@ -128,7 +128,7 @@
       "name": "ceny-deweloperow",
       "display_name": "Ceny deweloperów — historia ceny mieszkania",
       "version": "1.0.0",
-      "description": "Read developer asking-price files hosted by dane.gov.pl and reconstruct observed price changes for one apartment or house. Use for „historia ceny mieszkania”, „czy deweloper podniósł cenę przed promocją”, „porównaj opublikowane cenniki”. Pokazuje daty, zmiany kwotowe i procentowe oraz braki obserwacji. Obsługuje rozpoznane schematy JSON, CSV, XLSX i SpreadsheetML XML; pokrycie zależy od dostępnych plików. For completed sale prices use nieruchomosci.",
+      "description": "Read developer asking-price files hosted by dane.gov.pl and reconstruct observed price changes for one apartment or house. Use for „historia ceny mieszkania”, „czy deweloper podniósł cenę przed promocją”, „porównaj opublikowane cenniki”. Reports dates, absolute and percentage changes, and missing observations. Supports recognized JSON, CSV, XLSX and SpreadsheetML XML schemas; coverage depends on available files. For completed sale prices use nieruchomosci.",
       "category": "public_data",
       "language": "pl",
       "country": "PL",

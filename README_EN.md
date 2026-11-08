@@ -94,15 +94,18 @@ From a checkout containing these skills: `bash install.sh solid-jobs adresy otwa
 
 ## Developer asking-price history
 
-**“Show the published price history of apartment POGO2/A/2C, including its dates and gaps.”** The `ceny-deweloperow` skill reads supported developer price files on dane.gov.pl. It distinguishes asking prices from completed sales and file snapshot dates from catalog update dates.
+**“How has the asking price of the apartment I want to buy changed?”** The `ceny-deweloperow` skill helps buyers prepare for a conversation with a developer: it shows published unit prices, changes in PLN and percent, source dates and missing observations. It reads publisher price files on dane.gov.pl. For completed transaction prices, use [`nieruchomosci`](skills/nieruchomosci/SKILL.md).
 
-From a checkout containing the skill:
+From a checkout containing the skill, install it with `bash install.sh ceny-deweloperow`. Give your agent the investment or developer name and the unit and building identifiers. Or follow this terminal example from investment discovery to one apartment's history:
 
 ```bash
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py search "Pogonowskiego" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py resources 4863 --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py units 67625 --query "POGO2/A" --limit 5
 python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py history 67625 "POGO2/A/2C"
 ```
 
-The example resource may change; [supported formats and limitations](skills/ceny-deweloperow/SKILL.md) describe the actual coverage.
+For your investment, use IDs returned by each command. **Coverage is partial:** only recognized file schemas are supported, and a price file may contain just one date. That cannot establish whether the price changed; you can compare up to three explicitly selected files. A quoted price does not establish present-day availability or the total including additional charges. [Instructions and data coverage](skills/ceny-deweloperow/SKILL.md) explain dates, formats and comparisons. Example resources may change.
 
 ## 🔍 How to Find Skills?
 

@@ -92,15 +92,18 @@ Z checkoutu zawierającego nowe skille: `bash install.sh solid-jobs adresy otwar
 
 ## Historia ceny mieszkania
 
-**„Pokaż historię ceny mieszkania POGO2/A/2C, daty i luki w danych”.** Skill `ceny-deweloperow` odczytuje obsługiwane pliki cenników na dane.gov.pl. Rozróżnia ceny ofertowe od transakcyjnych oraz datę snapshotu w pliku od aktualizacji katalogu.
+**„Jak zmieniała się cena mieszkania, które chcę kupić?”** Skill `ceny-deweloperow` pomaga przygotować się do rozmowy z deweloperem: pokazuje opublikowane ceny wybranego lokalu, zmiany w złotych i procentach oraz daty i luki w danych. Korzysta z cenników wydawców na dane.gov.pl. Ceny zawartych transakcji sprawdzisz osobnym skillem [`nieruchomosci`](skills/nieruchomosci/SKILL.md).
 
-Z checkoutu zawierającego skill:
+Z checkoutu zawierającego skill zainstaluj go przez `bash install.sh ceny-deweloperow`. Agentowi podaj nazwę inwestycji lub dewelopera oraz oznaczenie lokalu i budynku. Możesz też przejść przez przykład w terminalu — od wyszukania inwestycji do historii konkretnego mieszkania:
 
 ```bash
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py search "Pogonowskiego" --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py resources 4863 --limit 5
+python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py units 67625 --query "POGO2/A" --limit 5
 python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py history 67625 "POGO2/A/2C"
 ```
 
-Przykładowy zasób może się zmienić; [instrukcja i ograniczenia formatów](skills/ceny-deweloperow/SKILL.md) opisują rzeczywiste pokrycie.
+Dla własnej inwestycji użyj identyfikatorów zwróconych przez kolejne komendy. **Pokrycie jest częściowe:** obsługiwane są wybrane schematy plików, a pojedynczy cennik może zawierać tylko jedną datę. Wtedy skill nie stwierdzi, czy cena się zmieniła; można porównać do trzech wskazanych plików. Zwrócona cena nie potwierdza dzisiejszej dostępności lokalu ani pełnej kwoty z dopłatami. [Instrukcja i zakres danych](skills/ceny-deweloperow/SKILL.md) wyjaśniają daty, formaty i porównywanie cenników. Przykładowe zasoby mogą się zmienić.
 
 ## 🔍 Jak znaleźć skill?
 

@@ -56,6 +56,14 @@ def phrase(value):
     return value
 
 
+def unit_argument(value):
+    # Round-trip every identifier accepted by the file parsers.
+    try:
+        return text(value)
+    except SkillError as exc:
+        raise argparse.ArgumentTypeError(str(exc))
+
+
 def trusted_url(url):
     try:
         parts = urllib.parse.urlsplit(url)
@@ -423,6 +431,15 @@ def event_key(row):
     return row['observed_on']
 
 
+def validate_event_order(rows):
+    per_day = {}
+    for row in rows:
+        per_day.setdefault((row['unit_id'], row['observed_on']), []).append(row)
+    if any(len(group) > 1 and any(not row.get('price_effective_at') for row in group)
+           for group in per_day.values()):
+        malformed('Nieznana kolejność kilku cen tego samego lokalu z tego samego dnia.')
+
+
 def spreadsheet_xml(raw, metadata):
     try:
         content = raw.decode('utf-8-sig')
@@ -441,12 +458,16 @@ def spreadsheet_xml(raw, metadata):
     for row in table.findall(SS + 'Row'):
         values = []
         for cell in row.findall(SS + 'Cell'):
+            if cell.get(SS + 'Formula') is not None:
+                malformed('Formuły w tabeli XML są nieobsługiwane; zapisany wynik może być nieaktualny.')
             index = cell.get(SS + 'Index')
             if index is not None:
                 if not index.isdigit() or not len(values) < int(index) <= 100:
                     malformed()
                 values.extend([''] * (int(index) - len(values) - 1))
             data = cell.find(SS + 'Data')
+            if data is not None and data.get(SS + 'Type') in ('Error', 'Boolean'):
+                malformed('Błędy i wartości logiczne w tabeli XML są nieobsługiwane.')
             values.append(data.text or '' if data is not None else '')
         while values and not values[-1]:
             values.pop()
@@ -496,7 +517,9 @@ def load_resource(identifier):
         if identity in seen:
             malformed('Powtórzona obserwacja tego samego lokalu i daty/czasu.')
         seen.add(identity)
-    meta.update(profile=profile, sha256=hashlib.sha256(raw).hexdigest(),
+    if meta.get('declared_price_history'):
+        validate_event_order(rows)
+    meta.update(profile=profile, schema_support='recognized', sha256=hashlib.sha256(raw).hexdigest(),
                 first_snapshot=min(dates), last_snapshot=max(dates), snapshot_count=len(dates),
                 observation_count=len(rows))
     if meta.get('declared_price_history'):
@@ -557,12 +580,7 @@ def history(loaded, unit):
         raise SkillError('Nie znaleziono dokładnego oznaczenia lokalu; użyj units.', 'not_found', 2)
     ordered = [by_date[key] for key in sorted(by_date)]
     if declared:
-        per_day = {}
-        for entry in ordered:
-            row = entry['value']
-            per_day.setdefault(row['observed_on'], []).append(row)
-        if any(len(group) > 1 and any(not row.get('price_effective_at') for row in group) for group in per_day.values()):
-            malformed('Nieznana kolejność kilku cen z tego samego dnia.')
+        validate_event_order([entry['value'] for entry in ordered])
     newest_frame = max(frame[0] for frame in frames)
     presence = {present for frame, present in frames if frame == newest_frame}
 
@@ -634,7 +652,7 @@ def main(argv=None):
             command.add_argument('--limit', type=integer(1, 100), default=10)
         hist = sub.add_parser('history', help='Historia jednego oznaczenia lokalu; opcjonalnie połącz do trzech zasobów.')
         hist.add_argument('id', type=integer(1, 2147483647))
-        hist.add_argument('unit', type=phrase)
+        hist.add_argument('unit', type=unit_argument)
         hist.add_argument('--with-resource', type=integer(1, 2147483647), action='append', default=[])
         args = parser.parse_args(argv)
         if args.command in ('search', 'resources'):

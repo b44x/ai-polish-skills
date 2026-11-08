@@ -621,5 +621,55 @@ class ExpandedSourceContracts(unittest.TestCase):
                 M.parse_xlsx(output.getvalue(), {'catalog_data_date': '2026-01-01'})
 
 
+
+class SourceIntegrityContracts(unittest.TestCase):
+    def test_units_rejects_ambiguous_intraday_order_before_output(self):
+        values = [disclosure_value(effective='2020-01-01'),
+                  disclosure_value(total='110000', effective='2020-01-01 10:00:00')]
+        resource = record()
+        resource['attributes']['format'] = 'xlsx'
+        with patch.object(M, 'get_record', side_effect=[resource, record('dataset', '10')]), patch.object(M, 'fetch_bytes', return_value=xlsx(values)):
+            code, out, err = invoke(['units', '1'])
+        self.assertEqual((code, out), (69, ''))
+        self.assertEqual(json.loads(err)['type'], 'upstream_format')
+
+    def test_same_day_different_units_do_not_require_matching_time_precision(self):
+        values = [disclosure_value(effective='2020-01-01'),
+                  disclosure_value(effective='2020-01-02'),
+                  disclosure_value(unit='0002', effective='2020-01-01 10:00:00')]
+        resource = record()
+        resource['attributes']['format'] = 'xlsx'
+        with patch.object(M, 'get_record', side_effect=[resource, record('dataset', '10')]), patch.object(M, 'fetch_bytes', return_value=xlsx(values)):
+            code, out, err = invoke(['units', '1'])
+        self.assertEqual((code, err), (0, ''))
+        self.assertEqual(json.loads(out)['result']['total'], 2)
+
+    def test_spreadsheet_xml_rejects_formula_caches_and_error_cells(self):
+        for attribute in ['ss:Formula="=1+1"', 'ss:Type="Error"']:
+            if 'Formula' in attribute:
+                raw = xml().replace(b'<Cell><Data>100000.01',
+                    ('<Cell xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" %s><Data>100000.01' % attribute).encode())
+            else:
+                raw = xml().replace(b'<Data>100000.01',
+                    ('<Data xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" %s>100000.01' % attribute).encode())
+            with self.subTest(attribute=attribute), self.assertRaises(M.SkillError):
+                M.spreadsheet_xml(raw, {'catalog_data_date': '2026-01-01'})
+
+    def test_returned_unit_identifier_can_be_passed_back_to_history(self):
+        row = dict(entry(), unit_id='A' * 1000)
+        with patch.object(M, 'load_resource', return_value=loaded([row])):
+            code, out, err = invoke(['units', '1'])
+            self.assertEqual((code, err), (0, ''))
+            unit_id = json.loads(out)['result']['items'][0]['unit_id']
+            code, out, err = invoke(['history', '1', unit_id])
+        self.assertEqual((code, err), (0, ''))
+        self.assertEqual(json.loads(out)['result']['unit_id'], unit_id)
+
+    def test_parsed_resource_marks_schema_as_recognized(self):
+        with patch.object(M, 'get_record', side_effect=[record(), record('dataset', '10')]), patch.object(M, 'fetch_bytes', return_value=dated()):
+            meta, _, _ = M.load_resource(1)
+        self.assertEqual(meta['schema_support'], 'recognized')
+
+
 if __name__ == '__main__':
     unittest.main()
