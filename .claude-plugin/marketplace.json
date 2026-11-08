@@ -10,7 +10,7 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 24 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, Ceny deweloperów — historia ceny mieszkania, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
+      "description": "All 25 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, Ceny deweloperów — historia ceny mieszkania, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Leki — rejestr, opakowania i oficjalne ulotki, Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
       "skills": [
         "./skills/adresy",
         "./skills/biala-lista",
@@ -22,6 +22,7 @@
         "./skills/imgw",
         "./skills/inpost",
         "./skills/krs",
+        "./skills/leki",
         "./skills/moja-gmina",
         "./skills/nbp",
         "./skills/nfz",
@@ -63,6 +64,7 @@
         "inpost",
         "komunikacja-miejska",
         "krs",
+        "leki",
         "mieszkania",
         "nbp",
         "nfz",
@@ -89,6 +91,7 @@
         "spolki",
         "swieta",
         "uldk",
+        "ulotki",
         "ustawy",
         "vat",
         "waluty",
@@ -281,6 +284,24 @@
         "prawo",
         "umowy",
         "rejestr-sadowy"
+      ]
+    },
+    {
+      "name": "leki",
+      "displayName": "Leki — rejestr, opakowania i oficjalne ulotki",
+      "source": "./skills/leki",
+      "description": "Find Polish medicines by name, declared active substance or package GTIN/EAN in the official RPL export.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/leki",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "health",
+      "tags": [
+        "leki",
+        "ulotki",
+        "substancje-czynne",
+        "gtin",
+        "rpl",
+        "urpl"
       ]
     },
     {
