@@ -20,6 +20,7 @@ Match user prompt intent to the appropriate skill:
 | **IMGW weather (temperature, pressure, wind, rain), official alerts, river levels** | `imgw` | `scripts/imgw.py` | `"jaka jest temperatura w Warszawie"`, `"ostrzeżenia IMGW pomorskie"`, `"stan Wisły"` |
 | **Sejm RP parliamentary data: MPs, roll-call votings, legislative bills, prints** | `sejm` | `scripts/sejm.py` | `"jak głosowano w Sejmie"`, `"jak głosował poseł"`, `"proces ustawy"` |
 | **NFZ healthcare queues, estimated waiting times (PCUŚ), clinics, benefit search** | `nfz` | `scripts/nfz.py` | `"czas oczekiwania NFZ"`, `"gdzie na rezonans"`, `"kolejki NFZ"` |
+| **Look up medicines, active substances, package GTINs and official leaflet/SmPC links in RPL** | `leki` | `scripts/leki.py` | `"znajdź ulotkę leku"`, `"substancja czynna"`, `"sprawdź lek po kodzie kreskowym"` |
 | **Polish law: article wording, act status, consolidated texts (ISAP / Dziennik Ustaw)** | `prawo` | `scripts/prawo.py` | `"co mówi art. 30 Kodeksu pracy"`, `"czy ustawa obowiązuje"` |
 | **Check a suspicious domain or SMS link against the CERT Polska warning list** | `cert-pl` | `scripts/cert_pl.py` | `"sprawdź link w CERT"`, `"podejrzany SMS o dopłacie"` |
 | **GIOŚ air quality, smog, PM10/PM2.5, nearest measuring station** | `smog` | `scripts/smog.py` | `"jakość powietrza w Krakowie"`, `"najbliższa stacja GIOŚ"` |

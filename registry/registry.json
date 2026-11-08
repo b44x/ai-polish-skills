@@ -4,7 +4,7 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 24,
+  "skills_count": 25,
   "categories": [
     {
       "name": "public_data",
@@ -19,12 +19,12 @@
       "count": 3
     },
     {
-      "name": "legal",
+      "name": "health",
       "count": 3
     },
     {
-      "name": "health",
-      "count": 2
+      "name": "legal",
+      "count": 3
     },
     {
       "name": "entertainment",
@@ -471,6 +471,48 @@
         "SKILL.md",
         "references/output.md",
         "scripts/krs.py"
+      ]
+    },
+    {
+      "name": "leki",
+      "display_name": "Leki — rejestr, opakowania i oficjalne ulotki",
+      "version": "1.0.0",
+      "description": "Find Polish medicines by name, declared active substance or package GTIN/EAN in the official RPL export. Return exact product variants, strengths, package records and publisher-provided leaflet/SmPC links with the registry date. Use for \"znajdź ulotkę leku\", \"substancja czynna\", \"sprawdź lek po kodzie kreskowym\", \"informacje o leku z RPL\". Registry lookup does not establish pharmacy stock, reimbursement, recall status, therapeutic equivalence or a suitable treatment.",
+      "category": "health",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Rejestr Produktów Leczniczych — URPL / Centrum e-Zdrowia",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://rejestry.ezdrowie.gov.pl/rpl/search/public",
+      "documentation": "https://cez.gov.pl/pl/rejestry-medyczne",
+      "rate_limit": "fair use; one full export GET on initial use or refresh; local index reused for 24 hours",
+      "last_verified": "2026-11-08",
+      "tags": [
+        "leki",
+        "ulotki",
+        "substancje-czynne",
+        "gtin",
+        "rpl",
+        "urpl"
+      ],
+      "compatibility": "Python 3.8+ with standard-library sqlite3; no pip dependencies.",
+      "entrypoint": "scripts/leki.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/leki/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s leki",
+        "cli": "python3 scripts/cli.py install leki",
+        "target_dir": ".agents/skills/leki"
+      },
+      "files": [
+        "SKILL.md",
+        "references/data.md",
+        "scripts/leki.py"
       ]
     },
     {

@@ -60,6 +60,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
+| [`leki`](skills/leki/SKILL.md) | **Medicines and official leaflets** `[health]` | Names, active substances, package GTINs and official leaflet/SmPC links, with the registry date | RPL — URPL / Centrum e-Zdrowia (official XML export) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
 | [`nbp`](skills/nbp/SKILL.md) | **Narodowy Bank Polski** `[finance]` | Average exchange rates (Tables A & B), gold prices, and tax invoice calculation according to Art. 31a Polish VAT Act. | Narodowy Bank Polski (🏛 official API) |
 | [`nfz`](skills/nfz/SKILL.md) | **NFZ Healthcare Queues (PCUŚ)** `[health]` | Official data on estimated waiting times (MRI, CT, clinics), awaiting patients count, urgent/stable cases, and radius clinic search. | National Health Fund (NFZ) (🏛 official API) |
@@ -77,7 +78,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows 10 examples; the full catalogue contains 24 skills.
+The video shows 10 examples; the full catalogue contains 25 skills.
 
 
 ## New workflows: jobs, addresses and data
@@ -106,6 +107,20 @@ python3 skills/ceny-deweloperow/scripts/ceny_deweloperow.py history 67625 "POGO2
 ```
 
 For your investment, use IDs returned by each command. **Coverage is partial:** only recognized file schemas are supported, and a price file may contain just one date. That cannot establish whether the price changed; you can compare up to three explicitly selected files. A quoted price does not establish present-day availability or the total including additional charges. [Instructions and data coverage](skills/ceny-deweloperow/SKILL.md) explain dates, formats and comparisons. Example resources may change.
+
+## Find the leaflet for the right medicine
+
+**“Find my medicine's leaflet — match the name, strength and package.”** The `leki` skill searches Poland's official Rejestr Produktów Leczniczych. It keeps product variants separate and returns active substances and official document links; a barcode identifies matching package records.
+
+From a checkout containing the skill: `bash install.sh leki`. Terminal examples:
+
+```bash
+python3 skills/leki/scripts/leki.py search "Apap" --exact
+python3 skills/leki/scripts/leki.py product 100006494
+python3 skills/leki/scripts/leki.py barcode 5909990296026
+```
+
+The first lookup downloads the full registry (about 74 MB); subsequent queries reuse a local index for 24 hours. Results expose the source date, distinguish strengths and forms, and preserve missing leaflets and deleted-package flags. The registry does not establish pharmacy stock or which treatment to use. [Instructions, offline mode and data coverage](skills/leki/SKILL.md).
 
 ## 🔍 How to Find Skills?
 
