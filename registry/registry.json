@@ -4,11 +4,15 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 25,
+  "skills_count": 26,
   "categories": [
     {
       "name": "public_data",
       "count": 9
+    },
+    {
+      "name": "health",
+      "count": 4
     },
     {
       "name": "utilities",
@@ -16,10 +20,6 @@
     },
     {
       "name": "finance",
-      "count": 3
-    },
-    {
-      "name": "health",
       "count": 3
     },
     {
@@ -78,6 +78,47 @@
       "files": [
         "SKILL.md",
         "scripts/adresy.py"
+      ]
+    },
+    {
+      "name": "apteki",
+      "display_name": "Apteki — adresy, kontakt i status rejestru",
+      "version": "1.0.0",
+      "description": "Find Polish pharmacy records by city, street or name in the official CeZ Rejestr Aptek CSV export. Return exact registry identifiers, addresses, contact information, authorization fields and reported opening hours. Use for \"znajdź aptekę\", \"adres apteki\", \"telefon do apteki\", \"status apteki\". Does not check medicine stock, prices, current opening or duty rosters.",
+      "category": "health",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Rejestr Aptek — Centrum e-Zdrowia / Wojewódzkie Inspektoraty Farmaceutyczne",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://rejestry.ezdrowie.gov.pl/ra/search/public",
+      "documentation": "https://cez.gov.pl/pl/rejestry-medyczne",
+      "rate_limit": "No published quota established; one full CSV download per online invocation; no automatic retries or cache.",
+      "last_verified": "2026-11-13",
+      "tags": [
+        "apteki",
+        "rejestr-aptek",
+        "adresy-aptek",
+        "telefon",
+        "cez"
+      ],
+      "compatibility": "Python 3.8+ (standard library only); offline queries require a supplied CSV export.",
+      "entrypoint": "scripts/apteki.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/apteki/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s apteki",
+        "cli": "python3 scripts/cli.py install apteki",
+        "target_dir": ".agents/skills/apteki"
+      },
+      "files": [
+        "SKILL.md",
+        "references/source.md",
+        "scripts/apteki.py"
       ]
     },
     {

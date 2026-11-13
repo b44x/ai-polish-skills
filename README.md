@@ -13,14 +13,14 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 
 ## Demo
 
-**See Polskie Skille in action** — jedno pytanie po polsku, agent wybiera skill, skill odpytuje oficjalne polskie źródło (MF, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost, CERT Polska, GIOŚ, BZP) i zwraca czytelny wynik. Wszystkie dane w filmie pochodzą z rzeczywistych uruchomień skilli.
+**Zobacz Polskie Skille w działaniu** — 26 pytań po polsku, 26 skilli i czytelne wyniki z usług publicznych, rejestrów oraz serwisów komercyjnych. Wszystkie dane w filmie pochodzą z rzeczywistych uruchomień skilli; źródła i daty są widoczne w scenach.
 
 <p align="center">
   <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille — demo: agent AI korzysta z polskich API i danych publicznych" width="960"></a>
 </p>
 
 <p align="center">
-  ▶️ <a href="docs/demo/demo.mp4"><b>Obejrzyj pełne demo (MP4, 1080p, ≈84 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">jak wygenerować demo</a>
+  ▶️ <a href="docs/demo/demo.mp4"><b>Obejrzyj pełne demo (MP4, 1080p, ≈3 min 15 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">jak wygenerować demo</a>
 </p>
 
 ---
@@ -51,6 +51,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | Skill | Nazwa i kategoria | Opis | Źródło danych |
 |---|---|---|---|
 | [`adresy`](skills/adresy/SKILL.md) | **Adresy i GPS** `[public_data]` | Adres na GPS i pobliski adres dla współrzędnych; zachowuje warianty dopasowania | GUGiK UUG — oficjalne API |
+| [`apteki`](skills/apteki/SKILL.md) | **Apteki** `[health]` | Adres, kontakt, status wpisu i zgłoszone godziny; domyślnie aktywne apteki ogólnodostępne i punkty apteczne. | CeZ / WIF — oficjalny eksport CSV |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
 | [`ceny-deweloperow`](skills/ceny-deweloperow/SKILL.md) | **Historia ceny mieszkania** `[public_data]` | Zmiany opublikowanej ceny lokalu, daty i luki; obsługa wybranych schematów plików | dane.gov.pl / cenniki deweloperów |
 | [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — podejrzane linki** `[utilities]` | Sprawdzenie domeny lub linku z SMS na liście ostrzeżeń, z obsługą subdomen i IDN. Nie otwiera badanego adresu; brak wpisu nie potwierdza bezpieczeństwa. | CERT Polska (🏛 oficjalna lista) |
@@ -76,7 +77,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs — oferty i widełki** `[general]` | Oferty SOLID.Jobs, zdalność, osobne kwoty B2B/UoP i statystyki portalu | SOLID.Jobs — oficjalne API |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Dni robocze, święta (z Wigilią), wymiar czasu pracy (art. 130 KP), terminy płatności oraz terminy ZUS, PIT, CIT, VAT i PPK przesuwane z weekendów i świąt. Działa offline. | Przepisy prawa (📚 dane statyczne, z podstawą prawną) |
 
-Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje 10 przykładów; pełny katalog obejmuje 25 skilli.
+Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje wszystkie 26 skilli — po jednym przykładzie na każdy skill.
 
 
 ## Nowe scenariusze: praca, adresy i dane
