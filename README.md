@@ -51,6 +51,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | Skill | Nazwa i kategoria | Opis | Źródło danych |
 |---|---|---|---|
 | [`adresy`](skills/adresy/SKILL.md) | **Adresy i GPS** `[public_data]` | Adres na GPS i pobliski adres dla współrzędnych; zachowuje warianty dopasowania | GUGiK UUG — oficjalne API |
+| [`apteki`](skills/apteki/SKILL.md) | **Apteki** `[health]` | Adres, kontakt, status wpisu i zgłoszone godziny; domyślnie aktywne apteki ogólnodostępne i punkty apteczne. | CeZ / WIF — oficjalny eksport CSV |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Weryfikacja statusu podatnika VAT, NIP, REGON, KRS i kont bankowych przed przelewem B2B (split payment). | Ministerstwo Finansów (🏛 oficjalne API) |
 | [`ceny-deweloperow`](skills/ceny-deweloperow/SKILL.md) | **Historia ceny mieszkania** `[public_data]` | Zmiany opublikowanej ceny lokalu, daty i luki; obsługa wybranych schematów plików | dane.gov.pl / cenniki deweloperów |
 | [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — podejrzane linki** `[utilities]` | Sprawdzenie domeny lub linku z SMS na liście ostrzeżeń, z obsługą subdomen i IDN. Nie otwiera badanego adresu; brak wpisu nie potwierdza bezpieczeństwa. | CERT Polska (🏛 oficjalna lista) |

@@ -51,6 +51,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | Skill | Name & Category | Description | Data Source |
 |---|---|---|---|
 | [`adresy`](skills/adresy/SKILL.md) | **Addresses and GPS** `[public_data]` | Polish address geocoding and nearby address lookup; preserves ambiguous matches | GUGiK UUG — official API |
+| [`apteki`](skills/apteki/SKILL.md) | **Pharmacies** `[health]` | Addresses, contacts, registry status and reported hours; active community pharmacies and pharmacy points by default. | CeZ / WIF — official CSV export |
 | [`biala-lista`](skills/biala-lista/SKILL.md) | **Biała Lista VAT** `[finance]` | Verify Polish VAT status, NIP, REGON, KRS, and registered bank accounts before B2B transfers (split payment). | Ministry of Finance (🏛 official API) |
 | [`ceny-deweloperow`](skills/ceny-deweloperow/SKILL.md) | **Developer price history** `[public_data]` | Observed asking-price changes for one unit; source dates, gaps and limited supported file schemas | dane.gov.pl / developer-published files |
 | [`cert-pl`](skills/cert-pl/SKILL.md) | **CERT Polska — suspicious links** `[utilities]` | Check domains and SMS links against the official warning list, including subdomains and IDN. Does not visit submitted URLs; absence is not proof of safety. | CERT Polska (🏛 official feed) |

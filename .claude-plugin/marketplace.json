@@ -10,9 +10,10 @@
       "name": "polskie-skille",
       "displayName": "Polskie Skille (all skills)",
       "source": "./",
-      "description": "All 25 Polish skills: Adresy — geokodowanie GUGiK, Biała Lista Podatników VAT, Ceny deweloperów — historia ceny mieszkania, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Leki — rejestr, opakowania i oficjalne ulotki, Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
+      "description": "All 26 Polish skills: Adresy — geokodowanie GUGiK, Apteki — adresy, kontakt i status rejestru, Biała Lista Podatników VAT, Ceny deweloperów — historia ceny mieszkania, CERT Polska — podejrzane linki, Działki — lokalizacja i granice ULDK, Energia — ceny RCE z PSE, Filmweb, IMGW-PIB Pogoda i Ostrzeżenia, InPost & Paczkomaty, Krajowy Rejestr Sądowy (KRS), Leki — rejestr, opakowania i oficjalne ulotki, Moja gmina — statystyki GUS BDL, Narodowy Bank Polski (NBP), NFZ Kolejki i Czas Oczekiwania (PCUŚ), Nieruchomości — ceny transakcyjne RCN, Odjazdy — Gdańsk, Poznań i Szczecin, Ostrzeżenia GIS — produkty i partie, Otwarte dane — wyszukiwarka dane.gov.pl, Prawo (ISAP / Dziennik Ustaw), Produkty — skład i etykiety żywności, Przetargi — ogłoszenia BZP, Sejm Rzeczypospolitej Polskiej, Smog — jakość powietrza GIOŚ, SOLID.Jobs — oferty pracy i widełki, Terminy, dni robocze i święta.",
       "skills": [
         "./skills/adresy",
+        "./skills/apteki",
         "./skills/biala-lista",
         "./skills/ceny-deweloperow",
         "./skills/cert-pl",
@@ -45,6 +46,7 @@
       "keywords": [
         "adresy",
         "agent-skills",
+        "apteki",
         "bdl",
         "biala-lista",
         "bzp",
@@ -86,6 +88,7 @@
         "przetargi",
         "public-data",
         "rce",
+        "rejestr-aptek",
         "sejm",
         "smog",
         "spolki",
@@ -114,6 +117,23 @@
         "gps",
         "gugik",
         "prg"
+      ]
+    },
+    {
+      "name": "apteki",
+      "displayName": "Apteki — adresy, kontakt i status rejestru",
+      "source": "./skills/apteki",
+      "description": "Find Polish pharmacy records by city, street or name in the official CeZ Rejestr Aptek CSV export.",
+      "homepage": "https://github.com/b44x/ai-polish-skills/tree/main/skills/apteki",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "license": "MIT",
+      "category": "health",
+      "tags": [
+        "apteki",
+        "rejestr-aptek",
+        "adresy-aptek",
+        "telefon",
+        "cez"
       ]
     },
     {
