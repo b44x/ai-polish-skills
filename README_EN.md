@@ -13,14 +13,14 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 
 ## Demo
 
-**See Polskie Skille in action** — one question in Polish, the agent picks a skill, the skill queries an official Polish source (Ministry of Finance, KRS, NBP, IMGW-PIB, NFZ, Sejm RP, InPost, CERT Polska, GIOŚ, BZP) and returns a human-readable result. Every value in the video comes from real runs of the skills.
+**See Polskie Skille in action** — 26 Polish questions, 26 skills and readable results from public services, registries and commercial providers. Every value comes from real skill runs; scenes identify their sources and observation dates.
 
 <p align="center">
   <a href="docs/demo/demo.mp4"><img src="docs/demo/demo.gif" alt="Polskie Skille demo: an AI agent using Polish APIs and public data" width="960"></a>
 </p>
 
 <p align="center">
-  ▶️ <a href="docs/demo/demo.mp4"><b>Watch the full demo (MP4, 1080p, ≈84 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">how to regenerate the demo</a>
+  ▶️ <a href="docs/demo/demo.mp4"><b>Watch the full demo (MP4, 1080p, ≈3 min 15 s)</b></a> · 🌐 <a href="https://polskieskille.pl">polskieskille.pl</a> · 🛠 <a href="docs/demo/README.md">how to regenerate the demo</a>
 </p>
 
 ---
@@ -77,9 +77,11 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs offers and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
 
+The video covers all 26 skills with one real captured example per skill. Source dates remain explicit, including historical developer prices and offline calendar calculations.
+
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows 10 examples; the full catalogue contains 25 skills.
+The video shows every registered skill: 26 examples across 26 skills.
 
 
 ## New workflows: jobs, addresses and data

@@ -53,7 +53,7 @@
   #progress { position: absolute; top: 46px; left: 0; right: 0; height: 2px; background: var(--cyan); transform-origin: left; }
   #term .body { position: absolute; top: 48px; left: 0; right: 0; bottom: 0; padding: 30px 44px; font-family: var(--mono); }
   .scene { position: absolute; left: 44px; right: 44px; top: 30px; bottom: 26px; background: var(--panel); }
-  .ln { font-size: 27px; line-height: 44px; white-space: pre; }
+  .ln { font-size: 26px; line-height: 38px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .prompt { color: var(--text); }
   .prompt .chev { color: var(--accent); margin-right: 16px; font-weight: 700; }
   .caret { display: inline-block; width: 14px; height: 30px; background: var(--text); vertical-align: -5px; margin-left: 3px; }
@@ -78,9 +78,9 @@
   .badge { font-family: var(--mono); font-size: 18px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
   .badge.ok { color: var(--ok); border-color: rgba(63,209,139,.45); background: rgba(63,209,139,.08); }
   .big { font-size: 52px; font-weight: 700; margin-top: 14px; color: var(--text); }
-  .rows { display: grid; grid-template-columns: 330px 1fr; column-gap: 26px; row-gap: 8px; margin-top: 16px; font-size: 25px; line-height: 34px; }
-  .rows .k { color: var(--muted); }
-  .rows .v { color: var(--text); }
+  .rows { display: grid; grid-template-columns: 330px minmax(0, 1fr); column-gap: 26px; row-gap: 8px; margin-top: 16px; font-size: 25px; line-height: 34px; }
+  .rows .k { color: var(--muted); overflow-wrap: anywhere; }
+  .rows .v { color: var(--text); overflow-wrap: anywhere; }
   .plist { margin-top: 12px; font-family: var(--mono); font-size: 21px; line-height: 32px; color: var(--text); }
   .plist div::before { content: "•  "; color: var(--dim); }
   table.t { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 22px; }
@@ -103,7 +103,7 @@
   .node .n { display: inline-block; font-size: 19px; letter-spacing: 2px; padding: 9px 18px; border-radius: 8px; border: 1px solid var(--line); color: var(--dim); background: #0b0f15; }
   .node.on .n { color: var(--text); border-color: #3a4757; background: #111822; }
   .node.hot .n { color: #0b0f14; background: var(--cyan); border-color: var(--cyan); }
-  .node .sub { margin-top: 10px; font-size: 18px; color: var(--muted); height: 24px; white-space: nowrap; }
+  .node .sub { max-width: 300px; overflow: hidden; text-overflow: ellipsis; margin-top: 10px; font-size: 18px; color: var(--muted); height: 24px; white-space: nowrap; }
   .conn { width: 70px; height: 2px; background: var(--line); margin-top: 20px; position: relative; }
   .conn .p { position: absolute; left: 0; top: 0; bottom: 0; background: var(--cyan); }
 </style>
@@ -186,7 +186,7 @@
 
   // ---------------- flow strip ----------------
   const flow = document.getElementById("flow");
-  const FLOW = ["PYTANIE", "AGENT", "POLSKI SKILL", "OFICJALNE ŹRÓDŁO", "WYNIK"];
+  const FLOW = ["PYTANIE", "AGENT", "POLSKI SKILL", "ŹRÓDŁO DANYCH", "WYNIK"];
   const nodes = [], conns = [];
   FLOW.forEach((label, i) => {
     if (i) { const c = el("div", "conn"); const p = el("div", "p"); c.appendChild(p); flow.appendChild(c); conns.push(p); }
@@ -275,7 +275,8 @@
     }
     if (card.notes) card.notes.forEach((n) => { const d = el("div", "notes", esc(n)); res.appendChild(d); parts.push(d); });
     root.appendChild(res);
-    const foot = el("div", "footer", esc(s.footer)); root.appendChild(foot);
+    const captured = s.runs[0].capturedAt.slice(0, 10);
+    const foot = el("div", "footer", esc(s.footer + " · zapis: " + captured)); root.appendChild(foot);
 
     sceneMeta.push({ s, t0, t1, routeAt, firstCmdAt, cardAt, typeStart, thinkStart });
 
