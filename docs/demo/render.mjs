@@ -38,6 +38,11 @@ if (!data.complete) { console.error(`${dataPath} is incomplete — finish the ca
 // The catalogue can contain more skills than the examples selected for this demo.
 const registry = JSON.parse(fs.readFileSync(path.join(here, "../../registry/registry.json"), "utf8"));
 data.catalogSkillsCount = registry.skills.length;
+const expected = new Set(registry.skills.map(s => s.name));
+if (data.scenes.length !== expected.size || new Set(data.scenes.map(s => s.skill)).size !== expected.size ||
+    data.scenes.some(s => !expected.has(s.skill) || !s.runs.length || s.runs.some(r => r.exitCode !== 0))) {
+  console.error("Demo needs exactly one successful captured scene per registered skill."); process.exit(65);
+}
 const sceneUrl = pathToFileURL(path.join(here, "scene.html")).href;
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "demo-render-"));
 
