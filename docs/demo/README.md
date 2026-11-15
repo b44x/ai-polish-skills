@@ -1,73 +1,72 @@
-# Polskie Skille — demo video
+# Polskie Skille — complete catalogue demo
 
-One canonical demo includes the seven existing scenes plus CERT Polska, GIOŚ air quality and BZP procurement: 10 examples, approximately 84 seconds. Prompts and Polish post drafts for the new skills are in [new-skills-launch.md](new-skills-launch.md).
+One canonical demo covers **all 26 registered skills**, once each, in alphabetical order. The current render is approximately **3 min 15 s**. Every scene uses actual successful script output captured on 2026-11-13; this is a recording, not a claim of continuously current results.
 
-The outro distinguishes the total number of available skills from the examples shown. At render time, `render.mjs` reads the catalogue count from `registry/registry.json`, including when using `--reuse-data`; captured API observations remain unchanged.
-
-| File | What it is |
+| File | Purpose |
 |---|---|
-| [`demo.mp4`](demo.mp4) | Full demo: H.264, 1920×1080, 30 fps, ≈84 s |
-| [`demo.gif`](demo.gif) | README preview: 960×540, 20 fps |
-| [`demo_data.json`](demo_data.json) | Captured output of the skills used in the video (commands, exit codes, timings, raw JSON) |
-| [`capture.py`](capture.py) | Runs the real, unmodified skills and writes `demo_data.json` |
-| [`scene.html`](scene.html) | Deterministic 1920×1080 animation (terminal session + flow strip) |
-| [`render.mjs`](render.mjs) | Renders `scene.html` frame by frame with Playwright/Chromium and encodes via ffmpeg |
-| [`generate_demo.sh`](generate_demo.sh) | One command that does everything |
+| `demo.mp4` | H.264, 1920×1080, 30 fps, approximately 195 seconds |
+| `demo.gif` | Full animated README preview, 960×540, 20 fps |
+| `demo_data.json` | Exact commands, timings, capture timestamps, raw JSON and derived display cards |
+| `capture.py` | Runs the unmodified skills and builds one scene for every registry entry |
+| `scene.html` | Deterministic animation with overlapping transitions and content-based reading time |
+| `render.mjs` | Playwright/Chromium frame rendering and ffmpeg encoding; rejects missing/duplicate skill coverage |
+| `generate_demo.sh` | Live capture and render, or render saved observations |
 
 ## Regenerate
 
 ```bash
-./docs/demo/generate_demo.sh               # live capture + MP4 + GIF
-./docs/demo/generate_demo.sh --reuse-data  # re-render from the existing demo_data.json
+./docs/demo/generate_demo.sh
+./docs/demo/generate_demo.sh --reuse-data
+python3 docs/demo/capture.py --only apteki leki
 ```
 
-Requirements (tools only, nothing is added to the project): Python 3.9+, Node 18+,
-Playwright for Node with Chromium (`npm i -g playwright && npx playwright install chromium`)
-and ffmpeg with libx264 (`ffmpeg` on `PATH`, `$FFMPEG`, or `pip install imageio-ffmpeg`).
+Requirements: Python 3.9+, Node 18+, Playwright for Node and Chromium, and ffmpeg with libx264. A temporary Playwright installation can be supplied with `NODE_PATH`; use `DEMO_CHROMIUM_EXECUTABLE` for an existing browser and `DEMO_WORKERS` to control parallel rendering. These are media tools, not skill runtime dependencies.
 
-Alternatively, set `DEMO_CHROMIUM_EXECUTABLE` to an existing Chrome/Chromium executable. A temporary Playwright installation can be provided through `NODE_PATH`; no project dependency is required.
+Failed captures write a separate `demo_data.incomplete.json` and preserve the previous canonical capture. Retry the named failures with `--only`; the renderer never substitutes fixtures or fabricated success. Captures make at most two attempts for upstream errors and stop on reported throttling. The full capture can download the RPL XML and RA CSV; do not refresh these in a tight loop.
 
-If a public API is temporarily unavailable, the capture retries and then stops without
-rendering. Re-capture only the missing scenes with:
+## Storyboard
 
-```bash
-python3 docs/demo/capture.py --only nfz sejm
-```
+Adjacent scenes overlap by 0.32 seconds. Reading holds vary with displayed content; actual runtime is recorded in the command line, while video execution waits are condensed for presentation. Intro: 0–3 seconds; outro follows the final scene.
 
-## Storyboard (≈84 s)
+| Start | End | Skill | Question |
+|---|---|---|---|
+| 0:03 | 0:10 | `adresy` | Współrzędne adresu Marki, Andersa 1 |
+| 0:09 | 0:17 | `apteki` | Znajdź apteki przy Grunwaldzkiej w Gdańsku |
+| 0:16 | 0:24 | `biala-lista` | Sprawdź firmę po NIP 5261040828 |
+| 0:23 | 0:31 | `ceny-deweloperow` | Pokaż archiwalną historię ceny lokalu 11.A — Spokojny Wilanów |
+| 0:30 | 0:37 | `cert-pl` | Sprawdź domenę cert.pl na liście CERT Polska |
+| 0:37 | 0:44 | `dzialki` | Znajdź granice działki 022602_1.0003.59 |
+| 0:44 | 0:51 | `energia` | Znajdź najtańsze dwie godziny RCE z 12 listopada 2026 |
+| 0:51 | 0:57 | `filmweb` | Jaką ocenę ma Matrix na Filmwebie? |
+| 0:57 | 1:05 | `imgw` | Jaka jest teraz pogoda w Zakopanem? |
+| 1:05 | 1:12 | `inpost` | Gdzie odbiorę paczkę? Najbliższy Paczkomat przy dworcu Gdańsk Główny |
+| 1:12 | 1:21 | `krs` | Kto reprezentuje spółkę o numerze KRS 0000006865? |
+| 1:20 | 1:28 | `leki` | Jaki lek i ulotka odpowiadają kodowi 5909990296026? |
+| 1:27 | 1:35 | `moja-gmina` | Sprawdź definicję i lata wskaźnika ludności GUS dla gmin |
+| 1:35 | 1:42 | `nbp` | Jaki jest dzisiaj kurs EUR i ile to jest 25 000 EUR w PLN? |
+| 1:42 | 1:51 | `nfz` | Gdzie w promieniu 50 km od Gdańska mogę zrobić rezonans na NFZ? |
+| 1:51 | 1:58 | `nieruchomosci` | Pokaż zapisane transakcje mieszkań w centrum Warszawy |
+| 1:58 | 2:05 | `odjazdy` | Kiedy odjeżdżają autobusy i tramwaje z Bramy Portowej w Szczecinie? |
+| 2:05 | 2:12 | `ostrzezenia-gis` | Pokaż najnowsze ostrzeżenia produktowe GIS |
+| 2:11 | 2:18 | `otwarte-dane` | Znajdź zbiory otwartych danych o transporcie |
+| 2:18 | 2:26 | `prawo` | Sprawdź status i najnowszy tekst jednolity Kodeksu pracy |
+| 2:25 | 2:33 | `produkty` | Sprawdź etykietę produktu po kodzie 5901432003117 |
+| 2:32 | 2:41 | `przetargi` | Znajdź ogłoszenia BZP z kodem CPV projektowania stron WWW z ostatnich 30 dni |
+| 2:41 | 2:49 | `sejm` | Jak głosowano w ostatnim głosowaniu Sejmu? |
+| 2:49 | 2:56 | `smog` | Jaka jest jakość powietrza w pobliżu centrum Krakowa? |
+| 2:56 | 3:04 | `solid-jobs` | Pokaż oferty Python i widełki z SOLID.Jobs |
+| 3:03 | 3:10 | `terminy` | Jaki wymiar czasu pracy przypada na grudzień 2026? |
 
-| Time | Scene | Skill → source |
-|---|---|---|
-| 0–3 s | Intro | — |
-| 3.0–10.4 s | Company VAT status | `biala-lista` → Ministerstwo Finansów |
-| 10.1–19.1 s | Company representation | `krs` → Ministerstwo Sprawiedliwości |
-| 18.8–26.2 s | EUR rate and invoice conversion | `nbp` → NBP |
-| 25.8–33.6 s | Weather in Zakopane | `imgw` → IMGW-PIB |
-| 33.3–42.3 s | MRI queues near Gdańsk | `nfz` → NFZ |
-| 42.0–50.6 s | Latest captured Sejm vote | `sejm` → Kancelaria Sejmu RP |
-| 50.3–57.5 s | Nearby Paczkomaty | `inpost` → InPost ShipX |
-| 57.2–63.9 s | Domain check | `cert-pl` → CERT Polska |
-| 63.5–71.1 s | Air quality near Kraków city centre | `smog` → GIOŚ |
-| 70.8–79.3 s | Website design procurement notices | `przetargi` → BZP |
-| 79.3–83.8 s | Outro | — |
+## Data interpretation
 
-Adjacent scenes overlap by 0.32 s. Prompt typing takes 0.85–1.6 s; reading time after the result reveal depends on the number of displayed items (3.6–5.8 s). The header shows the scene number and overall progress. The timeline is derived from the captured content, so duration can change when the data is refreshed.
-
-## Data honesty
-
-- Every value on screen comes from `demo_data.json`, which `capture.py` fills by running
-  the scripts in `skills/`. It uses no offline fixtures and no fallback values.
-- NIP 5261040828 belongs to Główny Urząd Statystyczny, a state office with no KRS entry.
-  The KRS scene therefore uses KRS 0000006865, the example documented in the `krs` skill.
-  The KRS API returns personal names already anonymised.
-- NFZ shows PCUŚ, the forecast waiting time (a statistical estimate), not the first
-  free appointment. Distances computed from approximate (city-centre) coordinates are
-  marked with `≈` and `*`.
-- The Sejm scene shows the latest vote on the most recent sitting that has any
-  yes/no/abstain votes, which skips quorum checks. It shows only the source numbers, with no commentary.
-- No InPost tracking number is published in this repository. Set
-  `DEMO_INPOST_TRACKING=<24 digits>` to track your own parcel (it is masked on screen).
-  Without it, the scene shows a live Paczkomat lookup near Gdańsk Główny.
-
-- The combined capture retains the original timestamps of each run: the first seven scenes were captured in September 2026, and the three new scenes in November 2026. Rendering saved data does not refresh the source observations. Use the default generation command to capture all scenes again, or `capture.py --only cert-pl smog przetargi` to update selected scenes.
-- CERT absence is not proof of safety; GIOŚ values carry individual measurement times; BZP notice deadlines do not guarantee a tender still accepts offers.
+- Every display value is derived from captured JSON. The registry total and scene coverage are checked before rendering. New registry entries require new real capture adapters.
+- `--reuse-data` rerenders observations without refreshing them. Every run retains its capture timestamp; source observation dates remain distinct.
+- Developer prices deliberately show an archived 2025-08-11–12 sample, labelled historical and asking-price-only. It does not establish current availability or a complete price history.
+- `moja-gmina` demonstrates actual indicator metadata and available years; it does not invent a population comparison.
+- `terminy` is an offline calculation with a rule-verification date, not a fresh legal lookup.
+- NFZ PCUŚ is a statistical waiting estimate, not an appointment date. Approximate city-centre distances are marked.
+- Pharmacy status/hours do not confirm current opening, duty or stock. RPL supplies registry data and document links, not treatment recommendations.
+- Open Food Facts is a community source with ODbL/DbCL attribution; missing allergen fields do not establish absence. GIS text is attributed under CC BY-SA 4.0. GUS and transport attribution is retained.
+- GIOŚ shows measurement times, CERT absence is not proof of safety, and BZP dates do not confirm a tender is still open.
+- Filmweb uses its unofficial interface; the flow strip says “data source”, without labelling every provider an official API.
+- No private InPost tracking number is required. Without `DEMO_INPOST_TRACKING`, the capture shows nearby Paczkomaty.
