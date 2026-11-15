@@ -30,7 +30,7 @@ from typing import Any, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parents[2]
 SKILLS = ROOT / "skills"
-RETRIES = 10
+RETRIES = 2
 PAUSE_S = 2.0  # be gentle with public APIs (NFZ/MF sit behind rate-limiting WAFs)
 
 
@@ -47,7 +47,7 @@ def run_skill(skill: str, *args: str) -> Dict[str, Any]:
     for attempt in range(1, RETRIES + 1):
         time.sleep(PAUSE_S)
         started = time.monotonic()
-        proc = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True, timeout=90)
+        proc = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True, timeout=180)
         duration_ms = int((time.monotonic() - started) * 1000)
         if proc.returncode == 0:
             return {
@@ -59,8 +59,14 @@ def run_skill(skill: str, *args: str) -> Dict[str, Any]:
                 "output": json.loads(proc.stdout),
             }
         last_err = (proc.stderr or proc.stdout).strip()[:300]
-        # Retry only upstream/network errors (exit 69 or unparsable upstream reply).
-        if proc.returncode not in (69, 1):
+        # Retry only upstream/network errors (exit 69), never throttling or usage failures.
+        if proc.returncode != 69:
+            break
+        try:
+            error = json.loads(proc.stderr)
+        except ValueError:
+            error = {}
+        if error.get("retry_after") or error.get("http_status") == 429 or error.get("type") in ("rate_limit", "local_rate_limit"):
             break
         print(f"  … {skill} {' '.join(args)}: attempt {attempt} failed ({last_err[:90]})", file=sys.stderr)
         time.sleep(min(5 * attempt, 40))
@@ -398,6 +404,124 @@ SCENES = [scene_biala_lista, scene_krs, scene_nbp, scene_imgw, scene_nfz,
           scene_sejm, scene_inpost, scene_cert_pl, scene_smog, scene_przetargi]
 
 
+# Additional scenes use the same real-command provenance as the original capture.
+EXTRA_COMMANDS = {
+    'adresy': ('Współrzędne adresu Marki, Andersa 1', ['search', 'Marki, Andersa 1']),
+    'apteki': ('Znajdź apteki przy Grunwaldzkiej w Gdańsku', ['search', '--city', 'Gdańsk', '--street', 'Grunwaldzka', '--limit', '2']),
+    'ceny-deweloperow': ('Pokaż archiwalną historię ceny lokalu 11.A — Spokojny Wilanów', ['history', '71532', 'Spokojny Wilanów::11.A', '--with-resource', '71531']),
+    'dzialki': ('Znajdź granice działki 022602_1.0003.59', ['id', '022602_1.0003.59']),
+    'energia': ('Znajdź najtańsze dwie godziny RCE z 12 listopada 2026', ['cheapest', '2026-11-12', '--minutes', '120']),
+    'filmweb': ('Jaką ocenę ma Matrix na Filmwebie?', ['film', '628']),
+    'leki': ('Jaki lek i ulotka odpowiadają kodowi 5909990296026?', ['barcode', '5909990296026']),
+    'moja-gmina': ('Sprawdź definicję i lata wskaźnika ludności GUS dla gmin', ['indicator', 'ludnosc']),
+    'nieruchomosci': ('Pokaż zapisane transakcje mieszkań w centrum Warszawy', ['search', '--lat', '52.2297', '--lon', '21.0122', '--function', 'mieszkalna', '--limit', '2', '--scan-limit', '20']),
+    'odjazdy': ('Kiedy odjeżdżają autobusy i tramwaje z Bramy Portowej w Szczecinie?', ['departures', 'szczecin', '10822', '--limit', '3']),
+    'ostrzezenia-gis': ('Pokaż najnowsze ostrzeżenia produktowe GIS', ['list', '--limit', '2']),
+    'otwarte-dane': ('Znajdź zbiory otwartych danych o transporcie', ['search', 'transport', '--limit', '2']),
+    'prawo': ('Sprawdź status i najnowszy tekst jednolity Kodeksu pracy', ['act', 'kp', '--limit', '2']),
+    'produkty': ('Sprawdź etykietę produktu po kodzie 5901432003117', ['barcode', '5901432003117']),
+    'solid-jobs': ('Pokaż oferty Python i widełki z SOLID.Jobs', ['search', 'Python', '--limit', '2']),
+    'terminy': ('Jaki wymiar czasu pracy przypada na grudzień 2026?', ['month', '2026-12']),
+}
+
+
+def extra_scene(name, run):
+    o = run['output']
+    r = o.get('result', o)
+    rows, notes = [], []
+    title, source = name, o.get('source', name)
+    if name == 'adresy':
+        a = r['results'][0]; title = a['city'] + ', ' + a['street'] + ' ' + a['number']; source = 'GUGiK — UUG'
+        rows = [['Szerokość', str(a['latitude'])], ['Długość', str(a['longitude'])], ['Układ', r['crs']]]
+        notes = ['Punkt adresowy; nie granice ani własność działki.']
+    elif name == 'apteki':
+        title = 'Gdańsk · Grunwaldzka'; source = 'Rejestr Aptek / CeZ / WIF'
+        for a in r['items']:
+            rows.append([a['name'] or a['id'], a['address']['nazwa_ulicy'] + ' ' + a['address']['numer_budynku']])
+            rows.append(['Telefon', a['contact']['telefon'] or 'Brak w rejestrze'])
+        notes = ['Stan rejestru: ' + str(o['snapshot']['source_as_of']) + '. Nie potwierdza otwarcia ani stanu leków.']
+    elif name == 'ceny-deweloperow':
+        title = 'Spokojny Wilanów · 11.A'; source = 'dane.gov.pl / wydawca cennika'
+        for p in r['price_points'][:3]:
+            rows.append([str(p.get('first_observed', p.get('date', ''))), str(p.get('price_total_pln')) + ' PLN'])
+        rows.extend([['Zakres obserwacji', r['first_observed'] + ' → ' + r['last_observed']], ['Zmiana w próbie', r['first_to_last_change']['percent'] + '%']])
+        notes = ['Archiwalne ceny ofertowe wydawcy. Nie ceny transakcyjne ani dowód aktualnej dostępności.']
+    elif name == 'dzialki':
+        a = o['records'][0]; title = a['id']; source = 'GUGiK — ULDK'
+        rows = [['Gmina', a['commune']], ['Powiat', a['county']], ['Obręb', a['district']], ['Geometria', a['geometry']['geojson']['type'] + ' · ' + a['geometry']['crs']]]
+        notes = ['Źródło: Główny Urząd Geodezji i Kartografii. Bez danych własności.']
+    elif name == 'energia':
+        w = o['window']; title = o['date'] + ' · najtańsze 120 minut'; source = 'PSE — RCE'
+        rows = [['Od', w['start_local']], ['Do', w['end_local']], ['Średnia RCE', f"{w['mean_pln_kwh']:.4f} PLN/kWh"]]
+        notes = ['Cena rynkowa; nie pełny koszt rachunku. Europe/Warsaw.']
+    elif name == 'filmweb':
+        title = o['title'] + ' (' + str(o['year']) + ')'; source = 'Filmweb — nieoficjalne API'
+        rows = [['Ocena', f"{o['rating']:.1f}/10"], ['Liczba ocen', str(o['votesCount'])], ['Gatunki', ', '.join(o['genres'])]]
+    elif name == 'leki':
+        a = r['items'][0]; p = a['product']; title = p['name'] + ' · ' + p['strength']; source = 'RPL / URPL / CeZ'
+        rows = [['Postać', p['form']], ['Substancja', p['common_name']], ['Opakowanie', ' · '.join((u['pojemnosc'] or '') + ' ' + (u['jednostkaPojemnosci'] or '') for u in a['package']['units'])], ['Ulotka', p['documents']['ulotka']]]
+        notes = ['Stan RPL: ' + o['snapshot']['source_as_of'] + '. Link do dokumentu; bez doboru leczenia.']
+    elif name == 'moja-gmina':
+        title = 'Ludność ogółem · GUS BDL'; source = 'GUS, Bank Danych Lokalnych'
+        rows = [['Wskaźnik', str(r['id'])], ['Jednostka', r['measureUnitName']], ['Poziom', str(r['level']) + ' — gminy'], ['Dostępne lata', str(min(r['years'])) + '–' + str(max(r['years']))]]
+        notes = ['Źródło: GUS BDL · CC BY 4.0. Definicja serii, nie bieżący pomiar.']
+    elif name == 'nieruchomosci':
+        title = 'RCN · próbka wokół centrum Warszawy'; source = 'GUGiK — RCN'
+        for a in o['records'][:2]:
+            rows.append([short(a['address'], 65), str(a['object_price_pln']) + ' PLN · obiekt'])
+            rows.append(['Data aktu / powierzchnia', a['deed_date'] + ' · ' + str(a['area_m2']) + ' m²'])
+        notes = [f"Przejrzano {o['scanned_records']} rekordów. Cena obiektu; nie wycena ani pełny rynek."]
+    elif name == 'odjazdy':
+        title = 'Szczecin · ' + o['stop']['name']; source = 'ZDiTM Szczecin'
+        from zoneinfo import ZoneInfo
+        for a in o['departures'][:3]:
+            t = a['estimated_at'] or a['scheduled_at']
+            local = datetime.datetime.fromisoformat(t.replace('Z', '+00:00')).astimezone(ZoneInfo('Europe/Warsaw')).strftime('%H:%M')
+            rows.append([a['line'] + ' → ' + short(a['destination'], 45), local + ' · ' + a['status']])
+        notes = ['Zapis tablicy z chwili nagrania; prognoza nie gwarantuje przyjazdu. CC0 1.0.']
+    elif name == 'ostrzezenia-gis':
+        title = 'Najnowsze komunikaty GIS'; source = 'Główny Inspektorat Sanitarny'
+        rows = [[n['published_at'], short(n['title'], 145)] for n in r['notices'][:2]]
+        notes = ['Źródło: GIS / Gov.pl · CC BY-SA 4.0 · HTML → tekst. Ograniczona lista; brak wpisu nie dowodzi bezpieczeństwa.']
+    elif name == 'otwarte-dane':
+        title = 'Zbiory danych · transport'; source = 'dane.gov.pl'
+        rows = [[a['id'], short(a['attributes']['title'].replace('<mark>', '').replace('</mark>', ''), 125)] for a in r['data'][:2]]
+        notes = ['Metadane katalogu; aktualność i warunki użycia sprawdzaj dla każdego źródła.']
+    elif name == 'prawo':
+        title = 'Kodeks pracy · tekst jednolity'; source = 'Kancelaria Sejmu — ELI'
+        a = o['latestConsolidatedText']
+        rows = [['Status aktu', o['status']], ['Tekst jednolity', a['displayAddress']], ['Publikacja', a['promulgation']], ['Dokument', a['links']['pdf']]]
+        notes = [f"Późniejsze zmiany: {len(o['amendmentsAfterLatestConsolidatedText'])}. Tekst źródłowy, nie porada prawna."]
+    elif name == 'produkty':
+        title = r['name']['text']; source = 'Open Food Facts contributors'
+        rows = [['Marka', r['brands']], ['Opakowanie', r['quantity']], ['Skład', r['ingredients']['text'] or 'Brak danych'], ['Alergeny', r['allergens']['status']]]
+        notes = ['Dane społecznościowe · ODbL / DbCL. Brak wpisu o alergenie nie oznacza jego braku.']
+    elif name == 'solid-jobs':
+        title = 'Python · oferty SOLID.Jobs'; source = 'SOLID.Jobs'
+        for a in r['jobs'][:2]:
+            pay = a.get('salary') or {}
+            rows.append([short(a['title'], 60), a['company']])
+            rows.append(['Widełki z ogłoszenia', ' – '.join(str(pay.get(k)) for k in ('from', 'to')) + ' ' + str(pay.get('currency')) + '/' + str(pay.get('period')) + ' · ' + str(pay.get('employmentType'))])
+        notes = ['Jedna tablica ofert. Nie łącz wynagrodzeń B2B i UoP.']
+    elif name == 'terminy':
+        title = 'Grudzień 2026 · pełny etat'; source = 'Polskie przepisy · obliczenie offline'
+        rows = [['Wymiar czasu pracy', str(o['workingTimeNormHours']) + ' h'], ['Dni robocze kalendarza', str(o['workingDays'])], ['Obliczenie', o['calculation']]]
+        notes = ['art. 130 KP · 1-miesięczny okres · reguły sprawdzone: ' + o['rulesVerified']]
+    return dict(id=name, skill=name, question=EXTRA_COMMANDS[name][0], source=source, sourceShort=source,
+                runs=[run], card=dict(title=title, rows=rows, notes=notes),
+                footer='Źródło: ' + source)
+
+
+def make_extra(name):
+    def capture():
+        return extra_scene(name, run_skill(name, *EXTRA_COMMANDS[name][1]))
+    capture.__name__ = 'scene_' + name.replace('-', '_')
+    return capture
+
+
+SCENES.extend(make_extra(name) for name in EXTRA_COMMANDS)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Capture live skill outputs for the demo video.")
     parser.add_argument("--out", default=str(Path(__file__).with_name("demo_data.json")))
@@ -429,7 +553,9 @@ def main() -> int:
             print(f"✗ {name}: {exc}", file=sys.stderr)
             failed.append(name)
 
-    write(args.out, scenes, complete=not failed)
+    scenes.sort(key=lambda scene: scene["skill"])
+    destination = args.out if not failed else str(Path(args.out).with_suffix('.incomplete.json'))
+    write(destination, scenes, complete=not failed)
     if failed:
         print(f"Capture incomplete. Retry only the missing scenes with: --only {' '.join(failed)}", file=sys.stderr)
         print("The demo is rendered only from real skill output — no fallback data.", file=sys.stderr)
@@ -438,13 +564,21 @@ def main() -> int:
 
 
 def write(out: str, scenes: List[Dict[str, Any]], complete: bool) -> None:
+    registry = json.loads((ROOT / "registry/registry.json").read_text())
+    expected = {skill["name"] for skill in registry["skills"]}
+    covered = {scene["skill"] for scene in scenes}
+    if complete and (covered != expected or len(scenes) != len(expected)):
+        raise CaptureError("Demo must contain exactly one scene for every registered skill.")
     data = {
         "generatedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         "complete": complete and len(scenes) == len(SCENES),
         "note": "Real skill output; each run retains its own capturedAt timestamp. Regenerate with python3 docs/demo/capture.py.",
         "scenes": scenes,
     }
-    Path(out).write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    destination = Path(out)
+    temporary = destination.with_suffix(destination.suffix + '.tmp')
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    os.replace(temporary, destination)
     print(f"✓ wrote {Path(out).resolve()} ({len(scenes)}/{len(SCENES)} scenes)", file=sys.stderr)
 
 
