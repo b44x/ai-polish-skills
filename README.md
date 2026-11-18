@@ -60,6 +60,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Baza filmów, seriali, ocen krytyków/widzów, obsada, daty premier oraz platformy VOD z cenami w PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Pogoda i Alerty** `[public_data]` | Oficjalne dane pogodowe (temperatura, ciśnienie, wiatr, opady) z 62 stacji w Polsce, ostrzeżenia meteo/hydro oraz stany rzek. | IMGW-PIB (🏛 oficjalne API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Śledzenie paczek po 24-cyfrowym numerze, wyszukiwarka Paczkomatów po kodzie, ulicy, mieście lub GPS z odległością. | InPost ShipX (🔗 public API) |
+| [`kontrahent`](skills/kontrahent/SKILL.md) | **Kontrahent przed przelewem** `[finance]` | Status VAT na wskazany dzień, aktualny KRS, zgodność identyfikatorów i opcjonalna weryfikacja rachunku. | MF / KRS — oficjalne API |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Odpisy spółek i fundacji, skład zarządu, prokurenci, kapitał zakładowy oraz zasady reprezentacji (kto może podpisać umowę). | Ministerstwo Sprawiedliwości (🏛 oficjalne API) |
 | [`leki`](skills/leki/SKILL.md) | **Leki — rejestr i ulotki** `[health]` | Wyszukiwanie nazw i substancji, opakowania po GTIN/EAN oraz oficjalne ulotki i ChPL; z datą rejestru | RPL — URPL / Centrum e-Zdrowia (oficjalny eksport XML) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **Moja gmina — dane GUS BDL** `[public_data]` | Wyszukiwanie jednostek i wskaźników, porównania na wspólny rok i poziom terytorialny. Zachowuje jednostki miary i oznaczenia braków danych. | Główny Urząd Statystyczny (🏛 oficjalne API BDL) |
@@ -77,7 +78,7 @@ Oficjalny rejestr i katalog otwartych skilli dla agentów sztucznej inteligencji
 | [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs — oferty i widełki** `[general]` | Oferty SOLID.Jobs, zdalność, osobne kwoty B2B/UoP i statystyki portalu | SOLID.Jobs — oficjalne API |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Dni robocze, święta (z Wigilią), wymiar czasu pracy (art. 130 KP), terminy płatności oraz terminy ZUS, PIT, CIT, VAT i PPK przesuwane z weekendów i świąt. Działa offline. | Przepisy prawa (📚 dane statyczne, z podstawą prawną) |
 
-Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje wszystkie 26 skilli — po jednym przykładzie na każdy skill.
+Nowe zastosowania: „znajdź działkę po GPS”, „wyszukaj ostrzeżenie o partii produktu” i „odczytaj skład po kodzie kreskowym”. [Prompty i scenariusze demo CERT / smog / przetargi](docs/demo/new-skills-launch.md) · [zapis rzeczywistych uruchomień](docs/demo/demo_data.json). Film pokazuje po jednym przykładzie dla 26 skilli z wydania v0.13.0.
 
 
 ## Nowe scenariusze: praca, adresy i dane

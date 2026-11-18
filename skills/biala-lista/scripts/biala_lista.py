@@ -18,7 +18,7 @@ import urllib.parse
 import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
-API_BASE_URL = "https://wl-api.mf.gov.pl/api"
+API_BASE_URL = "https://wykazpodatnikowvat.mf.gov.pl/api"
 USER_AGENT = "ai-polish-skills-biala-lista/1.0.0 (+https://github.com/b44x/ai-polish-skills)"
 
 # Polish Bank Identifiers (digits 3..6 of NRB / digits 0..4 of BBAN)
@@ -185,7 +185,7 @@ def fetch_api(endpoint: str, params: Dict[str, str]) -> Dict[str, Any]:
             error_exit(f"Błąd zapytania Ministerstwa Finansów: {msg}", "bad_request", 64)
         elif e.code == 429:
             error_exit(
-                "Przekroczono limit zapytań do API Ministerstwa Finansów (300 zapytań/dzień).",
+                "Przekroczono limit zapytań do API Ministerstwa Finansów.",
                 "rate_limit",
                 69,
             )

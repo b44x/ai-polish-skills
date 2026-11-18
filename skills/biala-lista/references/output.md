@@ -4,7 +4,7 @@
 
 The Polish Ministry of Finance (Ministerstwo Finansów - KAS) maintains the official White List of VAT Taxpayers (*Wykaz podatników VAT*).
 
-Official API base: `https://wl-api.mf.gov.pl/api`
+Official API base: `https://wykazpodatnikowvat.mf.gov.pl/api`
 
 ### Why verification matters (Legal Context)
 

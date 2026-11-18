@@ -11,6 +11,7 @@ Match user prompt intent to the appropriate skill:
 
 | User Intent / Capability | Skill Name | Primary Script | Sample Trigger |
 |---|---|---|---|
+| **Compare VAT and KRS identifiers and optionally check the bank account before a transfer** | `kontrahent` | `scripts/kontrahent.py` | `"sprawdź kontrahenta przed przelewem"` |
 | **Verify company by NIP / REGON, VAT whitelist, bank account split payment** | `biala-lista` | `scripts/biala_lista.py` | `"sprawdź NIP 5260250274"`, `"status VAT firmy"` |
 | **Check court register (KRS), board members, proxies, contract signing rules** | `krs` | `scripts/krs.py` | `"kto może podpisać umowę w KRS 0000006865"` |
 | **NBP exchange rates (EUR/USD...), Art. 31a VAT tax invoice calculation, gold** | `nbp` | `scripts/nbp.py` | `"kurs EUR z NBP do faktury z 2026-09-25"` |

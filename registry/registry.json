@@ -4,11 +4,15 @@
   "description": "Oficjalny rejestr polskich skilli dla agentów AI (Claude Code, Cursor, Windsurf, Antigravity)",
   "homepage": "https://polskieskille.pl",
   "repository": "https://github.com/b44x/ai-polish-skills",
-  "skills_count": 26,
+  "skills_count": 27,
   "categories": [
     {
       "name": "public_data",
       "count": 9
+    },
+    {
+      "name": "finance",
+      "count": 4
     },
     {
       "name": "health",
@@ -17,10 +21,6 @@
     {
       "name": "utilities",
       "count": 4
-    },
-    {
-      "name": "finance",
-      "count": 3
     },
     {
       "name": "legal",
@@ -124,7 +124,7 @@
     {
       "name": "biala-lista",
       "display_name": "Biała Lista Podatników VAT",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Check Polish businesses and VAT status in the official Ministry of Finance White List (Biała Lista Podatników VAT). Verify active VAT payer status (Czynny / Zwolniony / Niezarejestrowany), legal company name, REGON, KRS, registered address, and settlement bank accounts by NIP or REGON. Check if a contractor's bank account is on the whitelist before making B2B transfers (critical for split payment and tax deductibility above 15,000 PLN). Reverse-lookup company by 26-digit Polish bank account number (NRB/IBAN). Validate NIP, REGON, and IBAN checksums offline. Use whenever the user asks about NIP, REGON, Biała Lista VAT, \"sprawdź NIP\", \"sprawdź kontrahenta\", \"status VAT spółki\", \"czy numer konta jest na białej liście\", or verifying a Polish invoice.",
       "category": "finance",
       "language": "pl",
@@ -139,8 +139,8 @@
       "official": true,
       "homepage": "https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/",
       "documentation": "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
-      "rate_limit": "300 requests/day per IP",
-      "last_verified": "2026-09-28",
+      "rate_limit": "100 search requests/day and 5000 account checks/day; see MF documentation.",
+      "last_verified": "2026-11-18",
       "tags": [
         "biala-lista",
         "vat",
@@ -151,7 +151,7 @@
         "faktury",
         "rachunek-bankowy"
       ],
-      "compatibility": "Python 3.8+ (standard library only); network access to wl-api.mf.gov.pl.",
+      "compatibility": "Python 3.8+ (standard library only); network access to wykazpodatnikowvat.mf.gov.pl.",
       "entrypoint": "scripts/biala_lista.py",
       "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/biala-lista/SKILL.md",
       "install": {
@@ -469,6 +469,46 @@
         "SKILL.md",
         "references/output.md",
         "scripts/inpost.py"
+      ]
+    },
+    {
+      "name": "kontrahent",
+      "display_name": "Kontrahent przed przelewem — VAT, KRS i rachunek",
+      "version": "1.0.0",
+      "description": "Cross-check a Polish contractor by NIP using the VAT White List and the current KRS extract. Optionally verify the NIP and bank account pair for a specified date. Use for \"sprawdź kontrahenta przed przelewem\", \"czy NIP zgadza się z KRS\", or \"czy rachunek jest na białej liście\".",
+      "category": "finance",
+      "language": "pl",
+      "country": "PL",
+      "license": "MIT",
+      "author": "Michell Hoduń (https://github.com/b44x)",
+      "repository": "https://github.com/b44x/ai-polish-skills",
+      "network": true,
+      "authentication": "none",
+      "source": "Ministerstwo Finansów (KAS) / Ministerstwo Sprawiedliwości",
+      "source_type": "official_api",
+      "official": true,
+      "homepage": "https://polskieskille.pl",
+      "documentation": "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
+      "rate_limit": "One MF search and optional account check per call; see MF documentation.",
+      "last_verified": "2026-11-18",
+      "tags": [
+        "kontrahent",
+        "przelew",
+        "nip",
+        "krs",
+        "vat"
+      ],
+      "compatibility": "Python 3.8+ (standard library only).",
+      "entrypoint": "scripts/kontrahent.py",
+      "skill_md_url": "https://raw.githubusercontent.com/b44x/ai-polish-skills/main/skills/kontrahent/SKILL.md",
+      "install": {
+        "curl": "curl -fsSL https://raw.githubusercontent.com/b44x/ai-polish-skills/main/install.sh | bash -s kontrahent",
+        "cli": "python3 scripts/cli.py install kontrahent",
+        "target_dir": ".agents/skills/kontrahent"
+      },
+      "files": [
+        "SKILL.md",
+        "scripts/kontrahent.py"
       ]
     },
     {

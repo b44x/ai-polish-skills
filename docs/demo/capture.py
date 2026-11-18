@@ -412,6 +412,7 @@ EXTRA_COMMANDS = {
     'dzialki': ('Znajdź granice działki 022602_1.0003.59', ['id', '022602_1.0003.59']),
     'energia': ('Znajdź najtańsze dwie godziny RCE z 12 listopada 2026', ['cheapest', '2026-11-12', '--minutes', '120']),
     'filmweb': ('Jaką ocenę ma Matrix na Filmwebie?', ['film', '628']),
+    'kontrahent': ('Sprawdź status VAT i zgodność NIP z KRS kontrahenta', ['check', '7342867148', '--krs', '6865', '--date', '2026-11-18']),
     'leki': ('Jaki lek i ulotka odpowiadają kodowi 5909990296026?', ['barcode', '5909990296026']),
     'moja-gmina': ('Sprawdź definicję i lata wskaźnika ludności GUS dla gmin', ['indicator', 'ludnosc']),
     'nieruchomosci': ('Pokaż zapisane transakcje mieszkań w centrum Warszawy', ['search', '--lat', '52.2297', '--lon', '21.0122', '--function', 'mieszkalna', '--limit', '2', '--scan-limit', '20']),
@@ -457,6 +458,16 @@ def extra_scene(name, run):
     elif name == 'filmweb':
         title = o['title'] + ' (' + str(o['year']) + ')'; source = 'Filmweb — nieoficjalne API'
         rows = [['Ocena', f"{o['rating']:.1f}/10"], ['Liczba ocen', str(o['votesCount'])], ['Gatunki', ', '.join(o['genres'])]]
+    elif name == 'kontrahent':
+        vat, krs = o['vat'], o['krs']
+        if vat['status'] != 'ok' or krs['status'] != 'ok':
+            raise CaptureError('Contractor demo needs both VAT and KRS results')
+        title, source = vat['name'], 'MF / KAS i Ministerstwo Sprawiedliwości — KRS'
+        match = o['comparison']['current_krs_nip_matches_input']
+        rows = [['VAT · ' + vat['as_of'], vat['statusVat']],
+                ['Aktualny odpis', krs['number'] + ' · ' + krs['extracted_at']],
+                ['NIP zgodny z KRS', {True: 'Tak', False: 'Nie', None: 'Brak danych'}[match]]]
+        notes = ['Potwierdzenie zapytania MF: ' + vat['requestId'] + '. Rachunku nie sprawdzano.']
     elif name == 'leki':
         a = r['items'][0]; p = a['product']; title = p['name'] + ' · ' + p['strength']; source = 'RPL / URPL / CeZ'
         rows = [['Postać', p['form']], ['Substancja', p['common_name']], ['Opakowanie', ' · '.join((u['pojemnosc'] or '') + ' ' + (u['jednostkaPojemnosci'] or '') for u in a['package']['units'])], ['Ulotka', p['documents']['ulotka']]]

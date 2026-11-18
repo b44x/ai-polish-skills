@@ -60,6 +60,7 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`filmweb`](skills/filmweb/SKILL.md) | **Filmweb** `[entertainment]` | Polish film and series database, ratings, cast, premiere dates, and VOD streaming providers with prices in PLN. | Filmweb.pl (🔗 reverse-engineered API) |
 | [`imgw`](skills/imgw/SKILL.md) | **IMGW-PIB Weather & Alerts** `[public_data]` | Official Polish weather observations (temp, pressure, wind, rain) from 62 synoptic stations, meteo/hydro alerts, and river levels. | IMGW-PIB (🏛 official API) |
 | [`inpost`](skills/inpost/SKILL.md) | **InPost & Paczkomaty** `[logistics]` | Parcel tracking by 24-digit tracking number, locker locator by code, address, city, or GPS coordinates with distance. | InPost ShipX (🔗 public API) |
+| [`kontrahent`](skills/kontrahent/SKILL.md) | **Contractor check before a transfer** `[finance]` | Dated VAT status, current KRS extract, identifier comparison and optional bank account check. | MF / KRS — official APIs |
 | [`krs`](skills/krs/SKILL.md) | **Krajowy Rejestr Sądowy** `[legal]` | Court register extracts for companies and foundations, board members, share capital, and signing authority rules. | Ministry of Justice (🏛 official API) |
 | [`leki`](skills/leki/SKILL.md) | **Medicines and official leaflets** `[health]` | Names, active substances, package GTINs and official leaflet/SmPC links, with the registry date | RPL — URPL / Centrum e-Zdrowia (official XML export) |
 | [`moja-gmina`](skills/moja-gmina/SKILL.md) | **GUS Local Statistics** `[public_data]` | Search territorial units and indicators, compare a common year and geographic level, preserving measurement units and missing-data attributes. | Statistics Poland (🏛 official BDL API) |
@@ -77,11 +78,11 @@ Official open-source registry and catalog of AI agent skills tailored for the **
 | [`solid-jobs`](skills/solid-jobs/SKILL.md) | **SOLID.Jobs offers and salary ranges** `[general]` | SOLID.Jobs offers, remote filtering, separate contract pay and provider statistics | SOLID.Jobs — official API |
 | [`terminy`](skills/terminy/SKILL.md) | **Terminy, dni robocze i święta** `[utilities]` | Working days, public holidays (incl. Wigilia), working-time norm (art. 130 Labour Code), payment terms and ZUS, PIT, CIT, VAT and PPK deadlines moved off weekends and holidays. Works offline. | Polish law (📚 static data with legal citations) |
 
-The video covers all 26 skills with one real captured example per skill. Source dates remain explicit, including historical developer prices and offline calendar calculations.
+The video covers the 26 skills in v0.13.0 with one real captured example per skill. Source dates remain explicit, including historical developer prices and offline calendar calculations.
 
 [New skill prompts and launch storyboards (Polish)](docs/demo/new-skills-launch.md) · [captured live outputs](docs/demo/demo_data.json).
 
-The video shows every registered skill: 26 examples across 26 skills.
+The video contains 26 examples from v0.13.0.
 
 
 ## New workflows: jobs, addresses and data
