@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T22:07:20+00:00",
+  "generatedAt": "2026-11-18T21:59:32+00:00",
   "complete": true,
   "note": "Real skill output; each run retains its own capturedAt timestamp. Regenerate with python3 docs/demo/capture.py.",
   "scenes": [
@@ -1145,6 +1145,86 @@
         ]
       },
       "footer": "Źródło: api-shipx-pl.easypack24.net"
+    },
+    {
+      "id": "kontrahent",
+      "skill": "kontrahent",
+      "question": "Sprawdź status VAT i zgodność NIP z KRS kontrahenta",
+      "source": "MF / KAS i Ministerstwo Sprawiedliwości — KRS",
+      "sourceShort": "MF / KAS i Ministerstwo Sprawiedliwości — KRS",
+      "runs": [
+        {
+          "command": [
+            "python3",
+            "skills/kontrahent/scripts/kontrahent.py",
+            "check",
+            "7342867148",
+            "--krs",
+            "6865",
+            "--date",
+            "2026-11-18"
+          ],
+          "exitCode": 0,
+          "durationMs": 501,
+          "attempts": 1,
+          "capturedAt": "2026-11-18T21:59:32+00:00",
+          "output": {
+            "nip": "7342867148",
+            "vat": {
+              "requestId": "tHEzM-99a9baj",
+              "requestDateTime": "18-11-2026 22:59:31",
+              "status": "ok",
+              "as_of": "2026-11-18",
+              "name": "CD PROJEKT RED SPÓŁKA AKCYJNA",
+              "statusVat": "Czynny",
+              "krs": "0000006865"
+            },
+            "krs": {
+              "status": "ok",
+              "number": "0000006865",
+              "registry": "P",
+              "nip": "7342867148",
+              "name": "CD PROJEKT RED SPÓŁKA AKCYJNA",
+              "extracted_at": "18.11.2026 22:59:31",
+              "as_of": "10.08.2026",
+              "last_entry_date": "10.08.2026",
+              "representation": "W PRZYPADKU ZARZĄDU JEDNOOSOBOWEGO DO REPREZENTOWANIA SPÓŁKI UPOWAŻNIONY JEST JEDNOOSOBOWO CZŁONEK ZARZĄDU.\nW PRZYPADKU POWOŁANIA ZARZĄDU WIELOOSOBOWEGO DO REPREZENTOWANIA SPÓŁKI UPOWAŻNIENI SĄ DWAJ CZŁONKOWIE ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE ALBO JEDEN CZŁONEK ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE Z PROKURENTEM."
+            },
+            "bank": {
+              "status": "not_requested"
+            },
+            "comparison": {
+              "vat_krs_number_matches_input": true,
+              "current_krs_nip_matches_input": true
+            },
+            "sources": {
+              "vat": "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
+              "krs": "https://prs.ms.gov.pl/krs/openApi"
+            }
+          }
+        }
+      ],
+      "card": {
+        "title": "CD PROJEKT RED SPÓŁKA AKCYJNA",
+        "rows": [
+          [
+            "VAT · 2026-11-18",
+            "Czynny"
+          ],
+          [
+            "Aktualny odpis",
+            "0000006865 · 18.11.2026 22:59:31"
+          ],
+          [
+            "NIP zgodny z KRS",
+            "Tak"
+          ]
+        ],
+        "notes": [
+          "Potwierdzenie zapytania MF: tHEzM-99a9baj. Rachunku nie sprawdzano."
+        ]
+      },
+      "footer": "Źródło: MF / KAS i Ministerstwo Sprawiedliwości — KRS"
     },
     {
       "id": "krs",

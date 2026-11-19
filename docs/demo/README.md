@@ -1,12 +1,12 @@
 # Polskie Skille — complete catalogue demo
 
-One canonical demo covers **all 26 registered skills**, once each, in alphabetical order. The current render is approximately **3 min 15 s**. Every scene uses actual successful script output captured on 2026-11-13; this is a recording, not a claim of continuously current results.
+The published MP4 and GIF cover the **26 skills from v0.13.0** in alphabetical order and run for approximately **3 min 15 s**. The corresponding observations were captured on 2026-11-13. The capture manifest also includes the live `kontrahent` scene for the next render. Each run retains its own capture time.
 
 | File | Purpose |
 |---|---|
 | `demo.mp4` | H.264, 1920×1080, 30 fps, approximately 195 seconds |
 | `demo.gif` | Full animated README preview, 960×540, 20 fps |
-| `demo_data.json` | Exact commands, timings, capture timestamps, raw JSON and derived display cards |
+| `demo_data.json` | Exact commands, timings, timestamps, raw JSON and cards for the next render |
 | `capture.py` | Runs the unmodified skills and builds one scene for every registry entry |
 | `scene.html` | Deterministic animation with overlapping transitions and content-based reading time |
 | `render.mjs` | Playwright/Chromium frame rendering and ffmpeg encoding; rejects missing/duplicate skill coverage |

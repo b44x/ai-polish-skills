@@ -1,7 +1,7 @@
 ---
 name: biala-lista
 display_name: Biała Lista Podatników VAT
-version: 1.0.0
+version: 1.0.1
 description: >-
   Check Polish businesses and VAT status in the official Ministry of Finance White
   List (Biała Lista Podatników VAT). Verify active VAT payer status (Czynny /
@@ -25,8 +25,8 @@ source_type: official_api
 official: true
 homepage: https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/
 documentation: https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat
-rate_limit: 300 requests/day per IP
-last_verified: 2026-09-28
+rate_limit: 100 search requests/day and 5000 account checks/day; see MF documentation.
+last_verified: 2026-11-18
 tags:
   - biala-lista
   - vat
@@ -36,7 +36,7 @@ tags:
   - podatki
   - faktury
   - rachunek-bankowy
-compatibility: Python 3.8+ (standard library only); network access to wl-api.mf.gov.pl.
+compatibility: Python 3.8+ (standard library only); network access to wykazpodatnikowvat.mf.gov.pl.
 ---
 
 # Biała Lista Podatników VAT
